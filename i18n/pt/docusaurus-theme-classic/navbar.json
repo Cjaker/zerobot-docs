@@ -1,0 +1,10 @@
+{
+  "title": {
+    "message": "ZeroBot",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "ZeroBot Logo",
+    "description": "The alt text of navbar logo"
+  }
+}

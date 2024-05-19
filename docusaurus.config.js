@@ -31,7 +31,18 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'pt'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-US',
+        label: "English",
+      },
+      // You can omit a locale (e.g. fr) if you don't need to override the defaults
+      pt: {
+        htmlLang: 'pt-BR',
+        label: "Português"
+      },
+    },
   },
 
   themeConfig:
@@ -48,6 +59,12 @@ const config = {
           alt: 'ZeroBot Logo',
           src: 'img/zerobot-logo.png',
         },
+        items: [
+          {
+            type: 'localeDropdown',
+            position: 'left',
+          },
+        ],
       },
       prism: {
         theme: prismThemes.vsDark,

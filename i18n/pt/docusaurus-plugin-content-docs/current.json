@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.defaultSidebar.category.🌙 Lua Scripting": {
+    "message": "🌙 Lua Scripting",
+    "description": "The label for category 🌙 Lua Scripting in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Functions": {
+    "message": "Functions",
+    "description": "The label for category Functions in sidebar defaultSidebar"
+  },
+}
