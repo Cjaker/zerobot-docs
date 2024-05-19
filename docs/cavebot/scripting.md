@@ -5,31 +5,32 @@ sidebar_position: 3
 # Scripting
 
 ## Brief Explanation
-The `Script` waypoint allows you to write your own custom actions.
+The waypoint of type `Script` allows you to write your own custom actions.
 
 You can use any function avaiable at [Lua Scripting] section.
 
-After each action, it is recommended to add some delay, with the function `wait( delay )`.
+After each action, it is recommended to add some delay, with the function `wait(delay)`.
 
 To demonstrate a few of the most common use cases, here goes some code snippets:
 
 ### Use an item
 
 ```lua
-Game.useItem( Item_ID )
+local itemId = 3725
+Game.useItem(itemId)
 wait(1000)
 ```
 
 ### Talk to NPC
 
 ```lua
-Game.talk('words', Enums.TalkTypes.TALKTYPE_PRIVATE_PN)`
+Game.talk('hi', Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
 ```
 
 ### Use magic
 
 ```lua
-Game.talk('spell words', Enums.TalkTypes.TALKTYPE_SAY)
+Game.talk('exani hur "up"', Enums.TalkTypes.TALKTYPE_SAY)
 ```
 
 ### Change direction
@@ -37,7 +38,8 @@ Game.talk('spell words', Enums.TalkTypes.TALKTYPE_SAY)
 Useful for exani hur "up/down" and a few other cases.
 
 ```lua
-Game.turn( Direction )
+local direction = Enums.Directions.NORTH
+Game.turn(direction)
 ```
 
 A Direction can be one of the following:
@@ -66,7 +68,7 @@ Useful to open doors, click on ladders, sewer grates, minecarts, etc.
 You can do this already with the waypoint type `Use`, but you can get really creative with this snippet and a little bit of coding.
 
 ```lua
-local pos = Map.getCameraPosition()
+local pos = Map.getCameraPosition() -- your current position
 Map.useItemOnGround(pos.x, pos.y, pos.z)
 wait(1000)
 ```
