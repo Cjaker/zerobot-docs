@@ -11,4 +11,8 @@
     "message": "Functions",
     "description": "The label for category Functions in sidebar defaultSidebar"
   },
+  "sidebar.defaultSidebar.category.🤖 CaveBot": {
+    "message": "🤖 CaveBot",
+    "description": "The label for category 🤖 CaveBot in sidebar defaultSidebar"
+  }
 }
