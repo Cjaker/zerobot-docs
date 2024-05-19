@@ -5,6 +5,7 @@ sidebar_position: 1
 # Introdução
 ## IMPORTANTE
 ESSA FUNCIONALIDADE ESTARÁ DISPONÍVEL NA VERSÃO 1.7.0.0!
+
 O CaveBot está em fase BETA, portanto, ao usá-lo, você concorda com as notas escritas aqui: [BETA](../about_beta)
 
 ## Explicação Breve
