@@ -3,6 +3,9 @@ sidebar_position: 1
 ---
 
 # Getting Started
+## IMPORTANT
+THIS FEATURE WILL BE AVAILABLE ON 1.7.0.0 VERSION!
+CaveBot is in BETA phase, so by using it you agreed the notes written here: [BETA](../about_beta)
 
 ## Brief Explanation
 A cavebot is an automated script that allows players to navigate through caves and dungeons and engage in combat with creatures.
