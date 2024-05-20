@@ -27,3 +27,23 @@ O próprio cavebot é composto de waypoints, que são as coordenadas ou ações 
 - Evite terminar atrações perto de buracos, teletransportes, etc.
 - Sempre faça waypoints curtos se você **ama** economizar o poder de processamento do seu PC!
 - O cavebot funciona em conjunto com as outras funções do bot. Portanto, para usá-lo eficazmente, você primeiro precisa configurar as abas de Cura, Mira, Atirador Mágico, etc., de acordo com suas preferências.
+
+## Recomendações de Targeting
+**[Targeting - Distance para LURE!!!]**\
+**Distance Modo 'Auto':** evita que criaturas se aproximem do seu personagem + ignora sua configuração de distância + seleciona automaticamente uma posição 'central' para andar ao redor dela.
+
+**Distance Valor Personalizado**: considera sua configuração de distância + seleciona automaticamente uma posição 'central' para andar ao redor dela.
+
+**[Dicas]**
+- Se você quer evitar criaturas se aproximarem em geral = Auto
+- Se você quer evitar apenas uma criatura = Distância
+
+**[Recomendações de Targeting para vocações - para LURE!!!]**\
+**[Magos]**\
+Distance Modo: Auto ||| Count: 1 ||| Proximity: 4 ou All
+
+**[Knight & RP]**\
+Distance Modo: Stand ||| Count: 1 ||| Proximity: 1 ou All para RP's
+
+**[RP com equipamentos fracos]**\
+Distance Modo: Auto ||| Count: 1 ||| Proximity: 4 ou All

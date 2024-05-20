@@ -27,3 +27,23 @@ The cavebot itself is composed of waypoints, which are the coordinates or action
 - Avoid ending lures near holes, teleports, etc.
 - Always make short waypoints if you **love** saving your PC's processing power!
 - The cavebot works in conjunction with the other bot functions. So, to use it effectively, you first need to configure your Healing, Targeting, Magic Shooter, etc. tabs according to your preferences.
+
+## Targeting Recommendations
+**[Targeting - Distance for LURE mode!!!]**\
+**Distance 'Auto' Mode:** avoids creatures approaching your character + ignores your distance setting + automatically selects a 'central' position to walk around it.
+
+**Distance Custom Value**: considers your distance setting + automatically selects a 'central' position to walk around it.
+
+**[Tips]**
+- If you want to keep away from creatures in general = Auto
+- If you want to keep away from only one creature = Distance
+
+**[Targeting Recommendations for vocations - LURE mode!!!]**\
+**[Mages]**\
+Distance Mode: Auto ||| Count: 1 ||| Proximity: 4 or All
+
+**[Knight & RP]**\
+Distance Mode: Stand ||| Count: 1 ||| Proximity: 1 or All for RP's
+
+**[RP low gear]**\
+Distance Mode: Auto ||| Count: 1 ||| Proximity: 4 or All
