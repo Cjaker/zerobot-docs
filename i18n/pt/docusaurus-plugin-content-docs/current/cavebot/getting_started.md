@@ -20,11 +20,11 @@ O próprio cavebot é composto de waypoints, que são as coordenadas ou ações 
 ## Recomendações
 - Tenha um minimapa completo do jogo
 - Se deseja lurar, use os waypoints de "Start Lure" e "End Lure"
-- Evite usar waypoints de atração sem ter waypoints do tipo nó, se o caminho for longo
+- Evite usar waypoints de Lure sem ter waypoints do tipo Node, se o caminho for longo
 - Sempre salve seu CaveBot configurado
 - Para ações específicas, é recomendado o uso de scripts (no momento não temos snippets prontos)
 - Evite definir waypoints próximos a buracos, teletransportes, etc.
-- Evite terminar atrações perto de buracos, teletransportes, etc.
+- Evite terminar Lures perto de buracos, teletransportes, etc.
 - Sempre faça waypoints curtos se você **ama** economizar o poder de processamento do seu PC!
 - O cavebot funciona em conjunto com as outras funções do bot. Portanto, para usá-lo eficazmente, você primeiro precisa configurar as abas de Healing, Targeting, Hunting > Magic Shooter, etc., de acordo com suas preferências.
 
