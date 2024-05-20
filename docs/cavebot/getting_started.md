@@ -26,7 +26,7 @@ The cavebot itself is composed of waypoints, which are the coordinates or action
 - Avoid setting waypoints close to holes, teleports, etc.
 - Avoid ending lures near holes, teleports, etc.
 - Always make short waypoints if you **love** saving your PC's processing power!
-- The cavebot works in conjunction with the other bot functions. So, to use it effectively, you first need to configure your Healing, Targeting, Magic Shooter, etc. tabs according to your preferences.
+- The cavebot works in conjunction with the other bot functions. So, to use it effectively, you first need to configure your Healing, Targeting, Hunting > Magic Shooter, etc. tabs according to your preferences.
 
 ## Targeting Recommendations
 **[Targeting - Distance for LURE mode!!!]**\

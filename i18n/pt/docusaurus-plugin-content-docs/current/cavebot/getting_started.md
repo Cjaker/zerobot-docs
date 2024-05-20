@@ -19,14 +19,14 @@ O próprio cavebot é composto de waypoints, que são as coordenadas ou ações 
 
 ## Recomendações
 - Tenha um minimapa completo do jogo
-- Se deseja atrair, use os waypoints de Início de Atração e Fim de Atração
+- Se deseja lurar, use os waypoints de "Start Lure" e "End Lure"
 - Evite usar waypoints de atração sem ter waypoints do tipo nó, se o caminho for longo
 - Sempre salve seu CaveBot configurado
 - Para ações específicas, é recomendado o uso de scripts (no momento não temos snippets prontos)
 - Evite definir waypoints próximos a buracos, teletransportes, etc.
 - Evite terminar atrações perto de buracos, teletransportes, etc.
 - Sempre faça waypoints curtos se você **ama** economizar o poder de processamento do seu PC!
-- O cavebot funciona em conjunto com as outras funções do bot. Portanto, para usá-lo eficazmente, você primeiro precisa configurar as abas de Cura, Mira, Atirador Mágico, etc., de acordo com suas preferências.
+- O cavebot funciona em conjunto com as outras funções do bot. Portanto, para usá-lo eficazmente, você primeiro precisa configurar as abas de Healing, Targeting, Hunting > Magic Shooter, etc., de acordo com suas preferências.
 
 ## Recomendações de Targeting
 **[Targeting - Distance para LURE!!!]**\
@@ -36,14 +36,14 @@ O próprio cavebot é composto de waypoints, que são as coordenadas ou ações 
 
 **[Dicas]**
 - Se você quer evitar criaturas se aproximarem em geral = Auto
-- Se você quer evitar apenas uma criatura = Distância
+- Se você quer evitar apenas uma criatura com distância específica = Modo: Distance, Valor do Distance de 1 a 7
 
 **[Recomendações de Targeting para vocações - para LURE!!!]**\
 **[Magos]**\
-Distance Modo: Auto ||| Count: 1 ||| Proximity: 4 ou All
+Mode: Auto ||| Count: 1 ||| Proximity: 4 ou All
 
 **[Knight & RP]**\
-Distance Modo: Stand ||| Count: 1 ||| Proximity: 1 ou All para RP's
+Mode: Stand ||| Count: 1 ||| Proximity: 1 ou All para RP's
 
 **[RP com equipamentos fracos]**\
-Distance Modo: Auto ||| Count: 1 ||| Proximity: 4 ou All
+Mode: Auto ||| Count: 1 ||| Proximity: 4 ou All
