@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# 💫 About BETA
+# 💫 Sobre o BETA
 Critérios importantes das funcionalidades e o ZeroBot em BETA
 
 ## 1) Uso de Total Responsabilidade e Risco do Usuário:

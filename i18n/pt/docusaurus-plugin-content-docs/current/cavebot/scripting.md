@@ -24,18 +24,18 @@ wait(1000)
 ### Falar com NPC
 
 ```lua
-Game.talk('oi', Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
+Game.talk('hi', Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
 ```
 
 ### Usar magia
 
 ```lua
-Game.talk('exani hur "acima"', Enums.TalkTypes.TALKTYPE_SAY)
+Game.talk('exani hur "up"', Enums.TalkTypes.TALKTYPE_SAY)
 ```
 
 ### Mudar de direção
 
-Útil para exani hur "acima/abaixo" e alguns outros casos.
+Útil para exani hur "up/down" e alguns outros casos.
 
 ```lua
 local direction = Enums.Directions.NORTH
