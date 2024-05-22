@@ -116,7 +116,7 @@ function Map.browseField(x, y, z)
 -- @param y (número) - A coordenada y da posição de destino no mapa.
 -- @param z (número) - A coordenada z da posição de destino no mapa.
 -- @param ignoreBlockPath (boolean) - Se for true, considerará tiles de caminho bloqueado como caminháveis. O valor padrão é true.
--- @param ignoreMagicField (boolean) - Se for true, não considerará campos mágicos como um obstáculo bloqueante no tile. O valor padrão é true.
+-- @param ignoreMagicField (boolean) - Se for true, não considerará magic fields como um obstáculo bloqueante no tile. O valor padrão é true.
 -- @param ignoreMonsters (boolean) - Se for true, não considerará monstros como um obstáculo bloqueante no tile. O valor padrão é false.
 -- @param ignoreNpcs (boolean) - Se for true, não considerará npcs como um obstáculo bloqueante no tile. O valor padrão é false.
 -- @return True se a posição for caminhável, ou false se não for.

@@ -65,14 +65,14 @@ function Player.getHealthPercent()
 -- @return A mana atual do jogador como uma porcentagem, ou o último valor se não estiver no jogo.
 function Player.getManaPercent()
 
---- Obtém o valor atual do escudo mágico do jogador.
+--- Obtém o valor atual do magic shield do jogador.
 -- Esta função é um wrapper em torno da função externa playerGetMagicShield.
--- @return O valor atual do escudo mágico do jogador, ou o último valor se não estiver no jogo.
+-- @return O valor atual do magic shield do jogador, ou o último valor se não estiver no jogo.
 function Player.getMagicShield()
 
---- Obtém a capacidade máxima do escudo mágico do jogador.
+--- Obtém a capacidade máxima do magic shield do jogador.
 -- Esta função é um wrapper em torno da função externa playerGetMaxMagicShield.
--- @return A capacidade máxima do escudo mágico do jogador, ou o último valor se não estiver no jogo.
+-- @return A capacidade máxima do magic shield do jogador, ou o último valor se não estiver no jogo.
 function Player.getMaxMagicShield()
 
 --- Obtém a capacidade atual do jogador.

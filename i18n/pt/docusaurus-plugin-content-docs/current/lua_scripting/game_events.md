@@ -8,7 +8,7 @@ Documentação dos eventos internos do jogo
 
 ### Introdução
 
-Esta documentação descreve as funções internas de Lua projetadas para lidar com eventos do jogo. Essas funções desempenham um papel vital na resposta a várias atividades no jogo, incluindo mensagens, efeitos mágicos, ações de teclas de atalho e muito mais.
+Esta documentação descreve as funções internas de Lua projetadas para lidar com eventos do jogo. Essas funções desempenham um papel vital na resposta a várias atividades no jogo, incluindo mensagens, magic effects, ações de teclas de atalho e muito mais.
 
 ### Eventos
 
@@ -41,7 +41,21 @@ Game.registerEvent(Game.Events.TALK, onTextMessageCheck)
 ```
 
 ### 2. `Game.Events.MAGIC_EFFECT`
-**Propósito**: Este evento é acionado quando o servidor envia um efeito mágico para
+**Purpose**: Este evento é acionado quando o servidor envia um magic effect para a tela. Contém o ID do efeito e as coordenadas onde este efeito é exibido.
+
+## Usage:
+```lua
+-- Estrutura de dados de mensagem de exemplo:
+-- @param Type: O ID do efeito.
+-- @param x: A posição x do efeito.
+-- @param y: A posição y do efeito.
+-- @param z: A posição z do efeito.
+function OnEffect(Type, x, y, z)
+    print("ID do efeito: " .. Type .. " na posição: " .. x .. ", " .. y .. ", " .. z)
+end
+
+Game.registerEvent(Game.Events.MAGIC_EFFECT, OnEffect)
+```
 
 **Propósito**: Este evento é acionado ao receber uma mensagem no jogo. Ele pode ser usado para capturar mensagens nos chats do jogo, como Chat Local, Publicidade, Chat Mundial, etc. Ele também inclui as coordenadas (x, y, z), nome do autor e nível.
 
@@ -61,7 +75,7 @@ Game.registerEvent(Game.Events.TALK, onTextMessageCheck)
 ```
 
 ### 2. `Game.Events.MAGIC_EFFECT`
-**Propósito**: Este evento é acionado quando o servidor envia um efeito mágico para a tela. Ele contém o ID do efeito e as coordenadas onde este efeito é exibido.
+**Propósito**: Este evento é acionado quando o servidor envia um magic effect para a tela. Ele contém o ID do efeito e as coordenadas onde este efeito é exibido.
 
 ## Uso:
 ```lua

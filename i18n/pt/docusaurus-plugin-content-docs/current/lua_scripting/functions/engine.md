@@ -52,7 +52,7 @@ function Engine.isBotEnabled()
 -- Esta função é um wrapper em torno da função externa engineIsTargetingEnabled.
 function Engine.isTargetingEnabled()
 
---- Retorna se a função de atirador mágico está ativada
+--- Retorna se a função de magic shooter está ativada
 -- Esta função é um wrapper em torno da função externa engineIsMagicShooterEnabled.
 function Engine.isMagicShooterEnabled()
 
@@ -69,9 +69,9 @@ function Engine.isTimerEnabled()
 -- @param enable (boolean) - Um sinalizador indicando se deve ativar (true) ou desativar (false) o sistema de mira.
 function Engine.enableTargeting(enable)
 
---- Ativa ou desativa o sistema de atirador mágico.
+--- Ativa ou desativa o sistema de magic shooter.
 -- Esta função é um wrapper em torno da função externa engineMagicShooterEnable.
--- @param enable (boolean) - Um sinalizador indicando se deve ativar (true) ou desativar (false) o sistema de atirador mágico.
+-- @param enable (boolean) - Um sinalizador indicando se deve ativar (true) ou desativar (false) o sistema de magic shooter.
 function Engine.enableMagicShooter(enable)
 
 --- Ativa ou desativa o sistema de curar amigo.
@@ -99,12 +99,12 @@ function Engine.enableTimer(enable)
 -- @param enable (boolean) - Um sinalizador indicando se deve ativar (true) ou desativar (false) todas as funções do bot.
 function Engine.enableBot(enable)
 
---- Alterna o perfil do atirador mágico pelo índice.
+--- Alterna o perfil do magic shooter pelo índice.
 -- Esta função é um wrapper em torno da função externa engineMagicShooterSwitchProfile.
 -- @param profileIndex (number) - O índice do perfil para alternar (de 0 a 9).
 function Engine.magicShooterSwitchProfile(profileIndex)
 
---- Obtém o índice do perfil atualmente selecionado no atirador mágico.
+--- Obtém o índice do perfil atualmente selecionado no magic shooter.
 -- Esta função é um wrapper em torno da função externa engineMagicShooterGetProfile.
 -- @return (number) - O índice do perfil atualmente selecionado.
 function Engine.magicShooterGetProfile()
