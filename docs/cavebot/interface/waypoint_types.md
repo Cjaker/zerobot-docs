@@ -11,9 +11,9 @@ sidebar_position: 1
 
 **Node** -> forces your character to step on any SQM near that position (maximum distance from position: 1 SQM)
 
-**Start Lure** -> activates the bot's lure mode at a specific position
+**Start Lure** -> activates the bot's lure mode near the specified position, similar distance from Node 1x1 SQM's
 
-**End Lure** -> ends your lure at a specific position, if you haven't reached the position yet, the bot will continue luring there
+**End Lure** -> ends your lure near the specified position, similar distance from Node 1x1 SQM's; if you haven't reached the position yet, the bot will continue luring until there
 
 **Rope** -> uses any tool that functions as a rope at the specific position
 

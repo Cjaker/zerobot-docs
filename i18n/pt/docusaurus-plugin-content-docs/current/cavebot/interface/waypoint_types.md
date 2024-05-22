@@ -12,9 +12,9 @@ sidebar_position: 1
 
 **Node** -> força seu personagem a pisar em qualquer SQM próximo a essa posição (distância máxima da posição: 1 SQM)
 
-**Start Lure** -> ativa o modo de isca do bot em uma posição específica
+**Start Lure** -> ativa o modo de lure do bot próximo da posição especificada, distância similar do Node 1x1 SQM's
 
-**End Lure** -> termina sua isca em uma posição específica, se você ainda não alcançou a posição, o bot continuará atraindo até lá
+**End Lure** -> termina seu lure próximo da posição especificada, distância similar do Node 1x1 SQM's, se você ainda não alcançou a posição, o bot continuará lurando até lá
 
 **Rope** -> usa qualquer ferramenta que funcione como corda na posição específica
 
