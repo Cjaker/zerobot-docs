@@ -13,7 +13,7 @@ Um cavebot é um script automatizado que permite aos jogadores navegar por caver
 
 Ele simula ações do jogador como caminhar, interagir com NPCs e scripts personalizados, possibilitando a realização de tarefas repetitivas e o ganho de experiência ou recursos de maneira eficiente.
 
-Para usar um cavebot de forma eficaz, geralmente é necessário configurá-lo junto com outras funções do bot, como Healing, Targeting e Magic Shooter, para garantir que o personagem possa sobreviver e maximizar os ganhos durante suas atividades automatizadas.
+Para usar o cavebot de forma eficaz, geralmente é necessário configurá-lo junto com outras funções do bot, como Healing, Targeting e Magic Shooter, para garantir que o personagem possa sobreviver e maximizar os ganhos durante suas atividades automatizadas.
 
 O próprio cavebot é composto de waypoints, que são as coordenadas ou ações que guiam seu personagem sobre onde caminhar ou que ações realizar.
 
