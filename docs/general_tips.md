@@ -9,3 +9,4 @@ sidebar_position: 1
 - To know more about a specific class, see `Documents\ZeroBot\Scripts\core\(class).lua`
 - To separate your library scripts and prevent them from appearing in the ZeroBot scripts list, place them inside a folder and append _lib to the folder's name.
 - To optimize script functionality, avoid using loops for repeated actions. Instead, utilize a Timer to manage these tasks more efficiently.
+- To copy code/links from the debug script window without being advised about unsafe link copy, you must uncheck the "Show Link Copy Warning" in the Client configuration (Options -> Interface -> Show link warning)
