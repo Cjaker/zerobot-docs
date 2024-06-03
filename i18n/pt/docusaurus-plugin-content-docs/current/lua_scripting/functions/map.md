@@ -18,6 +18,7 @@ Map.goTo(x, y, z)
 Map.stopAutoWalk()
 Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
+Map.isTileWalkable(x, y, z, options)
 Map.getCameraPosition()
 Map.getPlayerOnScreen(var)
 ```
@@ -121,6 +122,19 @@ function Map.browseField(x, y, z)
 -- @param ignoreNpcs (boolean) - Se for true, não considerará npcs como um obstáculo bloqueante no tile. O valor padrão é false.
 -- @return True se a posição for caminhável, ou false se não for.
 function Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
+
+-- Verifica se uma posição específica é transitável
+-- @param x (número) - A coordenada x da posição de destino no mapa.
+-- @param y (número) - A coordenada y da posição de destino no mapa.
+-- @param z (número) - A coordenada z da posição de destino no mapa.
+-- @param options (tabela) - Uma tabela com as seguintes opções:
+-- @field ignoreBlockPath (booleano) - Se verdadeiro, considerará os blocos de caminho como transitáveis. O valor padrão é verdadeiro.
+-- @field ignoreMagicField (booleano) - Se verdadeiro, não considerará campo mágico como um obstáculo bloqueável na tile. O valor padrão é verdadeiro.
+-- @field ignoreFloorChange (booleano) - Se verdadeiro, não considerará mudanças de piso como um obstáculo bloqueável na tile. O valor padrão é verdadeiro.
+-- @field ignoreMonsters (booleano) - Se verdadeiro, não considerará monstros como um obstáculo bloqueável na tile. O valor padrão é falso.
+-- @field ignoreNpcs (booleano) - Se verdadeiro, não considerará NPCs como um obstáculo bloqueável na tile. O valor padrão é falso.
+-- @return Verdadeiro se a posição for transitável, ou falso se não for.
+function Map.isTileWalkable(x, y, z, options)
 
 -- Obtém a posição da câmera no mundo do mapa atual
 -- Esta função é útil se você quiser uma posição em tempo real do seu personagem

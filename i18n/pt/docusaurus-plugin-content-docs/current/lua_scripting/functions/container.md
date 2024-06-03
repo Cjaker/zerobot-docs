@@ -15,6 +15,8 @@ Container:moveItemToInventory(containerSlot, inventorySlot, itemCount)
 Container:moveItemToGround(containerSlot, itemCount, toX, toY, toZ)
 Container:moveItemToContainer(containerSlot, itemCount, toContainerIndex, toContainerSlot)
 Container:useItem(containerSlot, openNewWindow)
+Container:useItemWithContainerItem(spotFrom, contTo, spotTo)
+Container.useItemOnAnotherItem(itemId, otherId)
 Container:moveUp()
 Container:close()
 Container:getCapacity()
@@ -76,6 +78,22 @@ function Container:moveItemToContainer(containerSlot, itemCount, toContainerInde
 -- @param openNewWindow (boolean) - Se deve abrir o item (container) em uma nova janela
 -- @return True se for bem-sucedido, ou nil se o container/item não existir
 function Container:useItem(containerSlot, openNewWindow)
+
+--- Usa um item no contêiner em outro item em um contêiner.
+-- Usa um item em um local específico no contêiner em um local específico em outro contêiner.
+-- @param spotFrom O slot específico onde o item a ser usado está localizado.
+-- @param contTo O índice do contêiner onde você deseja usar o item.
+-- @param spotTo O slot específico no novo contêiner onde você deseja usar o item.
+-- @return True se for bem-sucedido, ou nil se o contêiner/item não existir.
+function Container:useItemWithContainerItem(spotFrom, contTo, spotTo)
+
+--- Usa um item por id em outro id.
+-- Usa um item por id em outro item por id; esta função iterará todos os contêineres abertos, procurando os itens automaticamente.
+-- Função estática, não requer um objeto Contêiner.
+-- @param itemId O id do item a ser usado.
+-- @param otherId O id do item com o qual será usado.
+-- @return True se for bem-sucedido, ou nil se o contêiner/item não existir.
+function Container.useItemOnAnotherItem(itemId, otherId)
 
 --- Mostra o container superior.
 -- Esta função solicita ao servidor para mostrar o container anterior/superior.

@@ -27,6 +27,8 @@ Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
 Engine.getScriptsDirectory()
 Engine.getUserId()
+Engine.loadScript(scriptName)
+Engine.unloadScript(scriptName)
 ```
 
 ### Código
@@ -128,4 +130,18 @@ function Engine.getScriptsDirectory()
 -- Esta função é útil para identificar o usuário atual. Você pode usar engineGetUserId diretamente se precisar evitar hooks.
 -- @return (string) - O último ID de usuário gerado, dados não confidenciais.
 function Engine.getUserId()
+
+```lua
+--- Carrega um script específico.
+-- Esta função é um wrapper para a função externa engineLoadScript.
+-- @param scriptName (string) - O nome do script a ser carregado. Este nome é baseado na lista "Scripts Disponíveis" na aba "Scripting".
+-- @return (boolean) - Retorna verdadeiro se o script for carregado com sucesso, falso se o script não existir.
+function Engine.loadScript(scriptName)
+
+--- Descarrega um script específico.
+-- Esta função é um wrapper para a função externa engineUnloadScript.
+-- @param scriptName (string) - O nome do script a ser descarregado. Este nome é baseado na lista "Scripts Ativados" na aba "Scripting".
+-- @return (boolean) - Retorna verdadeiro se o script for descarregado com sucesso, falso se o script não existir.
+function Engine.unloadScript(scriptName)
+```
 ```

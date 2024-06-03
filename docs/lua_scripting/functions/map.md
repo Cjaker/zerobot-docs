@@ -18,6 +18,7 @@ Map.goTo(x, y, z)
 Map.stopAutoWalk()
 Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
+Map.isTileWalkable(x, y, z, options)
 Map.getCameraPosition()
 Map.getPlayerOnScreen(var)
 ```
@@ -121,6 +122,19 @@ function Map.browseField(x, y, z)
 -- @param ignoreNpcs (boolean) - If is true will not consider npc as a blockable obstacle on tile. Default value is false
 -- @return True if the position is walkable, or false if not
 function Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
+
+-- Check if a specific position is walkable
+-- @param x (number) - The x-coordinate of the map destination position.
+-- @param y (number) - The y-coordinate of the map destination position.
+-- @param z (number) - The z-coordinate of the map destination position.
+-- @param options (table) - A table with the following options:
+-- @field ignoreBlockPath (boolean) - If is true will consider block path tiles as walkable. Default value is true
+-- @field ignoreMagicField (boolean) - If is true will not consider magic field as a blockable obstacle on tile. Default value is true
+-- @field ignoreFloorChange (boolean) - If is true will not consider floor change as a blockable obstacle on tile. Default value is true
+-- @field ignoreMonsters (boolean) - If is true will not consider monster as a blockable obstacle on tile. Default value is false
+-- @field ignoreNpcs (boolean) - If is true will not consider npc as a blockable obstacle on tile. Default value is false
+-- @return True if the position is walkable, or false if not
+function Map.isTileWalkable(x, y, z, options)
 
 -- Get current map world camera position
 -- This function is useful if you wanna a real-time position of your character

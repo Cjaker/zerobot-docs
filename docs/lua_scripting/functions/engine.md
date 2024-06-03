@@ -25,6 +25,8 @@ Engine.magicShooterSwitchProfile(profileIndex)
 Engine.magicShooterGetProfile()
 Engine.getScriptsDirectory()
 Engine.getUserId()
+Engine.loadScript(scriptName)
+Engine.unloadScript(scriptName)
 ```
 
 ### Code
@@ -126,4 +128,16 @@ function Engine.getScriptsDirectory()
 -- This function is useful to identify current user. You can use engineGetUserId directly if you need to avoid hooks.
 -- @return (string) - The last generated user ID, non-sensitive data.
 function Engine.getUserId()
+
+--- Load specific script.
+-- This function is a wrapper around the external function engineLoadScript.
+-- @param scriptName (string) - The name of the script to load. This name is based on "Available Scripts" list in "Scripting" tab.
+-- @return (boolean) - Returns true if the script is loaded successfully, false if the script doesn't exists.
+function Engine.loadScript(scriptName)
+
+--- Unload specific script.
+-- This function is a wrapper around the external function engineUnloadScript.
+-- @param scriptName (string) - The name of the script to unload. This name is based on "Enabled Scripts" list in "Scripting" tab.
+-- @return (boolean) - Returns true if the script was unloaded successfully, false if the script doesn't exists.
+function Engine.unloadScript(scriptName)
 ```

@@ -10,6 +10,8 @@ Client.isConnected()
 Client.isKeyPressed(key, flags)
 Client.showMessage(message)
 Client.getLatency()
+Client.getServerLatency()
+Client.focus()
 ```
 
 ### Código
@@ -36,4 +38,14 @@ function Client.showMessage(message)
 -- Esta função é um wrapper em torno da função externa clientGetLatency.
 -- @return A latência atual em milissegundos, se a informação não estiver disponível retornará -1.
 function Client.getLatency()
+
+--- Obtém a latência atual do servidor.
+-- Esta função é um wrapper em torno da função externa clientGetServerLatency.
+-- @return A latência atual do servidor em milissegundos; se a informação não estiver disponível, retornará 0.
+function Client.getServerLatency()
+
+--- Foca na janela do cliente.
+-- Esta função é um wrapper em torno da função externa clientFocus.
+-- Nota da documentação do Windows: Um aplicativo não pode forçar uma janela para o primeiro plano enquanto o usuário está trabalhando com outra janela. Em vez disso, o Windows pisca o botão da barra de tarefas da janela para notificar o usuário.
+function Client.focus()
 ```

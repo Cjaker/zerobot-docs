@@ -10,6 +10,8 @@ Client.isConnected()
 Client.isKeyPressed(key, flags)
 Client.showMessage(message)
 Client.getLatency()
+Client.getServerLatency()
+Client.focus()
 ```
 
 ### Code
@@ -36,4 +38,14 @@ function Client.showMessage(message)
 -- This function is a wrapper around the external function clientGetLatency.
 -- @return The current latency in milliseconds, if the information isn't available will return -1.
 function Client.getLatency()
+
+--- Get the current latency from the server.
+-- This function is a wrapper around the external function clientGetServerLatency.
+-- @return The current server latency in milliseconds, if the information isn't available will return 0.
+function Client.getServerLatency()
+
+--- Focus the client window.
+-- This function is a wrapper around the external function clientFocus.
+-- Note from Windows documentation: An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.
+function Client.focus()
 ```

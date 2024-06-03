@@ -6,6 +6,21 @@ sidebar_position: 1
 Todas as variáveis de enumerações disponíveis
 
 ```lua
+-- HUD
+Enums.HorizontalAlign = {
+	None = 0,
+	Left = 1,
+	Center = 2,
+	Right = 3
+}
+
+Enums.VerticalAlign = {
+	None = 0,
+	Top = 1,
+	Center = 2,
+	Bottom = 3
+}
+
 Enums.GuildEmblem = {
 	GUILDEMBLEM_NONE = 0,
 	GUILDEMBLEM_ALLY = 1,

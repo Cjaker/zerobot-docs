@@ -8,16 +8,20 @@ Display custom text/items on screen
 This document outlines the methods of the `HUD` class, which allows manipulation of in-game heads-up displays (HUDs) including positioning, appearance, and interactivity.
 
 ```lua
-HUD(x, y, value)
-HUD.new(x, y, value)
+HUD(x, y, value, newFeatures)
+HUD.new(x, y, value, newFeatures)
 HUD:getId()
 HUD:getPos()
 HUD:setPos(x, y)
 HUD:setDraggable(draggable)
 HUD:setText(text)
+HUD:setHorizontalAlignment(alignment)
+HUD:setVerticalAlignment(alignment)
 HUD:setColor(r, g, b)
+HUD:setFontSize(fontSize)
 HUD:setItemId(id)
 HUD:setSize(width, height)
+HUD:setScale(value)
 HUD:setCallback(callback)
 HUD:destroy()
 ```
@@ -29,15 +33,16 @@ HUD:destroy()
 ## Usage:
 ```lua
 -- Creating a HUD text element
-local myTextHUD = HUD.new(100, 50, "Player Score: 1000")
+local myTextHUD = HUD.new(100, 50, "Player Score: 1000", false)
 -- Creating a HUD item element
-local myItemHUD = HUD.new(200, 100, 12345) -- Assuming 12345 is a valid item ID
+local myItemHUD = HUD.new(200, 100, 12345, false) -- Assuming 12345 is a valid item ID
 ```
 
 ## Explanation:
 - `x`: The horizontal coordinate (x-axis) of the game window where the HUD element will be positioned.
 - `y`: The vertical coordinate (y-axis) of the game window where the HUD element will be positioned.
 - `value`: The content to be displayed by the HUD element. If `value` is a number, a HUD item is created. If `value` is a string, a HUD text element is created.
+- `newFeatures`: If the created HUD element should use new features and it functions.
 
 ## Return Value
 
@@ -127,10 +132,35 @@ hudElement:setDraggable(false)
 hudTextElement:setText("New Score: 1500")
 ```
 
-## Explanation:
-- `text`: The new string to be displayed by the HUD text element.
+## 7. `HUD:setHorizontalAlignment(alignment)`
+**Purpose**: The `HUD:setHorizontalAlignment` function is designed to change the current horizontal alignment based on game window screen edges. It accepts any alignment based on Enums.HorizontalAlign. Can only be used if newFeatures is enabled on HUD.new function.
+Note: the x position offset will be used as margins if you set the alignment different of None.
 
-## 7. `HUD:setColor(r, g, b)`
+## Usage:
+
+```lua
+-- Assuming hudTextElement has been previously created with HUD.new as a text element
+hudTextElement:setHorizontalAlignment(Enums.HorizontalAlign.Center)
+```
+
+## Explanation:
+- `alignment`: The horizontal alignment type, based on Enums.HorizontalAlign.
+
+## 8. `HUD:setVerticalAlignment(alignment)`
+**Purpose**: The `HUD:setVerticalAlignment` function is designed to change the current vertical alignment based on game window screen edges. It accepts any alignment based on Enums.VerticalAlign. Can only be used if newFeatures is enabled on HUD.new function.
+Note: the y position offset will be used as margins if you set the alignment different of None.
+
+## Usage:
+
+```lua
+-- Assuming hudTextElement has been previously created with HUD.new as a text element
+hudTextElement:setVerticalAlignment(Enums.VerticalAlign.Center)
+```
+
+## Explanation:
+- `alignment`: The vertical alignment type, based on Enums.VerticalAlign.
+
+## 9. `HUD:setColor(r, g, b)`
 **Purpose**: The `HUD:setColor` function is designed to change the color of text in a hud text element. It accepts RGB (Red, Green, Blue) values to set the color, allowing for a wide range of colors. This function is applicable only to hud elements that display text and does not affect item elements.
 
 ## Usage:
@@ -145,7 +175,20 @@ hudTextElement:setColor(0, 0, 255)
 - g: The green component of the color, a number between 0 and 255.
 - b: The blue component of the color, a number between 0 and 255.
 
-## 8. `HUD:setItemId(id)`
+## 10. `HUD:setFontSize(fontSize)`
+**Purpose**: The `HUD:setFontSize` function is designed to change the font size of a HUD text. The default value is 8.25, can only be used if newFeatures is enabled on HUD.new function.
+
+## Usage:
+```lua
+-- Assuming hudTextElement has been previously created with HUD.new as a text element
+-- Increasing the font size to 12
+hudTextElement:setFontSize(12)
+```
+
+## Explanation:
+- fontSize: The value indicating new font size to be setted up.
+
+## 11. `HUD:setItemId(id)`
 **Purpose**: The `HUD:setItemId` function is intended to set or update the item ID for a hud element that represents an item. This allows for dynamic changes to the item displayed within a hud, enabling developers to reflect changes in inventory, objectives, or other game mechanics that involve items. It is important to note that this function is only effective for hud elements specifically designated as items.
 
 ## Usage:
@@ -158,8 +201,11 @@ hudItemElement:setItemId(4321)
 ## Explanation:
 - `id`: The new item ID to be set for the hud element.
 
-## 9. `HUD:setItemId(id)`
+## 12. `HUD:setSize(width, height)`
 **Purpose**: The `HUD:setSize` function enables the resizing of a hud element by specifying its width and height. This capability is crucial for adjusting the dimensions of hud elements to fit different content sizes, screen resolutions, or aesthetic preferences. It applies to both text and item hud elements, offering flexibility in designing the user interface.
+The limit of size for items is based on their sprite.
+Example: gold coin size is 32x32, so you can't pass these values.
+If you need to scale more the size, you can use HUD:setScale(value) function.
 
 ## Usage:
 ```lua
@@ -172,7 +218,22 @@ hudElement:setSize(200, 50)
 - `width`: The new width for the hud element, in pixels.
 - `height`: The new height for the hud element, in pixels.
 
-## 10. `HUD:setCallback(callback)`
+## 13. `HUD:setScale(value)`
+**Purpose**: The `HUD:setScale` function enables the resizing of a hud item element by specifying and multiplying from scale value. This capability is crucial for adjusting the dimensions of hud item elements to fit different content sizes, screen resolutions, or aesthetic preferences. It applies to item hud elements, offering flexibility in designing the user interface.
+The value is a float number, where 1.0 is the default size.
+Can be used only if newFeatures is enabled
+
+## Usage:
+```lua
+-- Assuming hudElement has been previously created with HUD.new as an item element
+-- Scaling the hud item element by 2x it original size.
+hudElement:setScale(2)
+```
+
+## Explanation:
+- `scale`: The new scale value for the hud item element.
+
+## 14. `HUD:setCallback(callback)`
 **Purpose**: The `HUD:setCallback` function is designed to assign a callback function to a hud element. This callback function is intended to be triggered by specific events, such as user interaction with the hud element (e.g., clicking). Assigning a callback allows for interactive and dynamic hud elements that can respond to user inputs, enhancing the user experience and engagement within the game.
 
 ## Usage:
@@ -189,7 +250,7 @@ hudElement:setCallback(onHudClick)
 ## Explanation:
 - `callback`: The function to be assigned as the callback for the hud element. This function will be called when the corresponding event occurs.
 
-## 11. `HUD.destroy()`
+## 15. `HUD.destroy()`
 **Purpose**: The `HUD:destroy` function is responsible for safely removing a hud element from the game's UI. This involves unregistering the element from the game's hud system, decrementing the global hud element count, and cleaning up any references to the hud element to ensure it is properly garbage collected. This function is crucial for managing hud elements dynamically, allowing for the removal of hud elements that are no longer needed without causing memory leaks or cluttering the game's interface.
 
 ## Usage:
