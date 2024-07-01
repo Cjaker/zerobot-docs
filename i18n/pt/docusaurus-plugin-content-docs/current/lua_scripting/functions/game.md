@@ -128,4 +128,25 @@ function Game.equipItem(itemId, tier)
 -- Permite o uso de um item especificado.
 -- @param itemId (number) - O ID do item a ser usado.
 function Game.useItem(itemId)
+
+--- Ação de converter poeiras na forja
+-- Esta função é um wrapper em torno da função externa gameForgeConvertDust.
+-- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+function Game.forgeConvertDust()
+    return gameForgeConvertDust()
+end
+
+--- Ação de converter lascas na forja
+-- Esta função é um wrapper em torno da função externa gameForgeConvertSlivers.
+-- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+function Game.forgeConvertSlivers()
+    return gameForgeConvertSlivers()
+end
+
+--- Ação de aumentar o limite de poeira na forja
+-- Esta função é um wrapper em torno da função externa gameForgeIncreaseLimit.
+-- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+function Game.forgeIncreaseLimit()
+    return gameForgeIncreaseLimit()
+end
 ```

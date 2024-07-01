@@ -173,6 +173,20 @@ function Player.getState(index)
 -- @return A table containing all open container indexes, or nil if there's no container opened
 function Player.getContainers()
 
+-- Get current player dusts amount.
+-- This function is a wrapper around the external function playerGetDusts.
+-- @return The player's current dusts amount, or last value if isn't in-game.
+function Player.getDusts()
+	return playerGetDusts()
+end
+
+-- Get maximum dusts amount.
+-- This function is a wrapper around the external function playerGetDustsMaximum.
+-- @return The player's maximum dusts amount, or last value if isn't in-game.
+function Player.getDustsMaximum()
+	return playerGetDustsMaximum()
+end
+
 --- Join into other player party if the invitation request is pending.
 -- This function is a wrapper around the external function playerJoinParty.
 -- @param targetId (number) - The target player id who are invitating you

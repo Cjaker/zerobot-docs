@@ -128,4 +128,25 @@ function Game.equipItem(itemId, tier)
 -- It allows the use of a specified item.
 -- @param itemId (number) - The ID of the item to be used.
 function Game.useItem(itemId)
+
+-- Forge convert dusts action
+-- This function is a wrapper around the external function gameForgeConvertDust.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.forgeConvertDust()
+    return gameForgeConvertDust()
+end
+
+-- Forge convert slivers action
+-- This function is a wrapper around the external function gameForgeConvertSlivers.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.forgeConvertSlivers()
+    return gameForgeConvertSlivers()
+end
+
+-- Forge increase dust limit action
+-- This function is a wrapper around the external function gameForgeIncreaseLimit.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.forgeIncreaseLimit()
+    return gameForgeIncreaseLimit()
+end
 ```

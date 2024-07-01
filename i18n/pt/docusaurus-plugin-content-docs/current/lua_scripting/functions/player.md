@@ -173,6 +173,20 @@ function Player.getState(index)
 -- @return Uma tabela contendo todos os índices de contêineres abertos, ou nil se não houver contêineres abertos
 function Player.getContainers()
 
+--- Obter a quantidade atual de poeiras do jogador.
+-- Esta função é um wrapper em torno da função externa playerGetDusts.
+-- @return A quantidade atual de poeiras do jogador, ou o último valor se não estiver no jogo.
+function Player.getDusts()
+	return playerGetDusts()
+end
+
+--- Obter a quantidade máxima de poeiras.
+-- Esta função é um wrapper em torno da função externa playerGetDustsMaximum.
+-- @return A quantidade máxima de poeiras do jogador, ou o último valor se não estiver no jogo.
+function Player.getDustsMaximum()
+	return playerGetDustsMaximum()
+end
+
 --- Junta-se a uma party de outro jogador se o pedido de convite estiver pendente.
 -- Esta função é um wrapper em torno da função externa playerJoinParty.
 -- @param targetId (número) - O ID do jogador que está convidando você

@@ -13,6 +13,7 @@ HUD.new(x, y, value, newFeatures)
 HUD:getId()
 HUD:getPos()
 HUD:setPos(x, y)
+HUD:getMargins()
 HUD:setDraggable(draggable)
 HUD:setText(text)
 HUD:setHorizontalAlignment(alignment)
@@ -68,6 +69,7 @@ print(hudId) -- Exibe o ID do elemento HUD
 
 ## 3. `HUD:getPos()`
 **Propósito**: A função `HUD:getPos` é projetada para recuperar a posição atual de um elemento HUD dentro da janela do jogo. Esta função é crucial para entender onde um elemento HUD está localizado na tela, o que pode ser essencial para ajustes de layout, detecção de colisão ou para atualizar dinamicamente a posição do HUD com base em eventos do jogo.
+Observação: esta função retornará a posição de desenho X, Y na tela e não deve ser usada diretamente para a função setPos. Além disso, essa função pode retornar x:0, y:0 até o primeiro desenho, pois ela retorna a posição de desenho na tela do jogo.
 
 ## Uso:
 
@@ -90,6 +92,7 @@ Retorna uma tabela com a seguinte estrutura:
 
 ## 4. `HUD:setPos(x, y)`
 **Propósito**: A função `HUD:setPos` é projetada para definir ou atualizar a posição de um elemento HUD na tela do jogo. Especificando novas coordenadas `x` e `y`, os desenvolvedores podem ajustar dinamicamente onde um elemento HUD aparece, permitindo atualizações em tempo real na interface do usuário do jogo com base em eventos do jogo, ações do jogador ou outros elementos da interface.
+Observação: se você estiver usando alinhamentos, esta função será utilizada como os deslocamentos de margem. Além disso, quando você define a posição de um elemento HUD, isso irá redefinir os deslocamentos de arrasto do mouse para 0,0.
 
 ## Uso:
 
@@ -104,7 +107,34 @@ hudElement:setPos(200, 150)
 - `x`: Um número representando a nova coordenada horizontal (eixo x) onde o elemento HUD será posicionado.
 - `y`: Um número representando a nova coordenada vertical (eixo y) onde o elemento HUD será posicionado.
 
-## 5. `HUD:setDraggable(draggable)`
+Claro, aqui está a tradução para o português:
+
+---
+
+## 5. `HUD:getMargins`
+**Propósito**: A função `HUD:getMargins` é projetada para recuperar os deslocamentos atuais das margens de um elemento HUD dentro da janela do jogo. Esta função é crucial para entender onde um elemento HUD está localizado na tela, o que pode ser essencial para ajustes de layout, detecção de colisão ou para atualizar dinamicamente a posição do HUD com base em eventos do jogo.
+Observação: se você estiver usando alinhamentos, esta função será utilizada como os deslocamentos de margem. Também lembre-se de que as margens são definidas pela função setPos se você estiver usando alinhamentos.
+
+## Uso:
+
+```lua
+-- Assumindo que hudElement foi previamente criado com HUD.new
+local margins = hudElement:getMargins()
+print("Margens do HUD - X:", margins.x, "Y:", margins.y)
+```
+
+## Explicação:
+
+`hudElement`: Uma instância de um objeto HUD para o qual você deseja obter a posição.
+
+## Valor de Retorno
+
+Retorna uma tabela com a seguinte estrutura:
+
+- `x`: A margem horizontal (eixo x) do elemento HUD.
+- `y`: A margem vertical (eixo y) do elemento HUD.
+
+## 6. `HUD:setDraggable(draggable)`
 **Propósito**: A função `HUD:setDraggable` permite ou desativa o estado de arrastar de um elemento HUD específico. Esta funcionalidade permite que os desenvolvedores tornem os elementos HUD interativamente móveis pelo usuário ou fixos na tela, aumentando a flexibilidade e a usabilidade da interface do jogo.
 
 ## Uso:
@@ -122,7 +152,7 @@ hudElement:setDraggable(false)
 
 - `draggable`: Um valor booleano onde true permite que o elemento HUD seja arrastado pelo usuário, e false desativa essa capacidade.
 
-## 6. `HUD:setText(text)`
+## 7. `HUD:setText(text)`
 **Propósito**: A função `HUD:setText` é projetada para atualizar o conteúdo de texto de um elemento de texto HUD. Este método permite alterações dinâmicas no texto exibido, permitindo que os desenvolvedores reflitam mudanças no estado do jogo, estatísticas do jogador, mensagens ou qualquer outra informação baseada em texto em tempo real. É importante notar que esta função opera apenas em elementos HUD que são especificamente baseados em texto; ela não afetará elementos de itens HUD.
 
 ## Uso:
@@ -135,7 +165,7 @@ hudTextElement:setText("Nova Pontuação: 1500")
 ## Explicação:
 - `text`: A nova string a ser exibida pelo elemento de texto HUD.
 
-## 7. `HUD:setHorizontalAlignment(alignment)`
+## 8. `HUD:setHorizontalAlignment(alignment)`
 **Propósito**: A função `HUD:setHorizontalAlignment` é projetada para alterar o alinhamento horizontal atual com base nas bordas da tela da janela do jogo. Ela aceita qualquer alinhamento baseado em Enums.HorizontalAlign. Pode ser usada apenas se o recurso `newFeatures` estiver habilitado na função `HUD.new`.
 Nota: o deslocamento da posição x será usado como margens se você definir o alinhamento diferente de None.
 

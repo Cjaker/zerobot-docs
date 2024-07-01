@@ -131,6 +131,7 @@ function Engine.getUserId()
 
 --- Load specific script.
 -- This function is a wrapper around the external function engineLoadScript.
+-- This function runs asynchronously, so it may take some time to load the script, so if you will use Engine.unloadScript right after this function, you should wait for the script to be loaded, wait some delay.
 -- @param scriptName (string) - The name of the script to load. This name is based on "Available Scripts" list in "Scripting" tab.
 -- @return (boolean) - Returns true if the script is loaded successfully, false if the script doesn't exists.
 function Engine.loadScript(scriptName)

@@ -131,17 +131,16 @@ function Engine.getScriptsDirectory()
 -- @return (string) - O último ID de usuário gerado, dados não confidenciais.
 function Engine.getUserId()
 
-```lua
---- Carrega um script específico.
--- Esta função é um wrapper para a função externa engineLoadScript.
--- @param scriptName (string) - O nome do script a ser carregado. Este nome é baseado na lista "Scripts Disponíveis" na aba "Scripting".
+--- Carregar script específico.
+-- Esta função é um wrapper em torno da função externa engineLoadScript.
+-- Esta função é executada de forma assíncrona, então pode levar algum tempo para carregar o script. Portanto, se você usar Engine.unloadScript logo após esta função, deverá esperar que o script seja carregado, aguarde um pouco de atraso.
+-- @param scriptName (string) - O nome do script a ser carregado. Este nome é baseado na lista de "Scripts Disponíveis" na aba "Scripting".
 -- @return (boolean) - Retorna verdadeiro se o script for carregado com sucesso, falso se o script não existir.
 function Engine.loadScript(scriptName)
 
---- Descarrega um script específico.
--- Esta função é um wrapper para a função externa engineUnloadScript.
--- @param scriptName (string) - O nome do script a ser descarregado. Este nome é baseado na lista "Scripts Ativados" na aba "Scripting".
--- @return (boolean) - Retorna verdadeiro se o script for descarregado com sucesso, falso se o script não existir.
+--- Descarregar script específico.
+-- Esta função é um wrapper em torno da função externa engineUnloadScript.
+-- @param scriptName (string) - O nome do script a ser descarregado. Este nome é baseado na lista de "Scripts Habilitados" na aba "Scripting".
+-- @return (boolean) - Retorna verdadeiro se o script foi descarregado com sucesso, falso se o script não existir.
 function Engine.unloadScript(scriptName)
-```
 ```

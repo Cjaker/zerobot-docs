@@ -34,7 +34,7 @@ function Client.isKeyPressed(key, flags)
 -- @param message (string) - The message to be shown
 function Client.showMessage(message)
 
---- Get the current latency of the client.
+-- Get the current latency from the client latency indicator UI.
 -- This function is a wrapper around the external function clientGetLatency.
 -- @return The current latency in milliseconds, if the information isn't available will return -1.
 function Client.getLatency()
@@ -48,4 +48,11 @@ function Client.getServerLatency()
 -- This function is a wrapper around the external function clientFocus.
 -- Note from Windows documentation: An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.
 function Client.focus()
+
+-- Send a key press event to the client.
+-- This function is a wrapper around the external function clientSendHotkey.
+-- You can base the key and modifier params on HotkeyManager.parseKeyCombination function returns.
+-- @param key (number) - The key code.
+-- @param modifier (number) - The modifier flags.
+function Client.sendHotkey(key, modifier)
 ```
