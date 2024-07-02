@@ -34,6 +34,8 @@ No campo de texto mostrado na imagem acima, por favor insira os nomes dos monstr
 
 **Creatures To Stop**: supondo que seu personagem alcançou o waypoint "End Lure", o bot se baseará nesta configuração para decidir se para seu personagem ou não para matar as criaturas ao redor. Exemplo: se você definir o valor para 3, então o bot só parará para matar as criaturas da lure se houver 3 ou mais criaturas, caso contrário, prossegue normalmente.
 
+**Observação**: Creatures To Stop funciona em conjunto com Creatures To Leave, o primeiro define se o personagem deve parar no waypoint End Lure e o segundo define quantos monstros precisa faltar para voltar ao fluxo normal do CaveBot.
+
 ## Configurações do Auto Recorder
 **Distance**: Distância em SQMs entre waypoints gravados automaticamente.
 

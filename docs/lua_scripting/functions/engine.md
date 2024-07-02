@@ -109,6 +109,20 @@ function Engine.magicShooterSwitchProfile(profileIndex)
 -- @return (number) - The index of current selected profile.
 function Engine.magicShooterGetProfile()
 
+--- Switches the profile of targeting by index.
+-- This function is a wrapper around the external function engineTargetingSwitchProfile.
+-- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).
+function Engine.targetingSwitchProfile(profileIndex)
+    engineTargetingSwitchProfile(profileIndex)
+end
+
+--- Gets the current profile index selected on targeting.
+-- This function is a wrapper around the external function engineTargetingGetProfile.
+-- @return (number) - The index of current selected profile.
+function Engine.targetingGetProfile()
+    return engineTargetingGetProfile()
+end
+
 --- Switches the profile of equipment by index.
 -- This function is a wrapper around the external function engineEquipmentSwitchProfile.
 -- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).

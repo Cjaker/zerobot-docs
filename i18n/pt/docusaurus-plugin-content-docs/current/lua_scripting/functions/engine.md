@@ -111,6 +111,20 @@ function Engine.magicShooterSwitchProfile(profileIndex)
 -- @return (number) - O índice do perfil atualmente selecionado.
 function Engine.magicShooterGetProfile()
 
+--- Alterna o perfil de mira pelo índice.
+-- Esta função é um wrapper em torno da função externa engineTargetingSwitchProfile.
+-- @param profileIndex (number) - O índice do perfil para alternar (de 0 a 9).
+function Engine.targetingSwitchProfile(profileIndex)
+    engineTargetingSwitchProfile(profileIndex)
+end
+
+--- Obtém o índice do perfil atualmente selecionado na mira.
+-- Esta função é um wrapper em torno da função externa engineTargetingGetProfile.
+-- @return (number) - O índice do perfil atualmente selecionado.
+function Engine.targetingGetProfile()
+    return engineTargetingGetProfile()
+end
+
 --- Alterna o perfil do equipamento pelo índice.
 -- Esta função é um wrapper em torno da função externa engineEquipmentSwitchProfile.
 -- @param profileIndex (number) - O índice do perfil para alternar (de 0 a 9).

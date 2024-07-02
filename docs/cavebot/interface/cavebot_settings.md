@@ -34,6 +34,8 @@ In the text field shown in the image above, please enter the names of monsters t
 
 **Creatures To Stop**: assuming your character reached the "End Lure" waypoint, the bot will base on this setting to decide whether to stop your character or not to kill the creatures around. Example: if you set the value to 3, then the bot will only stop to kill the creatures of the lure if there are 3 or more creatures, otherwise, it proceeds normally.
 
+**Note**: Creatures To Stop works in conjunction with Creatures To Leave. The first defines if the character should stop at the End Lure waypoint, and the second defines how many monsters need to be left to return to the normal CaveBot flow.
+
 ## Auto Recorder Settings
 **Distance**: SQM's distance between auto recorded waypoints.
 
