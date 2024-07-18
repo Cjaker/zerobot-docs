@@ -133,20 +133,20 @@ function Game.useItem(itemId)
 -- This function is a wrapper around the external function gameForgeConvertDust.
 -- @return true if was successfully sent the action to server, otherwise false
 function Game.forgeConvertDust()
-    return gameForgeConvertDust()
-end
 
 -- Forge convert slivers action
 -- This function is a wrapper around the external function gameForgeConvertSlivers.
 -- @return true if was successfully sent the action to server, otherwise false
 function Game.forgeConvertSlivers()
-    return gameForgeConvertSlivers()
-end
 
 -- Forge increase dust limit action
 -- This function is a wrapper around the external function gameForgeIncreaseLimit.
 -- @return true if was successfully sent the action to server, otherwise false
 function Game.forgeIncreaseLimit()
-    return gameForgeIncreaseLimit()
-end
+
+-- Write text to a window
+-- This function is a wrapper around the external function gameWriteTextWindow.
+-- Note: you need to open a text window before writing the text. Additionally, this function automatically closes the window after writing by simulating the ESCAPE key. This function sends the text directly to the server to be written, it is not dependent on the game interface. It is important to have the text window open before using this function.
+-- @param text (string) - The text to be written.
+function Game.writeTextWindow(text)
 ```

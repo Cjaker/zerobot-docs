@@ -133,20 +133,20 @@ function Game.useItem(itemId)
 -- Esta função é um wrapper em torno da função externa gameForgeConvertDust.
 -- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
 function Game.forgeConvertDust()
-    return gameForgeConvertDust()
-end
 
 --- Ação de converter lascas na forja
 -- Esta função é um wrapper em torno da função externa gameForgeConvertSlivers.
 -- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
 function Game.forgeConvertSlivers()
-    return gameForgeConvertSlivers()
-end
 
 --- Ação de aumentar o limite de poeira na forja
 -- Esta função é um wrapper em torno da função externa gameForgeIncreaseLimit.
 -- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
 function Game.forgeIncreaseLimit()
-    return gameForgeIncreaseLimit()
-end
+
+-- Escrever texto em uma janela
+-- Esta função é um wrapper em torno da função externa gameWriteTextWindow.
+-- Nota: você precisa abrir uma janela de texto antes de escrever o texto. Além disso, esta função fecha automaticamente a janela após a escrita, simulando a tecla ESCAPE. Essa função já envia direto para o servidor o texto à ser escrito, não é dependente da interface do jogo. Importante ter aberto a janela de texto antes de usar essa função.
+-- @param texto (string) - O texto a ser escrito.
+function Game.writeTextWindow(text)
 ```

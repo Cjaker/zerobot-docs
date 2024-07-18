@@ -95,7 +95,7 @@ function Map.moveItemToGround(x, y, z, count, toX, toY, toZ)
 -- @param toX (number) - The x-coordinate of the map position destination.
 -- @param toY (number) - The y-coordinate of the map position destination.
 -- @param toZ (number) - The z-coordinate of the map position destination.
--- @return True if succeeded, or nil if tile/creature doesn't exists or there's no map information available.
+-- @return True if the request was sent to server, or nil if tile/creature doesn't exists, can't move the creature or if there's no map information available.
 function Map.moveCreatureToGround(x, y, z, toX, toY, toZ)
 
 -- Walk to a specific position using Tibia map click algorithm
