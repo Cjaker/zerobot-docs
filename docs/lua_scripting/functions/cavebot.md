@@ -23,6 +23,8 @@ CaveBot.loadFile(fileName)
 ```lua
 --- Goto to specific label waypoint on cavebot
 -- This function is a wrapper around the external function cavebotGoto.
+-- Note: this function will not set instantly the waypoint, it will be set on the next tick. If you need to execute this function twice or more, you should use a delay between the calls.
+-- On waypoint script, it will kill the script execution after the use of this function.
 -- @param label (string) - The waypoint label name
 function CaveBot.GoTo(labelName)
 
@@ -63,6 +65,8 @@ function CaveBot.clearWaypoints()
 
 --- Select a waypoint by specific id on the cavebot system.
 -- This function is a wrapper around the external function cavebotSelectWaypoint.
+-- Note: this function will not set instantly the waypoint, it will be set on the next tick. If you need to execute this function twice or more, you should use a delay between the calls.
+-- On waypoint script, it will kill the script execution after the use of this function.
 -- @param wpId (number) - The id of the waypoint to select.
 function CaveBot.selectWaypoint(wpId)
 

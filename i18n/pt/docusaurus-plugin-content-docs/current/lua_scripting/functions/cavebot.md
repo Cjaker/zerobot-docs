@@ -23,6 +23,8 @@ CaveBot.loadFile(fileName)
 ```lua
 --- Vai para um waypoint específico com label no cavebot
 -- Esta função é um wrapper para a função externa cavebotGoto.
+-- Nota: esta função não definirá instantaneamente o waypoint, ele será definido no próximo tick. Se você precisar executar esta função duas ou mais vezes, deverá usar um atraso entre as chamadas.
+-- No script do ponto de passagem, ele encerrará a execução do script após o uso desta função.
 -- @param labelName (string) - O nome do label do waypoint
 function CaveBot.GoTo(labelName)
 
@@ -63,6 +65,8 @@ function CaveBot.clearWaypoints()
 
 --- Seleciona um waypoint por um id específico no sistema do cavebot.
 -- Esta função é um wrapper para a função externa cavebotSelectWaypoint.
+-- Nota: esta função não definirá instantaneamente o waypoint, ele será definido no próximo tick. Se você precisar executar esta função duas ou mais vezes, deverá usar um atraso entre as chamadas.
+-- No script do ponto de passagem, ele encerrará a execução do script após o uso desta função.
 -- @param wpId (number) - O id do waypoint para selecionar.
 function CaveBot.selectWaypoint(wpId)
 
