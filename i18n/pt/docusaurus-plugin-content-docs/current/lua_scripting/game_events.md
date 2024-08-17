@@ -19,6 +19,8 @@ Esta documentação descreve as funções internas de Lua projetadas para lidar 
 4. Game.Events.TEXT_MESSAGE
 5. Game.Events.MODAL_WINDOW
 6. Game.Events.HUD_CLICK
+7. Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK
+8. Game.Events.IMBUEMENT_DATA
 ```
 
 ### Propósito e Uso
@@ -206,4 +208,33 @@ function onHUDClick(id)
 end
 
 Game.registerEvent(Game.Events.HUD_CLICK, onHUDClick)
+```
+
+### 7. `Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK`
+**Propósito**: Este evento é acionado quando um jogador clica em um botão personalizado em uma janela modal.
+
+## Uso:
+```lua
+-- Parâmetros:
+-- @param modalId - O ID da janela modal.
+-- @param buttonId - O ID do botão clicado.
+function onCustomModalWindowButtonClick(modalId, buttonId)
+    print(modalId, buttonId)
+end
+
+Game.registerEvent(Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK, onCustomModalWindowButtonClick)
+```
+
+### 8. `Game.Events.IMBUEMENT_DATA`
+**Propósito**: Este evento é acionado quando o servidor envia dados de imbuimento para a janela de imbuimento.
+
+## Uso:
+```lua
+-- Parâmetros:
+-- @param imbuementData - Os dados de imbuimento recebidos do servidor.
+function onImbuementData(imbuementData)
+    print(JSON.encode(imbuementData))
+end
+
+Game.registerEvent(Game.Events.IMBUEMENT_DATA, onImbuementData)
 ```

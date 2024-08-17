@@ -19,6 +19,8 @@ This documentation outlines the internal Lua functions designed for handling gam
 4. Game.Events.TEXT_MESSAGE
 5. Game.Events.MODAL_WINDOW
 6. Game.Events.HUD_CLICK
+7. Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK
+8. Game.Events.IMBUEMENT_DATA
 ```
 
 ### Purpose and Usage
@@ -172,4 +174,33 @@ function onHUDClick(id)
 end
 
 Game.registerEvent(Game.Events.HUD_CLICK, onHUDClick)
+```
+
+### 7. `Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK`
+**Purpose**: This event is triggered when a player clicks on a custom modal (created by scripting) window button. It includes the button ID and the modal window ID.
+
+## Usage:
+```lua
+-- Parameters:
+-- @param modalId - The ID of the modal window.
+-- @param buttonIndex - The index of the button clicked.
+function onCustomModalWindowButtonClick(modalId, buttonIndex)
+    print(modalId, buttonIndex)
+end
+
+Game.registerEvent(Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK, onCustomModalWindowButtonClick)
+```
+
+### 8. `Game.Events.IMBUEMENT_DATA`
+**Purpose**: This event is triggered when the server sends imbuement data to the client.
+
+## Usage:
+```lua
+-- Parameters:
+-- @param imbuementData - The imbuement data received from the server.
+function onImbuementData(imbuementData)
+    print(JSON.encode(imbuementData))
+end
+
+Game.registerEvent(Game.Events.IMBUEMENT_DATA, onImbuementData)
 ```
