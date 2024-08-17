@@ -6,13 +6,14 @@ sidebar_position: 10
 Overall game useful functions
 
 ```lua
+EventsEnums
 Game.turn(direction)
 Game.talk(message, type)
 Game.talkChannel(message, channelId)
 Game.talkPrivate(message, receiver)
 Game.walk(direction)
 Game.attack(creatureId)
-Game.getItemCount(itemId)
+Game.getItemCount(itemId, itemTier)
 Game.getInventoryItems()
 Game.useItemOnGround(itemId, x, y, z)
 Game.useItemFromGround(x, y, z)
@@ -22,6 +23,13 @@ Game.useItemWithCreature(id, creatureId)
 Game.lootCorpse(x, y, z)
 Game.equipItem(itemId, tier)
 Game.useItem(itemId)
+Game.forgeConvertDust()
+Game.forgeConvertSlivers()
+Game.forgeIncreaseLimit()
+Game.writeTextWindow(text)
+Game.applyImbuement(slot, imbuementId, isProtected)
+Game.clearImbuement(slot)
+Game.closeImbuementWindow()
 Game.executeEvents(hookType, ...)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
@@ -30,6 +38,19 @@ Game.unregisterEvent(type, fn)
 ### Code
 
 ```lua
+Game = {
+    Events = {
+        TALK = 1,
+        MAGIC_EFFECT = 2,
+        HUD_CLICK = 3,
+        HOTKEY_SHORTCUT_PRESS = 4,
+        TEXT_MESSAGE = 5,
+        MODAL_WINDOW = 6,
+        CUSTOM_MODAL_WINDOW_BUTTON_CLICK = 7,
+        IMBUEMENT_DATA = 8
+    }
+}
+
 --- Turn the player in a specified direction.
 -- This function is a wrapper around the external function gameTurn.
 -- @param direction (number) - The direction to turn the player, refer the parameter as Enums.Directions
@@ -64,10 +85,14 @@ function Game.walk(direction)
 -- @param creatureId (number) - The ID of the creature to attack.
 function Game.attack(creatureId)
 
---- Get item count of specified ID.
+--- Get item count of specified ID by Tier.
+--- If the itemTier parameter value is not provided or is 0, the function will return the total count of items without tier.
 -- This function is a wrapper around the external function gameGetItemCount.
--- @param itemId (number) - The ID of item.
-function Game.getItemCount(itemId)
+-- @param itemTier (number) - The tier of item. This parameter is optional.
+function Game.getItemCount(itemId, itemTier)
+    itemTier = itemTier or 0
+	return gameGetItemCount(itemId, itemTier)
+end
 
 --- Get all items stored on player inventory.
 -- This function is a wrapper around the external function gameGetInventoryItems.
@@ -149,4 +174,23 @@ function Game.forgeIncreaseLimit()
 -- Note: you need to open a text window before writing the text. Additionally, this function automatically closes the window after writing by simulating the ESCAPE key. This function sends the text directly to the server to be written, it is not dependent on the game interface. It is important to have the text window open before using this function.
 -- @param text (string) - The text to be written.
 function Game.writeTextWindow(text)
+
+-- Apply imbuement
+-- This function is a wrapper around the external function gameApplyImbuement.
+-- @param slot (number) - The slot of the item to clear the imbuement. The slot value starts at 0. Example: slot 0, 1, 2.
+-- @param imbuementId (number) - The ID of the imbuement to be applied.
+-- @param isProtected (boolean) - If should increase success rate for imbuement.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.applyImbuement(slot, imbuementId, isProtected)
+
+-- Clear imbuement
+-- This function is a wrapper around the external function gameClearImbuement.
+-- @param slot (number) - The slot of the item to clear the imbuement. The slot value starts at 0. Example: slot 0, 1, 2.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.clearImbuement(slot)
+
+-- Close imbuement window
+-- This function is a wrapper around the external function gameCloseImbuementWindow.
+-- @return true if was successfully sent the action to server, otherwise false
+function Game.closeImbuementWindow()
 ```

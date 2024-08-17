@@ -6,13 +6,14 @@ sidebar_position: 10
 Funções úteis gerais do jogo
 
 ```lua
+EventsEnums
 Game.turn(direction)
 Game.talk(message, type)
 Game.talkChannel(message, channelId)
 Game.talkPrivate(message, receiver)
 Game.walk(direction)
 Game.attack(creatureId)
-Game.getItemCount(itemId)
+Game.getItemCount(itemId, itemTier)
 Game.getInventoryItems()
 Game.useItemOnGround(itemId, x, y, z)
 Game.useItemFromGround(x, y, z)
@@ -22,14 +23,33 @@ Game.useItemWithCreature(id, creatureId)
 Game.lootCorpse(x, y, z)
 Game.equipItem(itemId, tier)
 Game.useItem(itemId)
+Game.forgeConvertDust()
+Game.forgeConvertSlivers()
+Game.forgeIncreaseLimit()
+Game.writeTextWindow(text)
+Game.applyImbuement(slot, imbuementId, isProtected)
+Game.clearImbuement(slot)
+Game.closeImbuementWindow()
 Game.executeEvents(hookType, ...)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
 ```
 
 ### Código
-
 ```lua
+Game = {
+    Events = {
+        TALK = 1,
+        MAGIC_EFFECT = 2,
+        HUD_CLICK = 3,
+        HOTKEY_SHORTCUT_PRESS = 4,
+        TEXT_MESSAGE = 5,
+        MODAL_WINDOW = 6,
+        CUSTOM_MODAL_WINDOW_BUTTON_CLICK = 7,
+        IMBUEMENT_DATA = 8
+    }
+}
+
 --- Gira o jogador em uma direção especificada.
 -- Esta função é um wrapper em torno da função externa gameTurn.
 -- @param direction (number) - A direção para girar o jogador, consulte o parâmetro como Enums.Directions
@@ -64,10 +84,14 @@ function Game.walk(direction)
 -- @param creatureId (number) - O ID da criatura a ser atacada.
 function Game.attack(creatureId)
 
---- Obtém a quantidade de itens de um ID especificado.
+--- Obtém a quantidade de itens de um ID especificado por Tier.
+--- Se o valor do parâmetro itemTier não for fornecido ou for 0, a função retornará a quantidade total de itens sem tier.
 -- Esta função é um wrapper em torno da função externa gameGetItemCount.
--- @param itemId (number) - O ID do item.
-function Game.getItemCount(itemId)
+-- @param itemTier (number) - O tier do item. Este parâmetro é opcional.
+function Game.getItemCount(itemId, itemTier)
+    itemTier = itemTier or 0
+	return gameGetItemCount(itemId, itemTier)
+end
 
 --- Obtém todos os itens armazenados no inventário do jogador.
 -- Esta função é um wrapper em torno da função externa gameGetInventoryItems.
@@ -129,24 +153,43 @@ function Game.equipItem(itemId, tier)
 -- @param itemId (number) - O ID do item a ser usado.
 function Game.useItem(itemId)
 
---- Ação de converter poeiras na forja
+--- Ação de converter poeiras na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeConvertDust.
--- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.forgeConvertDust()
 
---- Ação de converter lascas na forja
+--- Ação de converter lascas na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeConvertSlivers.
--- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.forgeConvertSlivers()
 
---- Ação de aumentar o limite de poeira na forja
+--- Ação de aumentar o limite de poeira na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeIncreaseLimit.
--- @return verdadeiro se a ação foi enviada com sucesso para o servidor, caso contrário, falso.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.forgeIncreaseLimit()
 
--- Escrever texto em uma janela
+--- Escrever texto em uma janela.
 -- Esta função é um wrapper em torno da função externa gameWriteTextWindow.
--- Nota: você precisa abrir uma janela de texto antes de escrever o texto. Além disso, esta função fecha automaticamente a janela após a escrita, simulando a tecla ESCAPE. Essa função já envia direto para o servidor o texto à ser escrito, não é dependente da interface do jogo. Importante ter aberto a janela de texto antes de usar essa função.
--- @param texto (string) - O texto a ser escrito.
+-- Nota: você precisa abrir uma janela de texto antes de escrever o texto. Além disso, esta função fecha automaticamente a janela após a escrita, simulando a tecla ESCAPE. Essa função já envia direto para o servidor o texto a ser escrito, não é dependente da interface do jogo. Importante ter aberto a janela de texto antes de usar essa função.
+-- @param text (string) - O texto a ser escrito.
 function Game.writeTextWindow(text)
+
+--- Aplica um imbuement.
+-- Esta função é um wrapper em torno da função externa gameApplyImbuement.
+-- @param slot (number) - O slot do item para aplicar o imbuement. O valor do slot começa em 0. Exemplo: slot 0, 1, 2.
+-- @param imbuementId (number) - O ID do imbuement a ser aplicado.
+-- @param isProtected (boolean) - Se deve aumentar a taxa de sucesso para o imbuement.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+function Game.applyImbuement(slot, imbuementId, isProtected)
+
+--- Limpa um imbuement.
+-- Esta função é um wrapper em torno da função externa gameClearImbuement.
+-- @param slot (number) - O slot do item para limpar o imbuement. O valor do slot começa em 0. Exemplo: slot 0, 1, 2.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+function Game.clearImbuement(slot)
+
+--- Fecha a janela de imbuement.
+-- Esta função é um wrapper em torno da função externa gameCloseImbuementWindow.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+function Game.closeImbuementWindow()
 ```
