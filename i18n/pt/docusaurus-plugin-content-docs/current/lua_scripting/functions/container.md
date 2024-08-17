@@ -112,4 +112,10 @@ function Container:getCapacity()
 -- Esta função obtém a quantidade de itens do container.
 -- @return A quantidade de itens do container, ou nil se o container não existir
 function Container:getItemCount()
+
+-- Olha para o slot do container específico.
+-- Esta função é um invólucro em torno da função externa containerLookAt.
+-- @param containerSlot - O slot do container para olhar.
+-- @return True se a solicitação foi enviada para o servidor, ou nil se o item/slot do container não existir.
+function Container:lookAt(containerSlot)
 ```

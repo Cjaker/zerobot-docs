@@ -112,4 +112,10 @@ function Container:getCapacity()
 -- This function gets the container items count.
 -- @return The container items count, or nil if container doesn't exists
 function Container:getItemCount()
+
+-- Look at specific container slot.
+-- This function is a wrapper around the external function containerLookAt.
+-- @param containerSlot - The container slot to look at.
+-- @return True if the request was sent to server, or nil if item/container slot doesn't exists.
+function Container:lookAt(containerSlot)
 ```
