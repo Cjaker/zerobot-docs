@@ -14,4 +14,4 @@ sidebar_position: 6
 
 **Enable Debug HUD**: When enabled, this feature will display the waypoints of your CaveBot script directly on your game screen.
 
-"Enable CaveBot: Activates the CaveBot functionality."
+**Enable CaveBot**: Activates the CaveBot functionality.

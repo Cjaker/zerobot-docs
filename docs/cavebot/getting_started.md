@@ -29,6 +29,7 @@ The cavebot itself is composed of waypoints, which are the coordinates or action
 - It is recommended to use waypoints of the 'Stand' or 'Node' type before using any other types of waypoints that are not \{Stand, Node, Start Lure, End Lure\}, especially when these waypoints are on different floors.
 - In case of accidental falls and climbs on stairs, the cavebot will rely on the Z position of the currently selected waypoint. Make sure your waypoints are well-defined. This is applied for waypoints of type: Stand, Node, Start Lure, End Lure and Script.
 - The cavebot works in conjunction with the other bot functions. So, to use it effectively, you first need to configure your Healing, Targeting, Hunting > Magic Shooter, etc. tabs according to your preferences.
+- New: there's a good tip discovered recently, if you fall in a hole for example and there's a tile that you can climb up back by using a rope, you can put a "Rope" waypoint there and the bot will use it to climb up back. (It's worth for cases that need Rope or Use a Ladder, for cases like stairs that you step in and your character goes up/down, the bot will automatically climb up back).
 
 ## Targeting Recommendations
 **[Targeting - Distance for LURE mode!!!]**\

@@ -16,6 +16,10 @@ sidebar_position: 1
 
 **End Lure** -> termina seu lure próximo da posição especificada, distância similar do Node 1x1 SQM's, se você ainda não alcançou a posição, o bot continuará lurando até lá
 
+**Dynamic Start** -> ativa o modo de lure dinâmico do bot próximo da posição especificada, distância similar do Node 1x1 SQM's
+
+**Dynamic End** -> termina seu lure dinâmico próximo da posição especificada, distância similar do Node 1x1 SQM's, se você ainda não alcançou a posição, o bot continuará lurando até lá
+
 **Rope** -> usa qualquer ferramenta que funcione como corda na posição específica
 
 **Ladder** -> usa qualquer item do tipo escada para subir na posição específica
