@@ -23,12 +23,17 @@ Engine.enableTimer(enable)
 Engine.enableBot(enable)
 Engine.magicShooterSwitchProfile(profileIndex)
 Engine.magicShooterGetProfile()
+Engine.magicShooterGetProfileName(index)
 Engine.targetingSwitchProfile(profileIndex)
 Engine.targetingGetProfile()
+Engine.targetingGetProfileName(index)
 Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
+Engine.equipmentGetProfileName(index)
 Engine.getScriptsDirectory()
 Engine.getUserId()
+Engine.setAlarm(alarmType, enable)
+Engine.isAlarmEnabled(alarmType)
 Engine.loadScript(scriptName)
 Engine.unloadScript(scriptName)
 ```
@@ -113,19 +118,27 @@ function Engine.magicShooterSwitchProfile(profileIndex)
 -- @return (number) - The index of current selected profile.
 function Engine.magicShooterGetProfile()
 
+--- Gets the current magic shooter profile name.
+--- This function is a wrapper around the external function engineMagicShooterGetProfileName.
+--- @param index (number) - The index of the profile to get the name from (from 0 to 9).
+--- @return (string) - The name of the current selected profile.
+function Engine.magicShooterGetProfileName(index)
+
 --- Switches the profile of targeting by index.
 -- This function is a wrapper around the external function engineTargetingSwitchProfile.
 -- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).
 function Engine.targetingSwitchProfile(profileIndex)
-    engineTargetingSwitchProfile(profileIndex)
-end
 
 --- Gets the current profile index selected on targeting.
 -- This function is a wrapper around the external function engineTargetingGetProfile.
 -- @return (number) - The index of current selected profile.
 function Engine.targetingGetProfile()
-    return engineTargetingGetProfile()
-end
+
+--- Gets the current targeting profile name.
+-- This function is a wrapper around the external function engineTargetingGetProfileName.
+-- @param index (number) - The index of the profile to get the name from (from 0 to 9).
+-- @return (string) - The name of the current selected profile.
+function Engine.targetingGetProfileName(index)
 
 --- Switches the profile of equipment by index.
 -- This function is a wrapper around the external function engineEquipmentSwitchProfile.
@@ -137,6 +150,12 @@ function Engine.equipmentSwitchProfile(profileIndex)
 -- @return (number) - The index of current selected profile.
 function Engine.equipmentGetProfile()
 
+--- Gets the current equipment profile name.
+-- This function is a wrapper around the external function engineEquipmentGetProfileName.
+-- @param index (number) - The index of the profile to get the name from (from 0 to 9).
+-- @return (string) - The name of the current selected profile.
+function Engine.equipmentGetProfileName(index)
+
 --- Gets the default scripts directory.
 -- This function is a wrapper around the external function engineGetScriptsDirectory.
 -- @return (string) - The path to default scripts directory.
@@ -146,6 +165,16 @@ function Engine.getScriptsDirectory()
 -- This function is useful to identify current user. You can use engineGetUserId directly if you need to avoid hooks.
 -- @return (string) - The last generated user ID, non-sensitive data.
 function Engine.getUserId()
+
+--- Enables or disables specific alarm type.
+--- @param alarmType (number) - The alarm type to enable or disable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the alarm type.
+function Engine.setAlarm(alarmType, enable)
+
+--- Get the status of a specific alarm type.
+--- @param alarmType (number) - The alarm type to check. Refer to Enums.AlarmType.
+--- @return (boolean) - Returns true if the alarm type is enabled, false otherwise.
+function Engine.isAlarmEnabled(alarmType)
 
 --- Load specific script.
 -- This function is a wrapper around the external function engineLoadScript.
