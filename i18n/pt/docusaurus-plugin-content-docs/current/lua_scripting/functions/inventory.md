@@ -9,6 +9,7 @@ Interaja com o inventário do jogador
 Inventory.moveItemToGround(inventorySlot, inventoryCount, toX, toY, toZ)
 Inventory.moveItemToContainer(inventorySlot, inventoryCount, containerIndex, containerSlot)
 Inventory.useItem(inventorySlot)
+Inventory.lookAt(inventorySlot)
 ```
 
 ### Código
@@ -38,4 +39,10 @@ function Inventory.moveItemToContainer(inventorySlot, inventoryCount, containerI
 -- @param inventorySlot - O slot do inventário para usar. Você pode baseá-lo em Enums.InventorySlot
 -- @return True se for bem-sucedido, ou nil se o item/slot do inventário não existir.
 function Inventory.useItem(inventorySlot)
+
+-- Olha para um slot específico do inventário.
+-- Esta função é um wrapper em torno da função externa inventoryLookAt.
+-- @param inventorySlot - O slot do inventário para olhar. Você pode baseá-lo em Enums.InventorySlot
+-- @return True se a solicitação foi enviada para o servidor, ou nil se o item/slot do inventário não existir.
+function Inventory.lookAt(inventorySlot)
 ```

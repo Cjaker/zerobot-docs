@@ -30,6 +30,7 @@ Player.getContainers()
 Player.joinParty(targetId)
 Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
+Player.passLeadershipParty(targetId)
 ```
 
 ### Code
@@ -201,4 +202,9 @@ function Player.inviteParty(targetId)
 -- This function is a wrapper around the external function playerEnableSharedExpParty.
 -- @param enabled (boolean) - Enabled state
 function Player.enableSharedExpParty(enabled)
+
+--- Pass the party leadership to another player.
+--- This function is a wrapper around the external function playerPassLeadershipParty.
+--- @param targetId (number) - The target player id to pass the leadership
+function Player.passLeadershipParty(targetId)
 ```

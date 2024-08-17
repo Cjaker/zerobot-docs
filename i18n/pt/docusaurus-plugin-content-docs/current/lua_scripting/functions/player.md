@@ -30,6 +30,7 @@ Player.getContainers()
 Player.joinParty(targetId)
 Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
+Player.passLeadershipParty(targetId)
 ```
 
 ### Código
@@ -201,4 +202,9 @@ function Player.inviteParty(targetId)
 -- Esta função é um wrapper em torno da função externa playerEnableSharedExpParty.
 -- @param enabled (boolean) - Estado ativado
 function Player.enableSharedExpParty(enabled)
+
+--- Passa a liderança da party para outro jogador.
+-- Esta função é um wrapper em torno da função externa playerPassLeadershipParty.
+-- @param targetId (número) - O ID do jogador alvo para passar a liderança
+function Player.passLeadershipParty(targetId)
 ```

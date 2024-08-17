@@ -19,6 +19,9 @@ Map.stopAutoWalk()
 Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
 Map.isTileWalkable(x, y, z, options)
+Map.useItemWithInventory(x, y, z, slot)
+Map.useItemWithContainer(x, y, z, index, slot)
+Map.lookAt(x, y, z)
 Map.getCameraPosition()
 Map.getPlayerOnScreen(var)
 ```
@@ -135,6 +138,30 @@ function Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters,
 -- @field ignoreNpcs (boolean) - If is true will not consider npc as a blockable obstacle on tile. Default value is false
 -- @return True if the position is walkable, or false if not
 function Map.isTileWalkable(x, y, z, options)
+
+-- Use item from specific position into a specific inventory slot
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @param slot (number) - The inventory slot destination to use the item. Refer to Enums.InventorySlot.
+-- @return True if the request was sent to server, or nil if tile/item/inventory slot doesn't exists or there's no map information available.
+function Map.useItemWithInventory(x, y, z, slot)
+
+-- Use item from specific position into a specific container slot
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @param index (number) - The container index to use the item.
+-- @param slot (number) - The container slot destination to use the item.
+-- @return True if the request was sent to server, or nil if tile/item/container slot doesn't exists or there's no map information available.
+function Map.useItemWithContainer(x, y, z, index, slot)
+
+-- Look at specific position.
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @return True if the request was sent to server, or nil if tile doesn't exists or there's no map information available.
+function Map.lookAt(x, y, z)
 
 -- Get current map world camera position
 -- This function is useful if you wanna a real-time position of your character

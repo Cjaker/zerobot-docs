@@ -9,6 +9,7 @@ Interact with player's inventory
 Inventory.moveItemToGround(inventorySlot, inventoryCount, toX, toY, toZ)
 Inventory.moveItemToContainer(inventorySlot, inventoryCount, containerIndex, containerSlot)
 Inventory.useItem(inventorySlot)
+Inventory.lookAt(inventorySlot)
 ```
 
 ### Code
@@ -38,4 +39,10 @@ function Inventory.moveItemToContainer(inventorySlot, inventoryCount, containerI
 -- @param inventorySlot - The inventory slot to use. You can base it on Enums.InventorySlot
 -- @return True if succeeds, or nil if item/inventory slot doesn't exists.
 function Inventory.useItem(inventorySlot)
+
+-- Look at specific inventory slot.
+-- This function is a wrapper around the external function inventoryLookAt.
+-- @param inventorySlot - The inventory slot to look at. You can base it on Enums.InventorySlot
+-- @return True if the request was sent to server, or nil if item/inventory slot doesn't exists.
+function Inventory.lookAt(inventorySlot)
 ```

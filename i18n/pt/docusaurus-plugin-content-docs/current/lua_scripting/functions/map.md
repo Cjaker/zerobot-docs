@@ -20,6 +20,9 @@ Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
 Map.isTileWalkable(x, y, z, options)
 Map.getCameraPosition()
+Map.useItemWithInventory(x, y, z, slot)
+Map.useItemWithContainer(x, y, z, index, slot)
+Map.lookAt(x, y, z)
 Map.getPlayerOnScreen(var)
 ```
 
@@ -141,6 +144,27 @@ function Map.isTileWalkable(x, y, z, options)
 -- O jogo leva algum tempo para atualizar a posição de uma criatura diretamente, então em casos específicos isso pode ser útil
 -- Exemplos de bons casos: pathfinding
 function Map.getCameraPosition()
+
+-- Usa um item do inventário em uma posição específica do mapa
+-- @param x (número) - A coordenada x da posição de destino no mapa.
+-- @param y (número) - A coordenada y da posição de destino no mapa.
+-- @param z (número) - A coordenada z da posição de destino no mapa.
+-- @param slot (número) - O slot do inventário para usar.
+function Map.useItemWithInventory(x, y, z, slot)
+
+-- Usa um item do container em uma posição específica do mapa
+-- @param x (número) - A coordenada x da posição de destino no mapa.
+-- @param y (número) - A coordenada y da posição de destino no mapa.
+-- @param z (número) - A coordenada z da posição de destino no mapa.
+-- @param index (número) - O índice do container para usar.
+-- @param slot (número) - O slot do container para usar.
+function Map.useItemWithContainer(x, y, z, index, slot)
+
+-- Olha para uma posição específica do mapa
+-- @param x (número) - A coordenada x da posição de destino no mapa.
+-- @param y (número) - A coordenada y da posição de destino no mapa.
+-- @param z (número) - A coordenada z da posição de destino no mapa.
+function Map.lookAt(x, y, z)
 
 --- Obtém uma criatura do jogador na tela, seja pelo ID ou nome.
 -- @param var (number|string) - O ID do jogador se for um número, ou o nome do jogador se for uma string.
