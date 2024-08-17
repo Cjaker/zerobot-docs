@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Tipos de Waypoint
 <div class="text--center">
-  <img src="/img/waypoint_type.png" />
+  <img src="/img/waypoint_type.png?v=2" />
   <p>Tipos de Waypoint do CaveBot</p>
 </div>
 

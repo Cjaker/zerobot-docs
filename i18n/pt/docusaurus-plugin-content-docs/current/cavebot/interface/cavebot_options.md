@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Opções do CaveBot
 <div class="text--center">
-  <img src="/img/cavebot_options.png" />
+  <img src="/img/cavebot_options.png?v=2" />
   <p>Opções do CaveBot</p>
 </div>
 

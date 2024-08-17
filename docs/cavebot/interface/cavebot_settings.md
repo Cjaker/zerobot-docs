@@ -5,7 +5,7 @@ sidebar_position: 5
 # CaveBot Settings
 ## Main Options
 <div class="text--center">
-  <img src="/img/cavebot_settings.png" />
+  <img src="/img/cavebot_settings.png?v=2" />
   <p>CaveBot Settings</p>
 </div>
 
@@ -17,7 +17,7 @@ sidebar_position: 5
 
 ## CaveBot Settings - Advanced
 <div class="text--center">
-  <img src="/img/cavebot_settings_window_2.png" />
+  <img src="/img/cavebot_settings_window_2.png?v=2" />
   <p>CaveBot Advanced Settings</p>
 </div>
 

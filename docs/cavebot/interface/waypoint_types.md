@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Waypoint Types
 <div class="text--center"> 
-  <img src="/img/waypoint_type.png" />
+  <img src="/img/waypoint_type.png?v=2" />
   <p>CaveBot Waypoint Types</p>
 </div>
 **Stand** -> forces your character to step on that position
