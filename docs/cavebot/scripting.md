@@ -80,3 +80,37 @@ To use on the north: `pos.y-1`\
 To use on the south: `pos.y+1`
 
 Note that if an item or creature is standing on this position, this snippet alone may not work.
+
+# Update 1.7.5.5
+Waypoints of type script now supports Game events and Timers.
+After you use them you should destroy the timer and unregister the event.
+
+If you keep the timer or game event running the script will keep running indefinitely.
+
+### Example:
+```LUA
+function sellCycle()
+    gameTalk("hi", 1)
+    wait(500)
+    gameTalk("trade", 12)
+    wait(500)
+    Npc.sell(23721, 1, true)
+    wait(500)
+end
+
+function messageCallback(messageData)
+    if not messageData then return end
+    local message = messageData.text
+    print("message " ..message)
+    if message:lower():find("you have no items in your loot pouch.") then
+        destroyTimer("sell-loot") -- destroying the timer
+        Game.unregisterEvent(Game.Events.TEXT_MESSAGE, messageCallback) -- unregistering the event
+    end
+end
+
+Game.registerEvent(Game.Events.TEXT_MESSAGE, messageCallback)
+
+Timer("sell-loot", function()
+    sellCycle()
+end, 1000)
+```
