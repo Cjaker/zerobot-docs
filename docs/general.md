@@ -15,7 +15,7 @@ The **Healing** system of ZeroBot aims to keep the character alive in challengin
 ### Basic Features
 
 **Health Monitoring:**  
-The bot constantly monitors the character's hit points (HP) by continuously reading the HP values displayed on the game's interface.
+The bot constantly monitors the character's hit points (HP), intercepting it before it appears on your client, using the fastest method because of being a critical action.
 
 **Healing Threshold Configuration:**  
 Users can set different HP thresholds to trigger healing actions, such as using a health potion when HP is below 70% or casting a healing spell when HP is below 30%.
@@ -38,9 +38,10 @@ The bot can be programmed to heal based on conditions such as **Drunk**, **Roote
 
 ### Example Configuration
 - **Exura Med Ico:** Use when HP < 80%
-- **Exura Ico:** Use when HP < 50%
-- **Ultimate Health Potion:** Use when HP < 40%
-- **Great Health Potion:** Use when HP < 70%
+- **Exura Ico:** Use when HP > 80% and HP < 95%
+- **Supreme Health Potion:** Use when HP < 40%
+- **Ultimate Health Potion:** Use when HP > 40% and HP < 70%
+- **Great Health Potion:** Use when HP > 70% and HP < 85%
 
 # Heal Friend
 ![Heal Friend](https://zerobot.net/assets/images/3.png "Heal Friend")
@@ -49,7 +50,6 @@ The **Heal Friend** feature automates the process of healing other players.
 
 - **Configuration:** Players define the conditions that trigger healing, such as the type of spell and the friend's health level.
 - **Monitoring:** The bot monitors the friends' health and automatically heals when necessary.
-- **Personalization:** Healing can be customized according to game needs.
 
 This function is useful for maximizing group efficiency, keeping allies healed without manual intervention.
 
@@ -79,7 +79,7 @@ The targeting system can be activated/deactivated quickly by a hotkey.
 ## Magic Shooter
 ![Magic Shooter](https://zerobot.net/assets/images/55.png "Magic Shooter")
 
-The **Magic Shooter** automates spell casting against enemies. It includes:
+The **Magic Shooter** automates spell casting and runes usage against monsters. It includes:
 - **Spell Configuration:** Defines which spells to use and under what conditions.
 - **Targets and Conditions:** Configures monster names, mana/HP percentages, and monster count.
 
@@ -111,12 +111,12 @@ Features include:
 - **Auto Change Coins:** Automatically converts coins to save space.
 - **Eat Food:** Ensures the character is always fed.
 - **Reconnect:** Automatically reconnects the player after a disconnection.
-- **Anti-AFK:** Prevents the character from being marked as AFK (Away From Keyboard) and disconnected for inactivity.
+- **Anti-AFK:** Prevents the character from being disconnected for inactivity.
 
 ## PvP
 ![PvP](https://zerobot.net/assets/images/8.png "PvP")
 
-The **PVP** tab automates the use of Small Stone Amulet, Might Ring, and includes options like Anti-Push and Hold Target.
+The **PVP** tab automates the use of Stone Skin Amulet, Might Ring, and includes options like Anti-Push and Hold Target.
 
 ## HUD
 ![HUD](https://i.imgur.com/AXCHOUz.png "HUD")
@@ -141,4 +141,4 @@ The **Script** tab stores LUA scripts that can be created or downloaded and plac
 # Settings
 ![Settings](https://i.imgur.com/NfhFcdk.png "Settings")
 
-The **Settings** tab stores profiles saved in .json format. It’s possible to associate profiles with hotkeys, making it easy to switch without navigating the menus.
+The **Settings** tab stores profiles saved in .json format. It’s possible to associate profiles by character name or hotkeys, making it easy to switch without navigating the menus.

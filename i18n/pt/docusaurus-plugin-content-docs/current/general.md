@@ -14,8 +14,8 @@ O sistema de **Healing** do ZeroBot busca manter o personagem vivo em situaçõe
 
 ### Funcionalidades Básicas
 
-**Monitoramento de Saúde:**  
-O bot monitora constantemente os pontos de vida (HP) do personagem, através da leitura contínua dos valores de HP exibidos na interface do jogo.
+**Monitoramento de Vida:**  
+O bot monitora constantemente os pontos de vida (HP) do personagem, interceptando o mesmo antes de aparecer no seu cliente, usando o método mais rápido por ser uma ação crítica.
 
 **Configuração de Limites de Cura:**  
 O usuário pode definir diferentes limites de HP para ativar a cura, como usar uma poção de cura quando o HP estiver abaixo de 70%, ou lançar uma magia de cura quando o HP estiver abaixo de 30%.
@@ -38,18 +38,18 @@ O bot pode ser programado para curar baseado em condições como **Drunk**, **Ro
 
 ### Exemplo de Configuração
 - **Exura Med Ico:** Usar quando HP < 80%
-- **Exura Ico:** Usar quando HP < 50%
-- **Ultimate Health Potion:** Usar quando HP < 40%
-- **Great Health Potion:** Usar quando HP < 70%
+- **Exura Ico:** Usar quando HP > 80% and HP < 95%
+- **Supreme Health Potion:** Usar quando HP < 40%
+- **Ultimate Health Potion:** Usar quando HP > 40% and HP < 70%
+- **Great Health Potion:** Usar quando HP > 70% and HP < 85%
 
 # Heal Friend
 ![Heal Friend](https://zerobot.net/assets/images/3.png "Heal Friend")
 
 A funcionalidade **Heal Friend** automatiza o processo de cura de outros jogadores.
 
-- **Configuração:** O jogador define as condições que ativam a cura, como o tipo de magia e o nível de saúde.
-- **Monitoramento:** O bot monitora a saúde dos amigos e cura automaticamente quando necessário.
-- **Personalização:** A cura pode ser personalizada conforme as necessidades de jogo.
+- **Configuração:** O jogador define as condições que ativam a cura, como o tipo de magia e a quantidade de vida.
+- **Monitoramento:** O bot monitora a vida dos amigos e cura automaticamente quando necessário.
 
 Essa função é útil para maximizar a eficiência em grupo, mantendo os aliados curados sem intervenção manual.
 
@@ -57,7 +57,7 @@ Essa função é útil para maximizar a eficiência em grupo, mantendo os aliado
 ![Conditions](https://zerobot.net/assets/images/4.png "Conditions")
 
 A aba **Conditions** permite configurar magias para serem renovadas automaticamente, como:
-- **Utani Hur:** Mantém ativa a spell de correr.
+- **Utani Hur:** Mantém ativa a magia de correr.
 - **Utana Vid:** Renova o Utana Vid quando a mana está acima do valor definido.
 - **Utura/Utura Gran:** Renova ao fim da duração.
 - **Utamo Vita:** Usa-se conforme a porcentagem de HP.
@@ -79,7 +79,7 @@ O sistema de targeting pode ser ativado/desativado rapidamente por uma hotkey.
 ## Magic Shooter
 ![Magic Shooter](https://zerobot.net/assets/images/55.png "Magic Shooter")
 
-O **Magic Shooter** automatiza o lançamento de magias contra inimigos. Inclui:
+O **Magic Shooter** automatiza o lançamento de magias e uso de runas contra monstros. Inclui:
 - **Configuração de Spells:** Define quais magias usar e as condições.
 - **Alvos e Condições:** Configura nome de monstros, porcentagens de mana/vida, e quantidade de monstros.
 
@@ -116,7 +116,7 @@ Funcionalidades:
 ## PvP
 ![PvP](https://zerobot.net/assets/images/8.png "PvP")
 
-A aba **PVP** automatiza o uso de Small Stone Amulet, Might Ring e possui opções como Anti-Push e Hold Target.
+A aba **PVP** automatiza o uso de Stone Skin Amulet, Might Ring e possui opções como Anti-Push e Hold Target.
 
 ## HUD
 ![HUD](https://i.imgur.com/AXCHOUz.png "HUD")
@@ -136,9 +136,9 @@ Permite ajustar o funcionamento do bot, como os delays e ocultar o botão do Zer
 # Scripting
 ![Scripting](https://i.imgur.com/nrvnnqi.png "Scripting")
 
-A aba **Script** armazena scripts em .LUA, que podem ser criados ou baixados e colocados na pasta Documents\ZeroBot\Scripts.
+A aba **Script** armazena scripts em .LUA, que podem ser criados ou baixados e colocados na pasta Documentos\ZeroBot\Scripts.
 
 # Settings
 ![Settings](https://i.imgur.com/NfhFcdk.png "Settings")
 
-A aba **Settings** armazena perfis salvos em formato .json. É possível associar perfis a hotkeys, facilitando a troca sem navegar pelos menus.
+A aba **Settings** armazena perfis salvos em formato .json. É possível associar perfis a nome dos personagens ou hotkeys, facilitando a troca sem navegar pelos menus.
