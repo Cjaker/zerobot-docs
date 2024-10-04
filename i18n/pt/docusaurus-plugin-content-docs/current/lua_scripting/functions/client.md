@@ -9,9 +9,18 @@ Funções gerais do cliente
 Client.isConnected()
 Client.isKeyPressed(key, flags)
 Client.showMessage(message)
+Client.XLog()
+Client.getGameWindowDimensions() 
 Client.getLatency()
 Client.getServerLatency()
 Client.focus()
+Client.sendHotkey()
+Client.getCursorMapPosition()
+Client.getFightMode()
+Client.setFightMode(fightMode)
+Client.getChaseMode()
+Client.setChaseMode(chaseMode)
+Client.setWindowTitle(title)
 ```
 
 ### Código
@@ -33,8 +42,17 @@ function Client.isKeyPressed(key, flags)
 -- Esta função é um wrapper em torno da função externa clientShowMessage.
 -- @param message (string) - A mensagem a ser mostrada
 function Client.showMessage(message)
+    
+--- Desconecta o cliente usando a função nativa X-Log do cliente.
+-- Esta função é um wrapper em torno da função externa clientXLog.
+function Client.XLog()
+    
+--- Obtém as dimensões da janela do jogo do cliente.
+-- Esta função é um wrapper em torno da função externa clientGetGameWindowDimensions.
+-- @return the following structure in table {x=0,y=0,width=0,height=0}
+function Client.getGameWindowDimensions()
 
--- Obtém a latência atual do cliente, baseado na latência da interface do jogo.
+--- Obtém a latência atual do cliente, baseado na latência da interface do jogo.
 -- Esta função é um wrapper em torno da função externa clientGetLatency.
 -- @return A latência atual em milissegundos, se a informação não estiver disponível retornará -1.
 function Client.getLatency()
@@ -55,4 +73,36 @@ function Client.focus()
 -- @param key (number) - O código da tecla.
 -- @param modifier (number) - As flags do modificador.
 function Client.sendHotkey(key, modifier)
+
+--- Obtém a posição (x, y, z) que se encontra o cursor (mouse).
+-- Esta função é um wrapper em torno da função externa clientGetCursorMapPosition.
+-- @return the following structure in table {x=0,y=0,z=0}
+function Client.getCursorMapPosition()
+
+--- Obtém o modo de luta atual.
+-- Esta função é um wrapper em torno da função externa clientGetFightMode.
+-- @return the current fight mode, otherwise the last known fight mode. Refer to Enums.FightModes for possible values.
+function Client.getFightMode()
+
+--- Define o modo de luta atual.
+-- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
+-- Esta função é um wrapper em torno da função externa clientSetFightMode.
+-- @param fightMode (number) - The fight mode to be set. Refer to Enums.FightModes for possible values.
+function Client.setFightMode(fightMode)
+
+--- Obtém o modo de perseguição atual.
+-- Esta função é um wrapper em torno da função externa clientGetChaseMode.
+-- @return the current chase mode, otherwise the last known chase mode. Refer to Enums.ChaseModes for possible values.
+function Client.getChaseMode()
+
+--- Define o modo de perseguição atual.
+-- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
+-- Esta função é um wrapper em torno da função externa clientSetChaseMode.
+-- @param chaseMode (number) - The chase mode to be set. Refer to Enums.ChaseModes for possible values.
+function Client.setChaseMode(chaseMode)
+
+--- Define o título da janela do jogo.
+-- Esta função é um wrapper em torno da função externa clientSetWindowTitle.
+-- @param title (string) - The title to be set.
+function Client.setWindowTitle(title)
 ```
