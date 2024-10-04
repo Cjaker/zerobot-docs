@@ -49,7 +49,7 @@ function Client.XLog()
     
 --- Obtém as dimensões da janela do jogo do cliente.
 -- Esta função é um wrapper em torno da função externa clientGetGameWindowDimensions.
--- @return the following structure in table {x=0,y=0,width=0,height=0}
+-- @return a seguinte estrutura em tabela {x=0,y=0,width=0,height=0}
 function Client.getGameWindowDimensions()
 
 --- Obtém a latência atual do cliente, baseado na latência da interface do jogo.
@@ -76,33 +76,33 @@ function Client.sendHotkey(key, modifier)
 
 --- Obtém a posição (x, y, z) que se encontra o cursor (mouse).
 -- Esta função é um wrapper em torno da função externa clientGetCursorMapPosition.
--- @return the following structure in table {x=0,y=0,z=0}
+-- @return a seguinte estrutura em tabela {x=0,y=0,z=0}
 function Client.getCursorMapPosition()
 
 --- Obtém o modo de luta atual.
 -- Esta função é um wrapper em torno da função externa clientGetFightMode.
--- @return the current fight mode, otherwise the last known fight mode. Refer to Enums.FightModes for possible values.
+-- @return o modo de luta atual, caso contrário, o último modo de luta conhecido. Consulte Enums.FightModes para valores possíveis.
 function Client.getFightMode()
 
 --- Define o modo de luta atual.
 -- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetFightMode.
--- @param fightMode (number) - The fight mode to be set. Refer to Enums.FightModes for possible values.
+-- @param fightMode (number) - O modo de luta a ser definido. Consulte Enums.FightModes para valores possíveis.
 function Client.setFightMode(fightMode)
 
 --- Obtém o modo de perseguição atual.
 -- Esta função é um wrapper em torno da função externa clientGetChaseMode.
--- @return the current chase mode, otherwise the last known chase mode. Refer to Enums.ChaseModes for possible values.
+-- @return o modo de perseguição atual, caso contrário, o último modo de perseguição conhecido. Consulte Enums.ChaseModes para valores possíveis.
 function Client.getChaseMode()
 
 --- Define o modo de perseguição atual.
 -- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetChaseMode.
--- @param chaseMode (number) - The chase mode to be set. Refer to Enums.ChaseModes for possible values.
+-- @param chaseMode (number) - O modo de perseguição a ser definido. Consulte Enums.ChaseModes para valores possíveis.
 function Client.setChaseMode(chaseMode)
 
 --- Define o título da janela do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetWindowTitle.
--- @param title (string) - The title to be set.
+-- @param title (string) - O título a ser definido.
 function Client.setWindowTitle(title)
 ```
