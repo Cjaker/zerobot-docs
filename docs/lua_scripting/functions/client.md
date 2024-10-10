@@ -9,9 +9,18 @@ Overall client functions
 Client.isConnected()
 Client.isKeyPressed(key, flags)
 Client.showMessage(message)
+Client.XLog()
+Client.getGameWindowDimensions()
 Client.getLatency()
 Client.getServerLatency()
 Client.focus()
+Client.sendHotkey(key, modifier)
+Client.getCursorMapPosition()
+Client.getFightMode()
+Client.setFightMode(fightMode)
+Client.getChaseMode()
+Client.setChaseMode(chaseMode)
+Client.setWindowTitle(title)
 ```
 
 ### Code
@@ -34,6 +43,15 @@ function Client.isKeyPressed(key, flags)
 -- @param message (string) - The message to be shown
 function Client.showMessage(message)
 
+--- Disconnects the client using X-Log native function.
+-- This function is a wrapper around the external function clientXLog.
+function Client.XLog()
+
+--- Get client game window dimensions.
+-- This function is a wrapper around the external function clientGetGameWindowDimensions.
+-- @return the following structure in table {x=0,y=0,width=0,height=0}
+function Client.getGameWindowDimensions()
+
 -- Get the current latency from the client latency indicator UI.
 -- This function is a wrapper around the external function clientGetLatency.
 -- @return The current latency in milliseconds, if the information isn't available will return -1.
@@ -49,10 +67,42 @@ function Client.getServerLatency()
 -- Note from Windows documentation: An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.
 function Client.focus()
 
--- Send a key press event to the client.
+--- Send a key press event to the client.
 -- This function is a wrapper around the external function clientSendHotkey.
 -- You can base the key and modifier params on HotkeyManager.parseKeyCombination function returns.
 -- @param key (number) - The key code.
 -- @param modifier (number) - The modifier flags.
 function Client.sendHotkey(key, modifier)
+
+--- Get the current cursor position translated into the map position.
+-- This function is a wrapper around the external function clientGetCursorMapPosition.
+-- @return the following structure in table {x=0,y=0,z=0}
+function Client.getCursorMapPosition()
+
+--- Get the current fight mode.
+-- This function is a wrapper around the external function clientGetFightMode.
+-- @return the current fight mode, otherwise the last known fight mode. Refer to Enums.FightModes for possible values.
+function Client.getFightMode()
+
+--- Set the current fight mode.
+-- Note: this function doesn't updates the fight mode instantly, it will be updated on the next game frame.
+-- This function is a wrapper around the external function clientSetFightMode.
+-- @param fightMode (number) - The fight mode to be set. Refer to Enums.FightModes for possible values.
+function Client.setFightMode(fightMode)
+
+--- Get the current chase mode.
+-- This function is a wrapper around the external function clientGetChaseMode.
+-- @return the current chase mode, otherwise the last known chase mode. Refer to Enums.ChaseModes for possible values.
+function Client.getChaseMode()
+
+--- Set the current chase mode.
+-- Note: this function doesn't updates the chase mode instantly, it will be updated on the next game frame.
+-- This function is a wrapper around the external function clientSetChaseMode.
+-- @param chaseMode (number) - The chase mode to be set. Refer to Enums.ChaseModes for possible values.
+function Client.setChaseMode(chaseMode)
+
+--- Set game window title.
+-- This function is a wrapper around the external function clientSetWindowTitle.
+-- @param title (string) - The title to be set.
+function Client.setWindowTitle(title)
 ```
