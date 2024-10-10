@@ -42,17 +42,17 @@ function Client.isKeyPressed(key, flags)
 -- Esta função é um wrapper em torno da função externa clientShowMessage.
 -- @param message (string) - A mensagem a ser mostrada
 function Client.showMessage(message)
-    
+
 --- Desconecta o cliente usando a função nativa X-Log do cliente.
 -- Esta função é um wrapper em torno da função externa clientXLog.
 function Client.XLog()
-    
+
 --- Obtém as dimensões da janela do jogo do cliente.
 -- Esta função é um wrapper em torno da função externa clientGetGameWindowDimensions.
 -- @return a seguinte estrutura em tabela {x=0,y=0,width=0,height=0}
 function Client.getGameWindowDimensions()
 
---- Obtém a latência atual do cliente, baseado na latência da interface do jogo.
+--- Obtém a latência atual do cliente, baseado na latência mostrada na interface do jogo.
 -- Esta função é um wrapper em torno da função externa clientGetLatency.
 -- @return A latência atual em milissegundos, se a informação não estiver disponível retornará -1.
 function Client.getLatency()
@@ -67,41 +67,41 @@ function Client.getServerLatency()
 -- Nota da documentação do Windows: Um aplicativo não pode forçar uma janela para o primeiro plano enquanto o usuário está trabalhando com outra janela. Em vez disso, o Windows pisca o botão da barra de tarefas da janela para notificar o usuário.
 function Client.focus()
 
---- Enviar um evento de pressionamento de tecla para o cliente.
+--- Envia um evento de pressionamento de tecla para o cliente.
 -- Esta função é um wrapper em torno da função externa clientSendHotkey.
 -- Você pode basear os parâmetros key e modifier nos retornos da função HotkeyManager.parseKeyCombination.
 -- @param key (number) - O código da tecla.
 -- @param modifier (number) - As flags do modificador.
 function Client.sendHotkey(key, modifier)
 
---- Obtém a posição (x, y, z) que se encontra o cursor (mouse).
+--- Obtém a posição do mapa (x, y, z) no piso onde está posicionado o seu cursor (mouse).
 -- Esta função é um wrapper em torno da função externa clientGetCursorMapPosition.
 -- @return a seguinte estrutura em tabela {x=0,y=0,z=0}
 function Client.getCursorMapPosition()
 
 --- Obtém o modo de luta atual.
 -- Esta função é um wrapper em torno da função externa clientGetFightMode.
--- @return o modo de luta atual, caso contrário, o último modo de luta conhecido. Consulte Enums.FightModes para valores possíveis.
+-- @return o modo de luta atual, caso contrário, o último modo de luta conhecido. Consulte Enums.FightModes para saber os possíveis valores de retorno.
 function Client.getFightMode()
 
 --- Define o modo de luta atual.
--- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
+-- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado na próxima renderização de frame/quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetFightMode.
--- @param fightMode (number) - O modo de luta a ser definido. Consulte Enums.FightModes para valores possíveis.
+-- @param fightMode (number) - O modo de luta a ser definido. Consulte Enums.FightModes para saber os possíveis valores que possam ser definidos.
 function Client.setFightMode(fightMode)
 
 --- Obtém o modo de perseguição atual.
 -- Esta função é um wrapper em torno da função externa clientGetChaseMode.
--- @return o modo de perseguição atual, caso contrário, o último modo de perseguição conhecido. Consulte Enums.ChaseModes para valores possíveis.
+-- @return o modo de perseguição atual, caso contrário, o último modo de perseguição conhecido. Consulte Enums.ChaseModes para saber os possíveis valores de retorno.
 function Client.getChaseMode()
 
 --- Define o modo de perseguição atual.
--- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado no próximo quadro do jogo.
+-- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado na próxima renderização de frame/quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetChaseMode.
--- @param chaseMode (number) - O modo de perseguição a ser definido. Consulte Enums.ChaseModes para valores possíveis.
+-- @param chaseMode (number) - O modo de perseguição a ser definido. Consulte Enums.ChaseModes para saber os possíveis valores que possam ser definidos.
 function Client.setChaseMode(chaseMode)
 
---- Define o título da janela do jogo.
+--- Define o título da janela do cliente.
 -- Esta função é um wrapper em torno da função externa clientSetWindowTitle.
 -- @param title (string) - O título a ser definido.
 function Client.setWindowTitle(title)
