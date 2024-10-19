@@ -35,3 +35,13 @@ sidebar_position: 1
 **Goto** -> pula para algum waypoint pelo seu nome (lembra do Label? É por isso). **Para editar o waypoint, basta dar um duplo clique nele**
 
 **Script** -> executa um script ao ativar esse tipo de waypoint. **Para editar o waypoint, basta dar um duplo clique nele**
+
+**Door** -> abre ou fecha uma porta na posição do waypoint
+
+**Sell Loot** -> vende o loot próximo da posição do waypoint. Para configurar os itens que forem vendidos, clique no botão \"Settings\" da janela CaveBot Options e configure a lista Sell List (leia a dica ao lado dela)
+
+**Hur Up** -> usa a magia exani hur "up" na posição do waypoint
+
+**Hur Down** -> usa a magia exani hur "down" na posição do waypoint
+
+**Refill** -> "refila" na posição do waypoint. Para configurar os itens que serão comprados, clique no botão \"Settings\" da janela CaveBot Options e configure a lista Refill List (leia a dica ao lado dela)

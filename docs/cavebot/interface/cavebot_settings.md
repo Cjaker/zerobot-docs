@@ -17,7 +17,7 @@ sidebar_position: 5
 
 ## CaveBot Settings - Advanced
 <div class="text--center">
-  <img src="/img/cavebot_settings_window_2.png?v=2" />
+  <img src="/img/cavebot_settings_window_2.png?v=3" />
   <p>CaveBot Advanced Settings</p>
 </div>
 
@@ -52,3 +52,10 @@ In the text field shown in the image above, please enter the names of monsters t
 
 ## Node Settings
 **Distance**: The distance between the player and the 'node' waypoint that CaveBot will consider as reached.
+
+## Walking Settings
+**Map Walk**: If enabled, the bot will use click map to walk.
+
+**Arrow Keys**: If enabled, the bot will use the keyboard arrow keys method to walk.
+
+**Disable Player Walkthrough**: If enabled, the bot will not allow the player to walk through other players. (useful for servers that inform the client that it is possible to walk on top of player X, but it ends up not being).

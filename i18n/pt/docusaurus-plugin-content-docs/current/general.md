@@ -91,7 +91,7 @@ Esse sistema pode ser ativado/desativado com uma hotkey.
 A interface do **CaveBot** facilita a adição e gerenciamento de waypoints, suportando várias ações, como usar cordas ou escadas.
 
 Possui recursos como:
-- **Auto Recorder:** Grava waypoints automaticamente.
+- **Auto Recorder:** Grava waypoints automaticamente, depois da versão 1.7.6.4+ ele gravará mais tipos de waypoints, sendo mais inteligente.
 - **Debug HUD:** Monitora o funcionamento do CaveBot.
 
 O CaveBot também pode ser ativado/desativado conforme necessário.

@@ -91,7 +91,7 @@ This system can be activated/deactivated with a hotkey.
 The **CaveBot** interface simplifies the addition and management of waypoints, supporting various actions such as using ropes or ladders.
 
 Key features include:
-- **Auto Recorder:** Automatically records waypoints.
+- **Auto Recorder:** Automatically records waypoints, after version 1.7.6.4+ it will record more types of waypoints, being smarter.
 - **Debug HUD:** Monitors the CaveBot’s operation.
 
 The CaveBot can also be activated/deactivated as needed.

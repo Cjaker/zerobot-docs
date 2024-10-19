@@ -17,7 +17,7 @@ sidebar_position: 5
 
 ## Configurações Avançadas do CaveBot
 <div class="text--center">
-  <img src="/img/cavebot_settings_window_2.png?v=2" />
+  <img src="/img/cavebot_settings_window_2.png?v=3" />
   <p>Configurações Avançadas do CaveBot</p>
 </div>
 
@@ -52,3 +52,10 @@ No campo de texto mostrado na imagem acima, por favor insira os nomes dos monstr
 
 ## Configurações de Node
 **Distância**: A distância entre o jogador e o waypoint 'nó' que o CaveBot considerará como alcançado.
+
+## Configurações de Movimentação
+**Map Walk**: Se habilitado, o bot irá usar click map para caminhar.
+
+**Arrow Keys**: Se habilitado, o bot irá usar o método das setas do teclado para caminhar.
+
+**Disable Player Walkthrough**: Se habilitado, o bot não permitirá que o jogador caminhe através de outros jogadores. (útil para servidores que informam o cliente que é possível andar em cima de jogador X, mas acaba não sendo).

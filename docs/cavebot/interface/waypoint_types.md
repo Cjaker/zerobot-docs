@@ -34,3 +34,13 @@ sidebar_position: 1
 **Goto** -> jumps to some waypoint by its name (remember the Label? That’s why). **To edit the waypoint, just double-click on it**
 
 **Script** -> executes script upon activating this type of waypoint. **To edit the waypoint, just double-click on it**
+
+**Door** -> opens or closes a door at the waypoint's position
+
+**Sell Loot** -> sells the loot near the waypoint's position. To configure the items that will be sold, click on the \"Settings\" button in the CaveBot Options window and configure the Sell List (read the tip next to it)
+
+**Hur Up** -> uses the exani hur "up" spell at the waypoint's position
+
+**Hur Down** -> uses the exani hur "down" spell at the waypoint's position
+
+**Refill** -> "refills" at the waypoint's position. To configure the items that will be bought, click on the \"Settings\" button in the CaveBot Options window and configure the Refill List (read the tip next to it)
