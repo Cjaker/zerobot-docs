@@ -163,6 +163,13 @@ function Map.useItemWithContainer(x, y, z, index, slot)
 -- @return True if the request was sent to server, or nil if tile doesn't exists or there's no map information available.
 function Map.lookAt(x, y, z)
 
+-- Collect reward chest from specific position. Only works with reward chest id: 19250
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @return True if the request was sent to server, or nil if tile doesn't exists or there's no map information available.
+function Map.collectRewardChest(x, y, z)
+
 -- Get current map world camera position
 -- This function is useful if you wanna a real-time position of your character
 -- The game takes some time to update the position of a creature directly, so in specific cases that can be useful

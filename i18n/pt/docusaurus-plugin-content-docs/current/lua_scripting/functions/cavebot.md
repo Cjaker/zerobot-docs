@@ -18,13 +18,18 @@ CaveBot.getWaypointTypeById(id)
 CaveBot.getWaypointDataById(id)
 CaveBot.setLureIgnoreList(list)
 CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount)
-CaveBot.setLureSettings(creaturesToRun)
-CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter)
+CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCreatures)
+CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter, creaturesToLeaveByHp, creaturesToLeaveByHpValue, creaturesToLeaveByHpCount, dontLeaveIfHp, dontLeaveIfHpValue, dontLeaveIfHpCount)
 CaveBot.setAutoRecorderSettings(nodeDistance, type)
 CaveBot.setNodeSettings(nodeDistance)
 CaveBot.addSpecialArea(x, y, z, type, width, height, fromWp, toWp)
 CaveBot.deleteSpecialArea(id)
 CaveBot.clearSpecialAreas()
+CaveBot.setWalkMode(mode)
+CaveBot.setWalkDelay(delay)
+CaveBot.disablePlayerWalkthrough(disabled)
+CaveBot.setCoreTeleportIds(ids)
+CaveBot.enableAutoRecorder(enabled)
 CaveBot.pause(milliseconds)
 CaveBot.saveFile(fileName)
 CaveBot.loadFile(fileName)
@@ -118,7 +123,9 @@ function CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, 
 --- Todos os parâmetros abaixo são baseados na seção de Configurações de Lure na janela de configurações do CaveBot.
 --- Esta função é um wrapper em torno da função externa cavebotSetLureSettings.
 --- @param creaturesToRun (number) - A quantidade de criaturas para correr.
-function CaveBot.setLureSettings(creaturesToRun)
+--- @param dynamicLure (boolean) - A flag para ativar o Lure Dinâmico.
+--- @param skipUnreachableCreatures (boolean) - A flag para ignorar criaturas inalcançáveis.
+function CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCreatures)
 
 --- Define as configurações de Lure End para o sistema de CaveBot.
 --- Todos os parâmetros abaixo são baseados na seção de Configurações de Lure End na janela de configurações do CaveBot.
@@ -126,7 +133,13 @@ function CaveBot.setLureSettings(creaturesToRun)
 --- @param creaturesToStop (number) - A quantidade de criaturas para parar.
 --- @param creaturesToLeave (number) - A quantidade de criaturas para deixar.
 --- @param tryWalkToCenter (boolean) - A flag para tentar caminhar até o centro.
-function CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter)
+--- @param creaturesToLeaveByHp (boolean) - A flag para deixar criaturas por hp.
+--- @param creaturesToLeaveByHpValue (number) - O valor de hp para deixar criaturas.
+--- @param creaturesToLeaveByHpCount (number) - A quantidade de criaturas para deixar por hp.
+--- @param dontLeaveIfHp (boolean) - A flag para não deixar o lure.
+--- @param dontLeaveIfHpValue (number) - O valor de hp para não deixar o lure.
+--- @param dontLeaveIfHpCount (number) - A quantidade de criaturas para não deixar o lure.
+function CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter, creaturesToLeaveByHp, creaturesToLeaveByHpValue, creaturesToLeaveByHpCount, dontLeaveIfHp, dontLeaveIfHpValue, dontLeaveIfHpCount)
 
 --- Define as configurações de gravação automática para o sistema de CaveBot.
 --- Todos os parâmetros abaixo são baseados na seção de Configurações de Gravação Automática na janela de configurações do CaveBot.
@@ -163,6 +176,26 @@ function CaveBot.deleteSpecialArea(id)
 --- Limpa todas as áreas especiais no sistema de CaveBot.
 --- Esta função é um wrapper em torno da função externa cavebotClearSpecialAreas.
 function CaveBot.clearSpecialAreas()
+
+--- Define o modo de caminhada para o sistema de CaveBot. Mais informações na interface do CaveBot.
+--- Esta função é um wrapper em torno da função externa cavebotSetWalkMode.
+--- @param mode (number) - O modo de caminhada. Consulte o valor como Enums.WalkMode.
+function CaveBot.setWalkMode(mode)
+
+--- Define o intervalo entre os passos da caminhada para o sistema de CaveBot. Mais informações na interface do CaveBot.
+--- Esta função é um wrapper em torno da função externa cavebotSetWalkDelay.
+--- @param delay (number) - O intervalo entre os passos da caminhada em milissegundos.
+function CaveBot.setWalkDelay(delay)
+
+--- Desabilita o walkthrough do jogador para o sistema de CaveBot. Mais informações na interface do CaveBot.
+--- Esta função é um wrapper em torno da função externa cavebotDisablePlayerWalkthrough.
+--- @param disabled (boolean) - A flag para desabilitar o walkthrough do jogador.
+function CaveBot.disablePlayerWalkthrough(disabled)
+
+--- Define os IDs de teleporte do core para o sistema de CaveBot. Mais informações na interface do CaveBot.
+--- Esta função é um wrapper em torno da função externa cavebotSetCoreTeleportIds.
+--- @param ids (table) - A lista de IDs de teleporte do core.
+function CaveBot.setCoreTeleportIds(ids)
 
 --- Pausa o sistema do cavebot por um tempo específico em milissegundos.
 -- Esta função é um wrapper para a função externa cavebotPause.

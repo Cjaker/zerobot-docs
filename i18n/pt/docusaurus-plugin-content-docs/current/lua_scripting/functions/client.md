@@ -21,6 +21,10 @@ Client.setFightMode(fightMode)
 Client.getChaseMode()
 Client.setChaseMode(chaseMode)
 Client.setWindowTitle(title)
+Client.getVersion()
+Client.isTradeShopOpen()
+Client.flashWindow()
+Client.getFps()
 ```
 
 ### Código
@@ -105,4 +109,20 @@ function Client.setChaseMode(chaseMode)
 -- Esta função é um wrapper em torno da função externa clientSetWindowTitle.
 -- @param title (string) - O título a ser definido.
 function Client.setWindowTitle(title)
+
+--- Obtém a versão do cliente.
+-- Esta função é um wrapper em torno da função externa clientGetVersion.
+function Client.getVersion()
+
+--- Verifica se a janela de trade está atualmente aberta.
+-- Esta função é um wrapper em torno da função externa clientIsTradeShopOpen.
+function Client.isTradeShopOpen()
+
+--- Faz a janela do jogo piscar.
+-- Esta função é um wrapper em torno da função externa clientFlashWindow.
+function Client.flashWindow()
+
+--- Obtém o FPS atual do cliente.
+-- Esta função é um wrapper em torno da função externa clientGetFps.
+function Client.getFps()
 ```

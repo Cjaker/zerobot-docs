@@ -18,7 +18,7 @@ Game.getInventoryItems()
 Game.useItemOnGround(itemId, x, y, z)
 Game.useItemFromGround(x, y, z)
 Game.getChannelsHistory()
-Game.modalWindowAnswer(id, button, choice)
+Game.modalWindowAnswer(id, button, choice, closeAfterAnswer)
 Game.useItemWithCreature(id, creatureId)
 Game.lootCorpse(x, y, z)
 Game.equipItem(itemId, tier)
@@ -47,7 +47,11 @@ Game = {
         TEXT_MESSAGE = 5,
         MODAL_WINDOW = 6,
         CUSTOM_MODAL_WINDOW_BUTTON_CLICK = 7,
-        IMBUEMENT_DATA = 8
+        IMBUEMENT_DATA = 8,
+        QUEST_LOG = 9,
+        QUEST_LINES = 10,
+        DISTANCE_SHOOT_EFFECT = 11,
+        PARTY_HUNT = 12
     }
 }
 
@@ -124,9 +128,13 @@ function Game.useItemFromGround(x, y, z)
 function Game.getChannelsHistory()
 
 -- Answer current modal window
--- This function is a wrapper around the external function gameUseItemFromGround.
+-- This function is a wrapper around the external function gameModalWindowAnswer.
+-- @param id (number) - The ID of the modal window.
+-- @param button (number) - The button id to be clicked.
+-- @param choice (number) - The choice id to be selected.
+-- @param closeAfterAnswer (boolean) - If should close the modal window by using default close event after modal answer. Default is true.
 -- @return true if was sent successfully sent the action, if not failed
-function Game.modalWindowAnswer(id, button, choice)
+function Game.modalWindowAnswer(id, button, choice, closeAfterAnswer)
 
 -- Use item with creature by id
 -- This function is a wrapper around the external function gameUseItemWithCreature.

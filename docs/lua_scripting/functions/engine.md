@@ -31,11 +31,18 @@ Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
 Engine.equipmentGetProfileName(index)
 Engine.getScriptsDirectory()
+Engine.healingSwitchProfile(profileIndex)
+Engine.healingGetProfile()
+Engine.healingGetProfileName(index)
 Engine.getUserId()
+Engine.getLicenseTime()
 Engine.setAlarm(alarmType, enable)
 Engine.isAlarmEnabled(alarmType)
 Engine.loadScript(scriptName)
 Engine.unloadScript(scriptName)
+Engine.reloadScript(scriptName)
+Engine.loadConfig(config)
+Engine.isScriptLoaded(scriptName)
 ```
 
 ### Code
@@ -161,10 +168,32 @@ function Engine.equipmentGetProfileName(index)
 -- @return (string) - The path to default scripts directory.
 function Engine.getScriptsDirectory()
 
+--- Switches the profile of healing by index.
+--- This function is a wrapper around the external function engineHealingSwitchProfile.
+--- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).
+function Engine.healingSwitchProfile(profileIndex)
+
+--- Gets the current profile index selected on healing.
+--- This function is a wrapper around the external function engineHealingGetProfile.
+--- @return (number) - The index of current selected profile.
+function Engine.healingGetProfile()
+
+--- Gets the current healing profile name.
+--- This function is a wrapper around the external function engineHealingGetProfileName.
+--- @param index (number) - The index of the profile to get the name from (from 0 to 9).
+--- @return (string) - The name of the current selected profile.
+function Engine.healingGetProfileName(index)
+
 --- Gets the last user ID.
 -- This function is useful to identify current user. You can use engineGetUserId directly if you need to avoid hooks.
 -- @return (string) - The last generated user ID, non-sensitive data.
 function Engine.getUserId()
+
+--- Gets the remaining time of the license.
+--- This function is a wrapper around the external function engineGetLicenseTime.
+--- To allow this function, the user should consent to share this information with the script by enabling "Allow Scripts Access License Time" on Engine tab.
+--- @return (string) - The last visible license time from ZeroBot overview tab. If this information is not available, it will return nil.
+function Engine.getLicenseTime()
 
 --- Enables or disables specific alarm type.
 --- @param alarmType (number) - The alarm type to enable or disable.
@@ -188,4 +217,21 @@ function Engine.loadScript(scriptName)
 -- @param scriptName (string) - The name of the script to unload. This name is based on "Enabled Scripts" list in "Scripting" tab.
 -- @return (boolean) - Returns true if the script was unloaded successfully, false if the script doesn't exists.
 function Engine.unloadScript(scriptName)
+
+--- Reload specific script.
+--- This function is a wrapper around the external function engineReloadScript.
+--- @param scriptName (string) - The name of the script to reload. This name is based on "Enabled Scripts" list in "Scripting" tab.
+--- @return (boolean) - Returns true if the script was reloaded successfully, false if the script doesn't exists.
+function Engine.reloadScript(scriptName)
+
+--- Load specific configuration by name. For privacy reasons we don't have a function to list available configurations.
+--- This function is a wrapper around the external function engineLoadConfig.
+--- @param config (string) - The name of the config file to load. This name is based on available configurations list in "Settings" tab.
+function Engine.loadConfig(config)
+
+--- Check if a specific script is loaded.
+--- This function is a wrapper around the external function engineIsScriptLoaded.
+--- @param scriptName (string) - The name of the script to check. This name is based on "Enabled Scripts" list in "Scripting" tab.
+--- @return (boolean) - Returns true if the script is loaded, false otherwise.
+function Engine.isScriptLoaded(scriptName)
 ```

@@ -21,6 +21,10 @@ Esta documentação descreve as funções internas de Lua projetadas para lidar 
 6. Game.Events.HUD_CLICK
 7. Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK
 8. Game.Events.IMBUEMENT_DATA
+9. Game.Events.QUEST_LOG
+10. Game.Events.QUEST_LINES
+11. Game.Events.DISTANCE_SHOOT_EFFECT
+12. Game.Events.PARTY_HUNT
 ```
 
 ### Propósito e Uso
@@ -237,4 +241,68 @@ function onImbuementData(imbuementData)
 end
 
 Game.registerEvent(Game.Events.IMBUEMENT_DATA, onImbuementData)
+```
+
+### 9. `Game.Events.QUEST_LOG`
+**Propósito**: Este evento é acionado quando o servidor envia dados de log de missão para o cliente.
+
+## Uso:
+```lua
+-- Parâmetros:
+-- @param questLogData - Os dados de log de missão recebidos do servidor.
+function onQuestLog(questLogData)
+    print(JSON.encode(questLogData))
+end
+
+Game.registerEvent(Game.Events.QUEST_LOG, onQuestLog)
+```
+
+### 10. `Game.Events.QUEST_LINES`
+**Propósito**: Este evento é acionado quando o servidor envia linhas de missão para o cliente.
+
+## Uso:
+```lua
+-- Parâmetros:
+-- @param questId - O ID da quest.
+-- @param missions - As missões da quest.
+function onQuestLines(questId, missions)
+    print(questId, JSON.encode(missions))
+end
+
+Game.registerEvent(Game.Events.QUEST_LINES, onQuestLines)
+```
+
+### 11. `Game.Events.DISTANCE_SHOOT_EFFECT`
+**Propósito**: Este evento é acionado quando o servidor envia um efeito de tiro à distância para o cliente.
+
+```lua
+-- Parâmetros:
+-- @param type - O tipo do efeito de tiro à distância
+-- @param fromX - A coordenada x da posição do mapa onde o efeito começou.
+-- @param fromY - A coordenada y da posição do mapa onde o efeito começou.
+-- @param fromZ - A coordenada z da posição do mapa onde o efeito começou.
+-- @param toX - A coordenada x da posição do mapa onde o efeito terminou.
+-- @param toY - A coordenada y da posição do mapa onde o efeito terminou.
+-- @param toZ - A coordenada z da posição do mapa onde o efeito terminou.
+function onDistanceShootEffect(type, fromX, fromY, fromZ, toX, toY, toZ)
+    print(type, fromX, fromY, fromZ, toX, toY, toZ)
+end
+
+Game.registerEvent(Game.Events.DISTANCE_SHOOT_EFFECT, onDistanceShootEffect)
+```
+
+### 12. `Game.Events.PARTY_HUNT`
+-- acionado quando o jogador copia dados da janela de party hunt para a área de transferência e tem permitido o uso do mesmo na guia Engine.
+
+## Uso:
+```lua
+-- Parâmetros:
+-- @param output - Os dados da party hunt copiados para a área de transferência.
+function onPartyHunt(output)
+    print(output)
+end
+
+Game.registerEvent(Game.Events.PARTY_HUNT, onPartyHunt)
+```
+
 ```

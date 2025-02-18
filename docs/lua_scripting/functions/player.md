@@ -27,10 +27,15 @@ Player.getFollowId()
 Player.getInventorySlot(slot)
 Player.getState(index)
 Player.getContainers()
+Player.getDusts()
+Player.getDustsMaximum()
+Player.getTotalGoldBalance()
 Player.joinParty(targetId)
 Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
+Player.getBlessingState()
+Player.leaveParty()
 ```
 
 ### Code
@@ -178,15 +183,16 @@ function Player.getContainers()
 -- This function is a wrapper around the external function playerGetDusts.
 -- @return The player's current dusts amount, or last value if isn't in-game.
 function Player.getDusts()
-	return playerGetDusts()
-end
 
 -- Get maximum dusts amount.
 -- This function is a wrapper around the external function playerGetDustsMaximum.
 -- @return The player's maximum dusts amount, or last value if isn't in-game.
 function Player.getDustsMaximum()
-	return playerGetDustsMaximum()
-end
+
+-- Get the player's total gold balance.
+-- This function is a wrapper around the external function playerGetTotalGoldBalance.
+-- @return The player's total gold balance, or last value if isn't in-game. This value is generally updated when you open some window in-game that have this information, some cases like: open market, open prey window & etc.
+function Player.getTotalGoldBalance()
 
 --- Join into other player party if the invitation request is pending.
 -- This function is a wrapper around the external function playerJoinParty.
@@ -207,4 +213,12 @@ function Player.enableSharedExpParty(enabled)
 --- This function is a wrapper around the external function playerPassLeadershipParty.
 --- @param targetId (number) - The target player id to pass the leadership
 function Player.passLeadershipParty(targetId)
+
+-- Get the player's blessing state.
+-- This function is a wrapper around the external function playerGetBlessingState.
+function Player.getBlessingState()
+
+--- Leave the current party.
+--- This function is a wrapper around the external function playerLeaveParty.
+function Player.leaveParty()
 ```

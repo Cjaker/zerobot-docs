@@ -31,11 +31,18 @@ Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
 Engine.equipmentGetProfileName(index)
 Engine.getScriptsDirectory()
+Engine.healingSwitchProfile(profileIndex)
+Engine.healingGetProfile()
+Engine.healingGetProfileName(index)
 Engine.getUserId()
+Engine.getLicenseTime()
 Engine.setAlarm(alarmType, enable)
 Engine.isAlarmEnabled(alarmType)
 Engine.loadScript(scriptName)
 Engine.unloadScript(scriptName)
+Engine.reloadScript(scriptName)
+Engine.loadConfig(config)
+Engine.isScriptLoaded(scriptName)
 ```
 
 ### Código
@@ -162,10 +169,32 @@ function Engine.equipmentGetProfileName(index)
 -- @return (string) - O caminho para o diretório padrão de scripts.
 function Engine.getScriptsDirectory()
 
+--- Alterna o perfil do healing pelo índice.
+--- Esta função é um wrapper em torno da função externa engineHealingSwitchProfile.
+--- @param profileIndex (number) - O índice do perfil para alternar (de 0 a 9).
+function Engine.healingSwitchProfile(profileIndex)
+
+--- Obtém o índice do perfil atualmente selecionado no healing.
+--- Esta função é um wrapper em torno da função externa engineHealingGetProfile.
+--- @return (number) - O índice do perfil atualmente selecionado.
+function Engine.healingGetProfile()
+
+--- Obtém o nome do perfil de cura (healing) atual.
+--- Esta função é um wrapper em torno da função externa engineHealingGetProfileName.
+--- @param index (number) - O índice do perfil para obter o nome (de 0 a 9).
+--- @return (string) -  O nome do perfil atualmente selecionado.
+function Engine.healingGetProfileName(index)
+
 --- Obtém o último ID do usuário.
 -- Esta função é útil para identificar o usuário atual. Você pode usar engineGetUserId diretamente se precisar evitar hooks.
 -- @return (string) - O último ID de usuário gerado, dados não confidenciais.
 function Engine.getUserId()
+
+--- Obtém o tempo restante da licença.
+--- Esta função é um wrapper em torno da função externa engineGetLicenseTime.
+--- Para permitir esta função, o usuário deve consentir em compartilhar esta informação com o script, ativando "Permitir que os scripts acessem o tempo de licença" na aba Engine.
+--- @return (string) - O último tempo de licença visível na aba de visão geral do ZeroBot. Se esta informação não estiver disponível, retornará nil.
+function Engine.getLicenseTime()
 
 --- Habilita ou desabilita um tipo específico de alarme.
 --- @param alarmType (number) - O tipo de alarme a ser habilitado ou desabilitado.
@@ -180,13 +209,30 @@ function Engine.isAlarmEnabled(alarmType)
 --- Carregar script específico.
 -- Esta função é um wrapper em torno da função externa engineLoadScript.
 -- Esta função é executada de forma assíncrona, então pode levar algum tempo para carregar o script. Portanto, se você usar Engine.unloadScript logo após esta função, deverá esperar que o script seja carregado, aguarde um pouco de atraso.
--- @param scriptName (string) - O nome do script a ser carregado. Este nome é baseado na lista de "Scripts Disponíveis" na aba "Scripting".
+-- @param scriptName (string) - O nome do script a ser carregado. Este nome é baseado na lista de "Available Scripts" na aba "Scripting".
 -- @return (boolean) - Retorna verdadeiro se o script for carregado com sucesso, falso se o script não existir.
 function Engine.loadScript(scriptName)
 
 --- Descarregar script específico.
 -- Esta função é um wrapper em torno da função externa engineUnloadScript.
--- @param scriptName (string) - O nome do script a ser descarregado. Este nome é baseado na lista de "Scripts Habilitados" na aba "Scripting".
+-- @param scriptName (string) - O nome do script a ser descarregado. Este nome é baseado na lista de "Enabled Scripts" na aba "Scripting".
 -- @return (boolean) - Retorna verdadeiro se o script foi descarregado com sucesso, falso se o script não existir.
 function Engine.unloadScript(scriptName)
+
+--- Recarrega um script específico.
+--- Esta função é um wrapper em torno da função externa engineReloadScript.
+--- @param scriptName (string) - O nome do script a ser recarregado. Este nome é baseado na lista de "Enabled Scripts" na aba "Scripting".
+--- @return (boolean) - Retorna verdadeiro se o script foi recarregado com sucesso, falso se o script não existir.
+function Engine.reloadScript(scriptName)
+
+--- Carrega uma configuração específica pelo nome. Por motivos de privacidade, não temos uma função para listar as configurações disponíveis.
+--- Esta função é um wrapper em torno da função externa engineLoadConfig.
+--- @param config (string) - O nome do arquivo de configuração a ser carregado. Este nome é baseado na lista de configurações disponíveis na aba "Settings".
+function Engine.loadConfig(config)
+
+--- Verifica se um script específico está carregado.
+--- Esta função é um wrapper em torno da função externa engineIsScriptLoaded.
+--- @param scriptName (string) - O nome do script a ser verificado. Este nome é baseado na lista de "Enabled Scripts" na aba "Scripting".
+--- @return (boolean) - Retorna verdadeiro se o script estiver carregado, falso caso contrário.
+function Engine.isScriptLoaded(scriptName)
 ```

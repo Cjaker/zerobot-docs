@@ -9,6 +9,7 @@ Overall spell functions
 Spells.getIdByName(name)
 Spells.getIdByWords(words)
 Spells.isInCooldown(id)
+Spells.getLeftCooldownTime(id)
 Spells.groupIsInCooldown(groupId)
 ```
 
@@ -32,6 +33,12 @@ function Spells.getIdByWords(words)
 -- @param id (number) - The ID of the spell.
 -- @return True if the spell is in cooldown, false otherwise.
 function Spells.isInCooldown(id)
+
+--- Get the left cooldown tiem of a specific spell.
+-- This function is a wrapper around the external function spellGetLeftCooldownTime.
+-- @param id (number) - The ID of the spell.
+-- @return The left cooldown time of the spell, or -1 for following conditions: the spell doesn't exist, the spell is not in cooldown.
+function Spells.getLeftCooldownTime(id)
 
 --- Check if a spell group is in cooldown.
 -- This function is a wrapper around the external function spellGroupIsInCooldown.

@@ -6,6 +6,15 @@ sidebar_position: 1
 Todas as variáveis de enumerações disponíveis
 
 ```lua
+-- o ícone da interface pode ser encontrado acima do seu set/inventário do personagem
+Enums.BlessingState = {
+	UNDEFINED = -1, -- bot ainda não adquiriu essa informação
+	NONE = 0, -- sem bênçãos ativas, ícone cinza na interface do cliente
+	NORMAL = 1, -- bênçãos normais, ícone verde na interface do cliente
+	FULL = 2 -- bênçãos completas, ícone dourado na interface do cliente
+}```
+
+```lua
 Enums.AlarmType = {
 	DISCONNECTED = 0,
 	DAMAGE_TAKEN = 1,
@@ -21,7 +30,8 @@ Enums.AlarmType = {
 	SKULL_ON_SCREEN = 11,
 	ENEMY_DETECTED = 12,
 	ENEMY_ON_SCREEN = 13,
-	GM_DETECTED = 14
+	GM_DETECTED = 14,
+	LOW_CAP = 15
 }
 
 -- HUD
@@ -243,6 +253,7 @@ Enums.States = {
 	STATE_CURSE_III = 23,
 	STATE_CURSE_IV = 24,
 	STATE_CURSE_V = 25,
-	STATE_MAGIC_SHIELD = 26
+	STATE_MAGIC_SHIELD = 26,
+	STATE_AGONY = 27
 }
 ```

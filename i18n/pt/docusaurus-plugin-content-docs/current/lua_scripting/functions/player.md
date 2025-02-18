@@ -20,17 +20,22 @@ Player.isHungry()
 Player.getStamina()
 Player.getLevel()
 Player.getLevelPercent()
-Player.getXpBoostTime()
+Player.getStamina()
 Player.getSkills()
 Player.getTargetId()
 Player.getFollowId()
 Player.getInventorySlot(slot)
 Player.getState(index)
 Player.getContainers()
+Player.getDusts()
+Player.getDustsMaximum()
+Player.getTotalGoldBalance()
 Player.joinParty(targetId)
 Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
+Player.getBlessingState()
+Player.leaveParty()
 ```
 
 ### Código
@@ -178,15 +183,16 @@ function Player.getContainers()
 -- Esta função é um wrapper em torno da função externa playerGetDusts.
 -- @return A quantidade atual de poeiras do jogador, ou o último valor se não estiver no jogo.
 function Player.getDusts()
-	return playerGetDusts()
-end
 
 --- Obter a quantidade máxima de poeiras.
 -- Esta função é um wrapper em torno da função externa playerGetDustsMaximum.
 -- @return A quantidade máxima de poeiras do jogador, ou o último valor se não estiver no jogo.
 function Player.getDustsMaximum()
-	return playerGetDustsMaximum()
-end
+
+--- Obtém o saldo total de ouro do jogador.
+-- Esta função é um wrapper em torno da função externa playerGetTotalGoldBalance.
+-- @return O saldo total de ouro do jogador, ou o último valor se não estiver no jogo. Esse valor é geralmente atualizado quando você abre alguma janela no jogo que tenha essa informação, alguns casos como: abrir mercado, abrir janela de presa e etc.
+function Player.getTotalGoldBalance()
 
 --- Junta-se a uma party de outro jogador se o pedido de convite estiver pendente.
 -- Esta função é um wrapper em torno da função externa playerJoinParty.
@@ -207,4 +213,13 @@ function Player.enableSharedExpParty(enabled)
 -- Esta função é um wrapper em torno da função externa playerPassLeadershipParty.
 -- @param targetId (número) - O ID do jogador alvo para passar a liderança
 function Player.passLeadershipParty(targetId)
+
+--- Obtém o estado de bênção do jogador.
+-- Esta função é um wrapper em torno da função externa playerGetBlessingState.
+-- @return O estado de bênção do jogador, ou o último valor se não estiver no jogo.
+function Player.getBlessingState()
+
+--- Sai da party atual.
+-- Esta função é um wrapper em torno da função externa playerLeaveParty.
+function Player.leaveParty()
 ```

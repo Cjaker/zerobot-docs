@@ -18,7 +18,7 @@ Game.getInventoryItems()
 Game.useItemOnGround(itemId, x, y, z)
 Game.useItemFromGround(x, y, z)
 Game.getChannelsHistory()
-Game.modalWindowAnswer(id, button, choice)
+Game.modalWindowAnswer(id, button, choice, closeAfterAnswer)
 Game.useItemWithCreature(id, creatureId)
 Game.lootCorpse(x, y, z)
 Game.equipItem(itemId, tier)
@@ -124,8 +124,11 @@ function Game.getChannelsHistory()
 
 --- Responde a uma janela modal atual.
 -- Esta função é um wrapper em torno da função externa gameModalWindowAnswer.
--- @return true se a ação foi enviada com sucesso, caso contrário, falha
-function Game.modalWindowAnswer(id, button, choice)
+-- @param id (number) - O ID da janela modal.
+-- @param button (number) - O botão da janela modal.
+-- @param choice (number) - A escolha da janela modal.
+-- @param closeAfterAnswer (boolean) - Se deve fechar a janela após a resposta.
+function Game.modalWindowAnswer(id, button, choice, closeAfterAnswer)
 
 --- Usa um item com uma criatura pelo ID.
 -- Esta função é um wrapper em torno da função externa gameUseItemWithCreature.

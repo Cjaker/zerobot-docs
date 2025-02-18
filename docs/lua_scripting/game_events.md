@@ -21,6 +21,10 @@ This documentation outlines the internal Lua functions designed for handling gam
 6. Game.Events.HUD_CLICK
 7. Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK
 8. Game.Events.IMBUEMENT_DATA
+9. Game.Events.QUEST_LOG
+10. Game.Events.QUEST_LINES
+11. Game.Events.DISTANCE_SHOOT_EFFECT
+12. Game.Events.PARTY_HUNT
 ```
 
 ### Purpose and Usage
@@ -203,4 +207,68 @@ function onImbuementData(imbuementData)
 end
 
 Game.registerEvent(Game.Events.IMBUEMENT_DATA, onImbuementData)
+```
+
+### 9. `Game.Events.QUEST_LOG`
+**Purpose**: This event is triggered when the server sends a quest log message to the client.
+
+## Usage:
+```lua
+-- Parameters:
+-- @param questLogData - The quest log data received from the server.
+function onQuestLog(quests)
+    print(JSON.encode(quests))
+end
+
+Game.registerEvent(Game.Events.QUEST_LOG, onQuestLog)
+```
+
+### 10. `Game.Events.QUEST_LINES`
+**Purpose**: This event is triggered when the server sends quest lines to the client.
+
+## Usage:
+```lua
+-- Parameters:
+-- @param questId - The ID of the quest.
+-- @param missions - The missions of the quest.
+function onQuestLines(questId, missions)
+    print(questId, JSON.encode(missions))
+end
+
+Game.registerEvent(Game.Events.QUEST_LINES, onQuestLines)
+```
+
+### 11. `Game.Events.DISTANCE_SHOOT_EFFECT`
+**Purpose**: This event is triggered when the server sends a distance shoot effect to the client.
+
+## Usage:
+```lua
+-- Parameters:
+-- @param type - The type of the distance shoot effect
+-- @param fromX - The x-coordinate of the map position where the effect started.
+-- @param fromY - The y-coordinate of the map position where the effect started.
+-- @param fromZ - The z-coordinate of the map position where the effect started.
+-- @param toX - The x-coordinate of the map position where the effect ended.
+-- @param toY - The y-coordinate of the map position where the effect ended.
+-- @param toZ - The z-coordinate of the map position where the effect ended.
+function onDistanceShootEffect(type, fromX, fromY, fromZ, toX, toY, toZ)
+    print(type, fromX, fromY, fromZ, toX, toY, toZ)
+end
+
+Game.registerEvent(Game.Events.DISTANCE_SHOOT_EFFECT, onDistanceShootEffect)
+```
+
+### 12. `Game.Events.PARTY_HUNT`
+-- triggered when player copy party hunt data to clipboard and have allowed for usage in Engine tab.
+
+## Usage:
+```lua
+-- @param output - The party hunt data copied to clipboard.
+function onPartyHunt(output)
+    print(output)
+end```
+
+Game.registerEvent(Game.Events.PARTY_HUNT, onPartyHunt)
+```
+
 ```

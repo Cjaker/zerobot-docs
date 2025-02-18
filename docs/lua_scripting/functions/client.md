@@ -21,6 +21,10 @@ Client.setFightMode(fightMode)
 Client.getChaseMode()
 Client.setChaseMode(chaseMode)
 Client.setWindowTitle(title)
+Client.getVersion()
+Client.isTradeShopOpen()
+Client.flashWindow()
+Client.getFps()
 ```
 
 ### Code
@@ -105,4 +109,23 @@ function Client.setChaseMode(chaseMode)
 -- This function is a wrapper around the external function clientSetWindowTitle.
 -- @param title (string) - The title to be set.
 function Client.setWindowTitle(title)
+
+-- Get the Tibia client version.
+-- This function is a wrapper around the external function clientGetVersion.
+-- @return The Tibia client version as a string (example: 14.00.f275d0), if not available will return nil.
+function Client.getVersion()
+
+-- Get the current trade shop window openned state.
+-- This function is a wrapper around the external function clientIsTradeShopOpen.
+-- @return true if the trade shop window is open, false otherwise. Note: the bot will only have this information if the player has opened or closed the trade shop window.
+function Client.isTradeShopOpen()
+
+--- Flash the client window.
+--- This function is a wrapper around the external function clientFlashWindow.
+function Client.flashWindow()
+
+--- Get the current frames per second (FPS) of the client.
+--- This function is a wrapper around the external function clientGetFps.
+--- @return The last available frames per second (FPS) of the client, got from UI FPS indicator, if the information isn't available will return 0 or the last one available.
+function Client.getFps()
 ```

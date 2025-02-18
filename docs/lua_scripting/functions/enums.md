@@ -6,6 +6,15 @@ sidebar_position: 1
 All available enumerations variables
 
 ```lua
+-- the UI icon can be found above of your character inventory/set
+Enums.BlessingState = {
+	UNDEFINED = -1, -- bot doesn't acquired this info yet
+	NONE = 0, -- no active blessings, gray icon on client UI
+	NORMAL = 1, -- normal blessings, green icon on client UI
+	FULL = 2 -- full blessings, gold icon on client UI
+}```
+
+```lua
 Enums.AlarmType = {
 	DISCONNECTED = 0,
 	DAMAGE_TAKEN = 1,
@@ -21,7 +30,8 @@ Enums.AlarmType = {
 	SKULL_ON_SCREEN = 11,
 	ENEMY_DETECTED = 12,
 	ENEMY_ON_SCREEN = 13,
-	GM_DETECTED = 14
+	GM_DETECTED = 14,
+	LOW_CAP = 15
 }
 
 -- HUD
@@ -57,11 +67,16 @@ Enums.WaypointType = {
 	WAYPOINT_TYPE_LADDER = 5,
 	WAYPOINT_TYPE_HOLE = 6,
 	WAYPOINT_TYPE_USE = 7,
+	WAYPOINT_TYPE_TELEPORT = 8,
 	WAYPOINT_TYPE_LABEL = 9,
 	WAYPOINT_TYPE_GOTO = 10,
 	WAYPOINT_TYPE_SCRIPT = 11,
 	WAYPOINT_TYPE_DYNAMIC_START_LURE = 12,
-	WAYPOINT_TYPE_DYNAMIC_END_LURE = 13
+	WAYPOINT_TYPE_DYNAMIC_END_LURE = 13,
+	WAYPOINT_TYPE_DOOR = 14,
+	WAYPOINT_TYPE_HUR_UP = 15,
+	WAYPOINT_TYPE_HUR_DOWN = 16,
+	WAYPOINT_TYPE_MACHETE = 17
 }
 
 Enums.SpecialAreaType = {
@@ -243,6 +258,7 @@ Enums.States = {
 	STATE_CURSE_III = 23,
 	STATE_CURSE_IV = 24,
 	STATE_CURSE_V = 25,
-	STATE_MAGIC_SHIELD = 26
+	STATE_MAGIC_SHIELD = 26,
+	STATE_AGONY = 27
 }
 ```

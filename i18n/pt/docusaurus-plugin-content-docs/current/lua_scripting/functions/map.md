@@ -166,6 +166,13 @@ function Map.useItemWithContainer(x, y, z, index, slot)
 -- @param z (número) - A coordenada z da posição de destino no mapa.
 function Map.lookAt(x, y, z)
 
+-- Coleta o baú de recompensa de uma posição específica. Funciona apenas com o id do baú de recompensa: 19250
+-- @param x (número) - A coordenada x da posição do mapa.
+-- @param y (número) - A coordenada y da posição do mapa.
+-- @param z (número) - A coordenada z da posição do mapa.
+-- @return True se a solicitação foi enviada para o servidor, ou nil se o tile não existir ou não houver informações do mapa disponíveis.
+function Map.collectRewardChest(x, y, z)
+
 --- Obtém uma criatura do jogador na tela, seja pelo ID ou nome.
 -- @param var (number|string) - O ID do jogador se for um número, ou o nome do jogador se for uma string.
 -- @return A criatura do jogador se encontrada, ou nil se não encontrada.
