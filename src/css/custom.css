@@ -18,6 +18,35 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --zb-ab-bg: #f6f7f9;
+  --zb-ab-text: #111827;
+  --zb-ab-border: rgba(17, 24, 39, .12);
+  --zb-ab-link: var(--ifm-color-primary);
+  --zb-announcement-h: 0px; /* default */
+}
+
+html[data-theme='dark'] {
+  --zb-ab-bg: #1b1b1d;
+  --zb-ab-text: #ffffff;
+  --zb-ab-border: rgba(255, 255, 255, .12);
+  --zb-ab-link: #9cc3ff;
+}
+
+div[class*="announcementBarContent"] {
+  white-space: normal !important;
+  line-height: 1.35 !important;
+}
+
+div[class*="announcementBar"] a {
+  color: var(--zb-ab-link) !important;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+div[class*="announcementBar"] button,
+div[class*="announcementBar"] svg {
+  color: var(--zb-ab-text) !important;
+  fill: currentColor;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -31,6 +60,31 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+div[class*="announcementBar"] {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+
+  background: var(--zb-ab-bg) !important;
+  color: var(--zb-ab-text) !important;
+
+  height: auto !important;
+  min-height: unset !important;
+  padding: 6px 0 !important;
+  overflow: visible !important;
+}
+
+.navbar {
+  position: sticky;
+  top: var(--zb-announcement-h);
+  z-index: 1999;
+}
+.ab-msg { display: none; }
+
+html[lang^="en"] .ab-en { display: inline; }
+
+html[lang^="pt"] .ab-pt { display: inline; }
 
 @media (max-width: 996px) {
   .navbar__item {

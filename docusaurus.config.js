@@ -11,6 +11,10 @@ const config = {
   title: 'ZeroBot',
   tagline: 'ZeroBot is a bot developed for Tibia private servers.',
   favicon: 'img/favicon.ico',
+  clientModules: [
+    require.resolve("./src/client/announcementHeight.js"),
+    require.resolve("./src/client/abResetOnLoad.js"),
+  ],
 
   // Set the production url of your site here
   url: 'https://docs.zerobot.net',
@@ -52,6 +56,27 @@ const config = {
       image: 'img/zerobot-social-card.png',
       colorMode: {
         defaultMode: "dark",
+      },
+      announcementBar: {
+        id: 'help-update-docs-v2',
+        content: `
+    <span class="ab-msg ab-en">
+      Want to help update the docs and earn license days?<br/>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/Cjaker/zerobot-docs">
+        Open a PR on GitHub.
+      </a>
+      <br/>Any content based on our libs is welcome! You can find them in Documents/ZeroBot/Scripts/core directory.
+    </span>
+
+    <span class="ab-msg ab-pt">
+      Quer ajudar a atualizar a documentação e ganhar dias de licença?<br/>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/Cjaker/zerobot-docs">
+        Abra um PR no GitHub.
+      </a>
+      <br/>Qualquer conteúdo baseado em nossas libs é bem-vindo! Você pode encontrá-las na pasta Documents/ZeroBot/Scripts/core.
+    </span>
+  `,
+        isCloseable: true,
       },
       navbar: {
         title: 'ZeroBot',
