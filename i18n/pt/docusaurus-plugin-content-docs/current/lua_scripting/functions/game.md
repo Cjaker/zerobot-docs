@@ -26,6 +26,7 @@ Game.useItem(itemId)
 Game.forgeConvertDust()
 Game.forgeConvertSlivers()
 Game.forgeIncreaseLimit()
+Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)
 Game.writeTextWindow(text)
 Game.applyImbuement(slot, imbuementId, isProtected)
 Game.clearImbuement(slot)
@@ -170,6 +171,16 @@ function Game.forgeConvertSlivers()
 -- Esta função é um wrapper em torno da função externa gameForgeIncreaseLimit.
 -- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.forgeIncreaseLimit()
+--- Funde dois itens na Exaltation Forge.
+-- Esta função é um wrapper em torno da função externa gameForgeFuseItems.
+-- O protocolo usa um único valor de tier para os dois itens; portanto, tierA e tierB devem ser iguais.
+-- @param itemIdA (number) - O ID do primeiro item.
+-- @param tierA (number) - O tier do primeiro item.
+-- @param itemIdB (number) - O ID do segundo item.
+-- @param tierB (number) - O tier do segundo item.
+-- @param useConvergence (boolean) - Se deve usar a Fusão por Convergência.
+-- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+function Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)
 
 --- Escrever texto em uma janela.
 -- Esta função é um wrapper em torno da função externa gameWriteTextWindow.
