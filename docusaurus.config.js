@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import remarkLuaAnchors from './plugins/lua-search/remark.mjs';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -46,15 +47,6 @@ const config = {
           content: 'ZeroBot, Lua, LuaJIT, CaveBot, Tibia, OTServer, bot scripting',
         },
       ],
-      algolia: {
-        // The application ID provided by Algolia
-        appId: '3HGL4SDOHS',
-
-        // Public API key: it is safe to commit it
-        apiKey: '0ffb2ad91a5e01f63a28eb18b9256a8b',
-
-        indexName: 'zerobot'
-      },
       // Replace with your project's social card
       image: 'img/zerobot-social-card.png',
       colorMode: {
@@ -94,6 +86,7 @@ const config = {
         additionalLanguages: ['lua'],
       },
     }),
+  plugins: ['./plugins/lua-search/index.cjs'],
   presets: [
     [
       'classic',
@@ -101,6 +94,7 @@ const config = {
       ({
         docs: {
           routeBasePath: '/', // Serve the docs at the site's root
+          remarkPlugins: [remarkLuaAnchors],
         },
         blog: false, // Optional: disable the blog plugin
         theme: {

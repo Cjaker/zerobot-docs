@@ -116,19 +116,14 @@ body {
   color: var(--ifm-color-primary);
 }
 
-.DocSearch-Button {
-  border: 1px solid var(--zb-border) !important;
-  border-radius: 10px !important;
-  background: color-mix(in srgb, var(--zb-surface-raised) 88%, transparent) !important;
-  transition:
-    border-color 160ms ease,
-    background-color 160ms ease;
+.lua-function-reference {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
 }
 
-.DocSearch-Button:hover {
-  border-color: color-mix(in srgb, var(--ifm-color-primary) 60%, var(--zb-border)) !important;
-  background: var(--zb-surface-raised) !important;
-  box-shadow: none !important;
+.lua-function-reference:target:has(> div) {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 5px;
+  border-radius: var(--ifm-global-radius);
 }
 
 .theme-doc-sidebar-container {
