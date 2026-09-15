@@ -4,77 +4,70 @@ sidebar_position: 2
 
 # 👨‍💻 Práticas no Código
 
-```lua
--- LOOPING - WHILE TRUE
--- O exemplo de má prática usa um loop while true com uma função wait, o que pode levar a um alto uso da CPU e potencialmente travar o aplicativo devido à execução contínua sem gerenciamento eficiente de recursos. Por outro lado, o exemplo de boa prática usa um Timer, proporcionando uma maneira mais eficiente em termos de recursos para executar a mesma função em intervalos regulares. Essa abordagem permite um melhor controle sobre a execução e evita a carga contínua nos recursos do sistema, tornando-a uma solução mais otimizada e estável.
+## Trabalhos repetidos
 
--- 🚫 Má prática
+Um `while` infinito mantém a execução inicial do script ocupada, mesmo quando usa `wait`. Use um `Timer` para permitir que a inicialização termine e para que a tarefa possa ser iniciada, parada ou destruída explicitamente.
+
+```lua
+-- Evite para tarefas recorrentes em segundo plano
 while true do
     print("Hello World")
     wait(100)
 end
 
--- ✅ Boa prática
+-- Preferível
 Timer("HelloWorld", function()
     print("Hello World")
 end, 100)
+```
 
---------------------------
---------------------------
---------------------------
--- ENUMS
--- Na pasta core/enums.lua, temos vários enums que podem ser usados para facilitar nosso desenvolvimento.
+## Enums
 
--- 🚫 Má prática
+Use os nomes disponíveis em `Enums` em vez de constantes numéricas sem explicação:
+
+```lua
+-- Evite
 Spells.groupIsInCooldown(2)
 
--- ✅ Boa prática
+-- Preferível
 Spells.groupIsInCooldown(Enums.SpellGroups.SPELLGROUP_HEALING)
---------------------------
---------------------------
---------------------------
--- Imprimir tabelas para depuração
+```
 
--- Método 1
+## Depuração de tabelas
+
+`print` não formata uma tabela automaticamente. Percorra a tabela ou codifique os dados serializáveis:
+
+```lua
 local tableVar = {"Hello", "World"}
+
 for index, value in pairs(tableVar) do
     print(index, value)
 end
 
--- Método 2
-local tableVar = {"Hello", "World"}
 print(JSON.encode(tableVar))
---------------------------
---------------------------
---------------------------
--- Manipulação de teclas de atalho
--- A melhor prática nos exemplos de funções fornecidos reside na eficiência e organização. A segunda abordagem usa um modelo baseado em eventos, executando apenas quando uma tecla é pressionada, economizando assim recursos e garantindo uma resposta mais rápida. Ela evita cálculos redundantes ao analisar a combinação de teclas uma vez, fora de qualquer função. Isso torna o código mais limpo, eficiente e fácil de manter em comparação com a abordagem repetitiva e intensiva em recursos do primeiro exemplo, que usa uma verificação contínua com timer.
+```
 
--- 🚫 Má prática
-local keySwitch = "x"
-Timer("keys", function()
-    local retStatus, retModifiers, retKey = HotkeyManager.parseKeyCombination(keySwitch)
-    if retStatus then
-        if Client.isKeyPressed(retKey, retModifiers) then
-            print("Hello World")
-        end
-    end
-end, 50)
+## Teclas de atalho
 
--- ✅ Boa prática
-local keySwitch = "x"
-local retStatus, retModifiers, retKey  = HotkeyManager.parseKeyCombination(keySwitch)
+Analise a combinação uma vez e use o evento de atalho quando a ação deve executar uma vez por pressionamento. Use `Client.isKeyPressed` por polling apenas quando precisar detectar que a tecla continua pressionada.
 
-if not retStatus then
-    print("Invalid hotkey")
+```lua
+local success, expectedModifiers, expectedKey =
+    HotkeyManager.parseKeyCombination("ctrl+x")
+
+if not success then
+    print("Atalho inválido")
     return
 end
 
-function OnKeyPressed(key, modifier)
-    if retKey == key and retModifiers == modifier then
+local function onKeyPressed(key, modifiers)
+    if key == expectedKey and modifiers == expectedModifiers then
         print("Hello World")
     end
 end
 
-Game.registerEvent(Game.Events.HOTKEY_SHORTCUT_PRESS,OnKeyPressed)
+Game.registerEvent(Game.Events.HOTKEY_SHORTCUT_PRESS, onKeyPressed)
+
+-- Quando o callback não for mais necessário:
+Game.unregisterEvent(Game.Events.HOTKEY_SHORTCUT_PRESS, onKeyPressed)
 ```

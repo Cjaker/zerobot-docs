@@ -2,28 +2,25 @@
 sidebar_position: 2
 ---
 
-# Direções de Waypoint
+# Direções de waypoint
+
 <div class="text--center">
-  <img src="/img/waypoint_direction.png" />
-  <p>Direções de Waypoint do CaveBot</p>
+  <img src="/img/waypoint_direction.png" alt="Direções de waypoint do CaveBot" />
+  <p>Direções de waypoint do CaveBot</p>
 </div>
 
-Ao marcar uma das direções, o próximo waypoint que você criar será baseado na sua posição atual para capturar a posição da direção ativada.
+A direção selecionada desloca a posição do próximo waypoint a partir do tile atual do personagem:
 
-**N**O -> Noroeste
+| Controle | Posição |
+| --- | --- |
+| **NO** | Noroeste |
+| **N** | Norte |
+| **NE** | Nordeste |
+| **O** | Oeste |
+| **C** | Centro: tile atual do personagem |
+| **L** | Leste |
+| **SO** | Sudoeste |
+| **S** | Sul |
+| **SE** | Sudeste |
 
-**N** -> Norte
-
-**N**E -> Nordeste
-
-**O** -> Oeste
-
-**C** -> Centro (sua posição atual)
-
-**L** -> Leste
-
-**S**O -> Sudoeste
-
-**S** -> Sul
-
-**S**E -> Sudeste
+A direção altera a posição capturada ao criar o waypoint; ela é separada da direção para a qual o personagem pode olhar nesse waypoint.

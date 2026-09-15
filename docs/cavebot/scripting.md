@@ -4,30 +4,32 @@ sidebar_position: 3
 
 # Scripting
 
-## Brief Explanation
-The waypoint of type `Script` allows you to write your own custom actions.
+A `Script` waypoint executes Lua when CaveBot reaches it. Prefer a dedicated waypoint type when one exists; use a script for actions that need custom conditions or a sequence of API calls.
 
-You can use any function avaiable at [Lua Scripting] section.
+All public functions in [Lua Scripting](../lua_scripting/) are available. Core modules are already loaded.
 
-After each action, it is recommended to add some delay, with the function `wait(delay)`.
+Use `wait(milliseconds)` only between actions that need sequencing. It blocks the current waypoint script, so it should not be used for a permanent loop.
 
-To demonstrate a few of the most common use cases, here goes some code snippets:
+## Common actions
 
 ### Use an item
 
 ```lua
 local itemId = 3725
 Game.useItem(itemId)
-wait(1000)
 ```
 
 ### Talk to NPC
 
 ```lua
-Game.talk('hi', Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
+Game.talk("hi", Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
+wait(500)
+Game.talk("trade", Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
 ```
 
-### Use magic
+The NPC must be close enough and the selected talk type must be supported by the target client/server.
+
+### Cast a spell
 
 ```lua
 Game.talk('exani hur "up"', Enums.TalkTypes.TALKTYPE_SAY)
@@ -35,82 +37,88 @@ Game.talk('exani hur "up"', Enums.TalkTypes.TALKTYPE_SAY)
 
 ### Change direction
 
-Useful for exani hur "up/down" and a few other cases.
-
 ```lua
-local direction = Enums.Directions.NORTH
-Game.turn(direction)
+Game.turn(Enums.Directions.NORTH)
 ```
 
-A Direction can be one of the following:
 ```lua
 Enums.Directions.NORTH
-Enums.Directions.SOUTH
 Enums.Directions.EAST
+Enums.Directions.SOUTH
 Enums.Directions.WEST
 ```
 
-### Use functions defined in a lua file
-
-This can be useful to activate scripts, for example scripts to buy supplies or sell items.
-
-You can find scripts like these on our Discord, in the `scripts-gerais` section.
+### Load a helper file
 
 ```lua
-dofile("fileName.lua")
+local ok, err = dofile("helpers_lib/supplies.lua")
+if not ok then
+    print(err)
+    return
+end
+
 someFunction()
 ```
 
-### Use object on the ground
+Relative paths passed to `dofile` start at `Documents/ZeroBot/Scripts`.
 
-Useful to open doors, click on ladders, sewer grates, minecarts, etc.
+### Use the top item on a tile
 
-You can do this already with the waypoint type `Use`, but you can get really creative with this snippet and a little bit of coding.
+Prefer the `Use` waypoint for a fixed route. For a calculated position:
 
 ```lua
-local pos = Map.getCameraPosition() -- your current position
-Map.useItemOnGround(pos.x, pos.y, pos.z)
-wait(1000)
+local pos = Map.getCameraPosition()
+local target = {
+    x = pos.x + 1,
+    y = pos.y,
+    z = pos.z,
+}
+
+local used = Game.useItemFromGround(target.x, target.y, target.z)
+if not used then
+    print("Could not use the item on the target tile")
+end
 ```
 
-This will use the item on your current position.\
-To use on your left: `pos.x-1`\
-To use on our right: `pos.x+1`\
-To use on the north: `pos.y-1`\
-To use on the south: `pos.y+1`
+Coordinate offsets are:
 
-Note that if an item or creature is standing on this position, this snippet alone may not work.
+- west: `x - 1`
+- east: `x + 1`
+- north: `y - 1`
+- south: `y + 1`
 
-# Update 1.7.5.5
-Waypoints of type script now supports Game events and Timers.
-After you use them you should destroy the timer and unregister the event.
+The action uses the item selected by the client's tile stack. A creature or another item on the tile can change which item is used.
 
-If you keep the timer or game event running the script will keep running indefinitely.
+## Events and timers
 
-### Example:
-```LUA
-function sellCycle()
-    gameTalk("hi", 1)
+Script waypoints support `Game` events and `Timer`. CaveBot keeps the waypoint script active while it still has registered callbacks or timers. Destroy every timer and unregister the same callback reference when the work finishes.
+
+```lua
+local function sellCycle()
+    Game.talk("hi", Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
     wait(500)
-    gameTalk("trade", 12)
+    Game.talk("trade", Enums.TalkTypes.TALKTYPE_PRIVATE_PN)
     wait(500)
     Npc.sell(23721, 1, true)
-    wait(500)
 end
 
-function messageCallback(messageData)
-    if not messageData then return end
-    local message = messageData.text
-    print("message " ..message)
-    if message:lower():find("you have no items in your loot pouch.") then
-        destroyTimer("sell-loot") -- destroying the timer
-        Game.unregisterEvent(Game.Events.TEXT_MESSAGE, messageCallback) -- unregistering the event
+local function messageCallback(messageData)
+    if not messageData or not messageData.text then
+        return
+    end
+
+    if messageData.text:lower():find(
+        "you have no items in your loot pouch.",
+        1,
+        true
+    ) then
+        destroyTimer("sell-loot")
+        Game.unregisterEvent(Game.Events.TEXT_MESSAGE, messageCallback)
     end
 end
 
 Game.registerEvent(Game.Events.TEXT_MESSAGE, messageCallback)
-
-Timer("sell-loot", function()
-    sellCycle()
-end, 1000)
+Timer("sell-loot", sellCycle, 1000)
 ```
+
+If a script must be aborted externally, use `CaveBot.stopCurrentScript()`.

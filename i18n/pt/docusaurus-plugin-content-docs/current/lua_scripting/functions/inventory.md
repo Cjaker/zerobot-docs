@@ -8,6 +8,8 @@ Interaja com o inventário do jogador
 ```lua
 Inventory.moveItemToGround(inventorySlot, inventoryCount, toX, toY, toZ)
 Inventory.moveItemToContainer(inventorySlot, inventoryCount, containerIndex, containerSlot)
+Inventory.stowContainer(inventorySlot)
+Inventory.pickItemImbuement(inventorySlot)
 Inventory.useItem(inventorySlot)
 Inventory.lookAt(inventorySlot)
 ```
@@ -46,3 +48,12 @@ function Inventory.useItem(inventorySlot)
 -- @return True se a solicitação foi enviada para o servidor, ou nil se o item/slot do inventário não existir.
 function Inventory.lookAt(inventorySlot)
 ```
+
+<!-- current-core-api:start -->
+## Stow e seleção para Imbuement
+
+- `Inventory.stowContainer(inventorySlot)` aplica **Stow container's content** ao container em `Enums.InventorySlot`.
+- `Inventory.pickItemImbuement(inventorySlot)` seleciona o item do inventário para a janela de Imbuement e exige o client 15.10.46b862 ou superior.
+
+Ambas retornam `nil` quando o slot/item é inválido; nos demais casos, informam se a ação foi enviada.
+<!-- current-core-api:end -->

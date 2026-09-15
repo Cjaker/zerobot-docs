@@ -20,7 +20,8 @@ Player.isHungry()
 Player.getStamina()
 Player.getLevel()
 Player.getLevelPercent()
-Player.getStamina()
+Player.getExperience()
+Player.getXpBoostTime()
 Player.getSkills()
 Player.getTargetId()
 Player.getFollowId()
@@ -35,6 +36,16 @@ Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
 Player.getBlessingState()
+Player.isSerene()
+Player.getHarmony()
+Player.getMonkPassiveType()
+Player.getStances()
+Player.getUnjustifiedData()
+Player.isPremium()
+Player.hasReceivedBasicData()
+Player.getHuntingTaskPrices()
+Player.getHuntingPoints()
+Player.getPreyWildcards()
 Player.getBountyPoints()
 Player.getSoulSeals()
 Player.leaveParty()
@@ -226,6 +237,22 @@ function Player.getBlessingState()
 function Player.leaveParty()
 ```
 
+<!-- current-core-api:start -->
+## Dados adicionais do jogador
+
+- `Player.getExperience()` retorna a experiência atual.
+- `Player.isSerene()`, `Player.getHarmony()` e `Player.getMonkPassiveType()` expõem o estado do Monk. Compare o tipo de passiva com `Enums.MonkPassiveType`.
+- `Player.getStances()` retorna os IDs das stance spells ativas e está disponível apenas no client 15.25+. Use a API `Spells` para consultar cada ID.
+- `Player.getUnjustifiedData()` retorna `{dayProgress, dayLeft, weekProgress, weekLeft, monthProgress, monthLeft, skullDuration}`.
+- `Player.isPremium()` retorna o estado premium recebido.
+- `Player.hasReceivedBasicData()` informa se os dados básicos do jogador já chegaram. Se o bot foi injetado depois do login, relogue antes de depender dos dados de premium ou unjustified kills.
+- `Player.getHuntingTaskPrices()` retorna `{rerollPrice, cancelPrice, selectionListPrice, rewardRerollPrice}`.
+- `Player.getHuntingPoints()` retorna os hunting points atuais.
+- `Player.getPreyWildcards()` retorna as prey wildcards atuais.
+- `Player.getBountyPoints()` retorna Bounty Points em cache, ou `0` após o login até o servidor enviar o saldo.
+- `Player.getSoulSeals()` retorna Soulseals em cache, ou `0` após o login até o servidor enviar o saldo.
+
+Os valores de Hunting Tasks ficam disponíveis depois que o servidor envia os dados de hunting task, normalmente após o login ou uma atualização de Hunting Tasks.
 ## Saldos de Hunting Tasks
 
 ```lua
@@ -236,3 +263,4 @@ Player.getSoulSeals()
 Os dois getters não recebem argumentos e retornam um número: o saldo correspondente em cache, recebido do servidor. Os getters nativos não retornam `nil` para indicar falta de dados de saldo. Ambos os saldos são zerados quando um pacote de login é processado e permanecem em `0` até o servidor fornecer o saldo atualizado. Portanto, `0` pode indicar saldo realmente zerado ou dados ainda não recebidos para o login atual; estes getters não expõem um indicador separado de disponibilidade.
 
 A [API de Hunting Tasks](./hunting_tasks) usa Bounty Points em cache para melhorias de talismã, desbloqueio de slots de preferência e limpeza de preferências. O payload de `TASK_BOARD_DATA` não contém os saldos de Bounty Points ou Soulseals do jogador; `weekly.soulSealsReward` é uma recompensa, não o saldo atual. Aguarde o snapshot completo da janela correspondente antes de ações com estado e considere o servidor como autoridade.
+<!-- current-core-api:end -->

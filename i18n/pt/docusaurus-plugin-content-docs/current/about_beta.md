@@ -2,29 +2,17 @@
 sidebar_position: 4
 ---
 
-# 💫 Sobre o BETA
-Critérios importantes das funcionalidades e o ZeroBot em BETA
+# Funcionalidades Beta
 
-## 1) Uso de Total Responsabilidade e Risco do Usuário:
+Uma funcionalidade marcada como **Beta** ainda está em testes. Sua interface, seu comportamento ou a configuração armazenada podem mudar, e ela pode conter erros que não existem nas funcionalidades estáveis.
 
-Ao optar por utilizar alguma funcionalidade ou ZeroBot em si na fase BETA, você concorda que o uso é de sua total responsabilidade e risco. Esta versão está em fase de teste, o que significa que pode haver instabilidades, bugs e problemas inesperados que podem afetar a sua experiência. Nossa equipe está trabalhando diligentemente para aprimorar tanto o software quanto as funcionalidades, mas não podemos garantir que todos os problemas tenham sido resolvidos nesta fase inicial de testes.
+Antes de usar uma funcionalidade Beta:
 
-## 2) Conhecimento de Possíveis Bugs/Crashes:
+- teste-a com supervisão e em um ambiente de baixo risco;
+- mantenha backups dos perfis, arquivos de CaveBot e scripts que ela possa alterar;
+- não pressuponha que configurações de outra versão do cliente ou outro OTServer se comportem da mesma forma;
+- ao relatar um problema, registre a versão do ZeroBot, a versão do cliente, o servidor e os passos para reproduzi-lo.
 
-É importante que você tenha ciência de que podem ocorrer bugs, crashes e problemas na fase BETA do software/funcionalidade. Embora estejamos fazendo o nosso melhor para minimizar esses problemas, a natureza da fase BETA implica a possibilidade de encontrar esses obstáculos. Encorajamos você a relatar quaisquer problemas que encontre, para que possamos abordá-los e aprimorar o software/funcionalidade.
+Evite depender de um comportamento Beta em situações de alto risco ou sem supervisão até validá-lo com a combinação exata de personagem, rota, cliente e servidor que será usada.
 
-## 3) Não Recomendamos o Uso em Personagens de Nível Alto:
-
-A fim de evitar perdas significativas, não recomendamos o uso do software/funcionalidade na fase BETA em personagens de nível alto. Estaremos aprimorando a estabilidade e funcionamento do software/funcionalidade, e personagens de nível alto podem estar sujeitos a riscos adicionais. Utilize com cuidado e considere criar personagens de teste para minimizar qualquer impacto negativo.
-
-## 4) Participação Ativa e Feedback:
-
-Encorajamos fortemente todos os usuários a se envolverem ativamente no processo da fase de testes da funcionalidade/software. Seja experimentando o funcionamento, relatando problemas ou oferecendo sugestões de melhorias, a sua contribuição é essencial para o sucesso do ZeroBot. Sua voz e feedback são valiosos e nos ajudam a moldar o futuro deste software.
-
-Ao continuar a utilizar o BETA da funcionalidade/software, você está indicando que leu, compreendeu e aceita os critérios acima mencionados. Se você não concorda com essas condições, recomendamos não utilizar a funcionalidade/software na versão BETA.
-
-Agradecemos por sua compreensão e colaboração enquanto trabalhamos juntos para tornar o ZeroBot ainda melhor. Seu feedback é inestimável para nós, e estamos ansiosos para continuar aprimorando este software com sua ajuda.
-
-Atenciosamente,
-
-**Equipe ZeroBot**
+O rótulo **Beta** vale somente onde aparece no ZeroBot ou na documentação; ele não significa que todos os módulos do ZeroBot estejam em Beta.

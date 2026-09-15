@@ -3,18 +3,157 @@ sidebar_position: 1
 ---
 
 # Enums
-Todas as variáveis de enumerações disponíveis
+
+Todos os valores de enumeração expostos pelas libs atuais do core. Os aliases de compatibilidade também aparecem na lista.
 
 ```lua
--- o ícone da interface pode ser encontrado acima do seu set/inventário do personagem
+Enums.DailyRewardType = {
+	DAILY_REWARD_TYPE_ITEMS = 1,
+	DAILY_REWARD_TYPE_PREY_REROLL = 2,
+	DAILY_REWARD_TYPE_XP_BOOST = 3
+}
+
+Enums.GameStoreOfferType = {
+	GAMESTORE_OFFER_TYPE_NONE = 0,
+	GAMESTORE_OFFER_TYPE_MOUNT = 1,
+	GAMESTORE_OFFER_TYPE_OUTFIT = 2,
+	GAMESTORE_OFFER_TYPE_ITEM = 3,
+	GAMESTORE_OFFER_TYPE_HIRELING = 4,
+}
+
+Enums.GameStoreCoinType = {
+	GAMESTORE_COIN_TYPE = 0,
+	GAMESTORE_TRANSFERABLE_COIN_TYPE = 1,
+}
+
+Enums.GameStoreState = {
+	GAMESTORE_CATEGORY_NONE = 0,
+	GAMESTORE_CATEGORY_NEW = 1,
+	GAMESTORE_CATEGORY_SALE = 2,
+	GAMESTORE_CATEGORY_TIMED = 3,
+}
+
+-- O ícone fica acima do inventário/equipment do personagem
 Enums.BlessingState = {
-	UNDEFINED = -1, -- bot ainda não adquiriu essa informação
-	NONE = 0, -- sem bênçãos ativas, ícone cinza na interface do cliente
-	NORMAL = 1, -- bênçãos normais, ícone verde na interface do cliente
-	FULL = 2 -- bênçãos completas, ícone dourado na interface do cliente
-}```
+	UNDEFINED = -1, -- o bot ainda não recebeu essa informação
+	NONE = 0, -- sem blessings ativas; ícone cinza no client
+	NORMAL = 1, -- blessings normais; ícone verde no client
+	FULL = 2 -- blessings completas; ícone dourado no client
+}
 
-```lua
+Enums.MonkPassiveType = {
+	MONK_PASSIVE_VIRTUE_NONE = 0,
+	MONK_PASSIVE_VIRTUE_HARMONY = 1,
+	MONK_PASSIVE_VIRTUE_JUSTICE = 2,
+	MONK_PASSIVE_VIRTUE_SUSTAIN = 3,
+}
+
+Enums.ThingFlagAttr = {
+	None = 0,
+	Ground = bit.lshift(1, 0),
+	GroundBorder = bit.lshift(1, 1),
+	OnBottom = bit.lshift(1, 2),
+	OnTop = bit.lshift(1, 3),
+	Container = bit.lshift(1, 4),
+	Stackable = bit.lshift(1, 5),
+	ForceUse = bit.lshift(1, 6),
+	MultiUse = bit.lshift(1, 7),
+	Writable = bit.lshift(1, 8),
+	Chargeable = bit.lshift(1, 9),
+	WritableOnce = bit.lshift(1, 10),
+	FluidContainer = bit.lshift(1, 11),
+	Splash = bit.lshift(1, 12),
+	NotWalkable = bit.lshift(1, 13),
+	NotMoveable = bit.lshift(1, 14),
+	BlockProjectile = bit.lshift(1, 15),
+	NotPathable = bit.lshift(1, 16),
+	NoMovementAnimation = bit.lshift(1, 17),
+	Pickupable = bit.lshift(1, 18),
+	Hangable = bit.lshift(1, 19),
+	HookSouth = bit.lshift(1, 20),
+	HookEast = bit.lshift(1, 21),
+	Rotateable = bit.lshift(1, 22),
+	Light = bit.lshift(1, 23),
+	DontHide = bit.lshift(1, 24),
+	Translucent = bit.lshift(1, 25),
+	Displacement = bit.lshift(1, 26),
+	Elevation = bit.lshift(1, 27),
+	LyingCorpse = bit.lshift(1, 28),
+	AnimateAlways = bit.lshift(1, 29),
+	MinimapColor = bit.lshift(1, 30),
+	LensHelp = bit.lshift(1, 31),
+	FullGround = bit.lshift(1, 32),
+	Look = bit.lshift(1, 33),
+	Cloth = bit.lshift(1, 34),
+	Market = bit.lshift(1, 35),
+	Usable = bit.lshift(1, 36),
+	Wrapable = bit.lshift(1, 37),
+	Unwrapable = bit.lshift(1, 38),
+	UpgradeClassification = bit.lshift(1, 39),
+	WearOut = bit.lshift(1, 40),
+	ClockExpire = bit.lshift(1, 41),
+	Expire = bit.lshift(1, 42),
+	ExpireStop = bit.lshift(1, 43),
+	ChangedToExpire = bit.lshift(1, 44),
+	Podium = bit.lshift(1, 45),
+	TopEffect = bit.lshift(1, 46),
+	DefaultAction = bit.lshift(1, 47),
+}
+
+Enums.PreyTaskDataState = {
+	PREY_TASK_DATA_STATE_LOCKED = 0,
+	PREY_TASK_DATA_STATE_INACTIVE = 1,
+	PREY_TASK_DATA_STATE_SELECTION = 2,
+	PREY_TASK_DATA_STATE_LIST_SELECTION = 3,
+	PREY_TASK_DATA_STATE_ACTIVE = 4,
+	PREY_TASK_DATA_STATE_COMPLETED = 5
+}
+
+Enums.TaskBoardWindow = {
+	BOUNTY = 0,
+	WEEKLY = 1,
+	SHOP = 2
+}
+
+Enums.TaskBoardBountyState = {
+	NONE = 0,
+	SELECTION = 1,
+	ACTIVE = 2,
+	COMPLETED = 3
+}
+
+Enums.TaskBoardBountyClaimRewardType = {
+	SELECT_TASK = 0,
+	REWARD_NO_CLICK = 1,
+	REWARD_CLICKED = 2
+}
+
+Enums.TaskBoardBountyRerollMode = {
+	DAILY_CLAIMABLE = 0,
+	TIMER_RUNNING = 1,
+	LIMIT_REACHED = 2
+}
+
+Enums.TaskBoardAction = {
+	BOUNTY = 0,
+	WEEKLY = 1,
+	BOUNTY_DIFFICULTY = 2,
+	BOUNTY_REROLL = 3,
+	CLAIM_DAILY_REROLL = 4,
+	BOUNTY_SELECT = 5,
+	BOUNTY_CLAIM_REWARD = 6,
+	TALISMAN_UPGRADE = 7,
+	WEEKLY_DELIVERY = 8,
+	WEEKLY_DIFFICULTY = 9,
+	SHOP = 10,
+	SHOP_BUY = 11,
+	UNLOCK_PREFERENCE_SLOT = 12,
+	CLEAR_PREFERRED = 13,
+	CLEAR_UNWANTED = 14,
+	ASSIGN_PREFERRED = 15,
+	ASSIGN_UNWANTED = 16
+}
+
 Enums.AlarmType = {
 	DISCONNECTED = 0,
 	DAMAGE_TAKEN = 1,
@@ -31,7 +170,8 @@ Enums.AlarmType = {
 	ENEMY_DETECTED = 12,
 	ENEMY_ON_SCREEN = 13,
 	GM_DETECTED = 14,
-	LOW_CAP = 15
+	LOW_CAP = 15,
+	PLAYER_IDLE = 16
 }
 
 -- HUD
@@ -67,17 +207,27 @@ Enums.WaypointType = {
 	WAYPOINT_TYPE_LADDER = 5,
 	WAYPOINT_TYPE_HOLE = 6,
 	WAYPOINT_TYPE_USE = 7,
+	WAYPOINT_TYPE_TELEPORT = 8,
 	WAYPOINT_TYPE_LABEL = 9,
 	WAYPOINT_TYPE_GOTO = 10,
 	WAYPOINT_TYPE_SCRIPT = 11,
 	WAYPOINT_TYPE_DYNAMIC_START_LURE = 12,
-	WAYPOINT_TYPE_DYNAMIC_END_LURE = 13
+	WAYPOINT_TYPE_DYNAMIC_END_LURE = 13,
+	WAYPOINT_TYPE_DOOR = 14,
+	WAYPOINT_TYPE_HUR_UP = 15,
+	WAYPOINT_TYPE_HUR_DOWN = 16,
+	WAYPOINT_TYPE_MACHETE = 17
 }
 
 Enums.SpecialAreaType = {
 	SPECIAL_AREA_ALL = 0,
 	SPECIAL_AREA_CAVEBOT = 1,
 	SPECIAL_AREA_TARGETING = 2
+}
+
+Enums.WalkMode = {
+	MAP_CLICK = 0,
+	ARROW_KEYS = 1
 }
 
 Enums.PartyIcons = {
@@ -100,7 +250,13 @@ Enums.Vocations = {
 	KNIGHT = 1,
 	PALADIN = 2,
 	SORCERER = 3,
-	DRUID = 4
+	DRUID = 4,
+	MONK = 5, -- 15.00+
+	MASTER_SORCERER = 6,
+	ELDER_DRUID = 7,
+	ROYAL_PALADIN = 8,
+	ELITE_KNIGHT = 9,
+	EXALTED_MONK = 15 -- 15.00+
 }
 
 Enums.Directions = {
@@ -108,12 +264,20 @@ Enums.Directions = {
 	EAST = 1,
 	SOUTH = 2,
 	WEST = 3,
-	SOUTHWEST = 4,
-	SOUTHEAST = 5,
-	NORTHWEST = 6,
-	NORTHEAST = 7,
+
+	DIAGONAL_MASK = 4, -- from TFS
+	SOUTHWEST = 0,
+	SOUTHEAST = 0,
+	NORTHWEST = 0,
+	NORTHEAST = 0,
 	INVALIDDIRECTION = 8
 }
+
+Enums.Directions.SOUTHWEST = bit.bor(Enums.Directions.DIAGONAL_MASK, 0)
+Enums.Directions.SOUTHEAST = bit.bor(Enums.Directions.DIAGONAL_MASK, 1)
+Enums.Directions.NORTHWEST = bit.bor(Enums.Directions.DIAGONAL_MASK, 2)
+Enums.Directions.NORTHEAST = bit.bor(Enums.Directions.DIAGONAL_MASK, 3)
+
 Enums.Skulls = {
 	SKULL_NONE = 0,
 	SKULL_YELLOW = 1,
@@ -129,14 +293,20 @@ Enums.SpellGroups = {
 	SPELLGROUP_ATTACK = 1,
 	SPELLGROUP_HEALING = 2,
 	SPELLGROUP_SUPPORT = 3,
-	SPELLGROUP_SPECIAL = 4,
+	SPELLGROUP_POWERSTRIKES = 4,
 	SPELLGROUP_CONJURE = 5,
 	SPELLGROUP_CRIPPLING = 6,
 	SPELLGROUP_FOCUS = 7,
 	SPELLGROUP_ULTIMATESTRIKES = 8,
 	SPELLGROUP_GREATBEAMS = 9,
-	SPELLGROUP_BURSTS = 10
+	SPELLGROUP_BURSTS_OF_NATURE = 10,
+	SPELLGROUP_STANCE = 11,
 }
+
+-- aliases para retrocompatibilidade de scripts
+Enums.SpellGroups.SPELLGROUP_SPECIAL = Enums.SpellGroups.SPELLGROUP_POWERSTRIKES
+Enums.SpellGroups.SPELLGROUP_BURSTS = Enums.SpellGroups.SPELLGROUP_BURSTS_OF_NATURE
+Enums.SpellGroups.SPELLGROUP_VIRTUE = Enums.SpellGroups.SPELLGROUP_STANCE
 
 -- lista incompleta
 Enums.TalkTypes = {
@@ -195,6 +365,11 @@ Enums.CreatureTypes = {
 	CREATURETYPE_HIDDEN = 5,
 }
 
+Enums.CreatureIconType = {
+	QUEST = 0, -- Enums.CreatureQuestIcons
+	MODIFIER = 1, -- Enums.CreatureIcons
+}
+
 Enums.CreatureIcons = {
 	CREATURE_ICON_NONE = 0,
 	CREATURE_ICON_HIGHER_DAMAGE_RECEIVED = 1,
@@ -203,6 +378,34 @@ Enums.CreatureIcons = {
 	CREATURE_ICON_INFLUENCED = 4,
 	CREATURE_ICON_FIENDISH = 5,
 	CREATURE_ICON_REDUCED_HEALTH = 6
+}
+
+Enums.CreatureQuestIcons = {
+	CREATURE_QUEST_ICON_NONE = 0,
+	CREATURE_QUEST_ICON_WHITECROSS = 1,
+	CREATURE_QUEST_ICON_REDCROSS = 2,
+	CREATURE_QUEST_ICON_REDBALL = 3,
+	CREATURE_QUEST_ICON_GREENBALL = 4,
+	CREATURE_QUEST_ICON_REDGREENBALL = 5,
+	CREATURE_QUEST_ICON_GREENSHIELD = 6,
+	CREATURE_QUEST_ICON_YELLOWSHIELD = 7,
+	CREATURE_QUEST_ICON_BLUESHIELD = 8,
+	CREATURE_QUEST_ICON_PURPLESHIELD = 9,
+	CREATURE_QUEST_ICON_REDSHIELD = 10,
+	CREATURE_QUEST_ICON_DOVE = 11,
+	CREATURE_QUEST_ICON_ENERGY = 12,
+	CREATURE_QUEST_ICON_EARTH = 13,
+	CREATURE_QUEST_ICON_WATER = 14,
+	CREATURE_QUEST_ICON_FIRE = 15,
+	CREATURE_QUEST_ICON_ICE = 16,
+	CREATURE_QUEST_ICON_ARROWUP = 17,
+	CREATURE_QUEST_ICON_ARROWDOWN = 18,
+	CREATURE_QUEST_ICON_EXCLAMATIONMARK = 19,
+	CREATURE_QUEST_ICON_QUESTIONMARK = 20,
+	CREATURE_QUEST_ICON_CANCELMARK = 21,
+	CREATURE_QUEST_ICON_HAZARD = 22,
+	CREATURE_QUEST_ICON_BROWNSKULL = 23,
+	CREATURE_QUEST_ICON_BLOODDROP = 24
 }
 
 Enums.FlagModifiers = {
@@ -255,5 +458,21 @@ Enums.States = {
 	STATE_CURSE_V = 25,
 	STATE_MAGIC_SHIELD = 26,
 	STATE_AGONY = 27
+}
+
+Enums.FightMode = {
+	FIGHTMODE_ATTACK = 1,
+	FIGHTMODE_BALANCED = 2,
+	FIGHTMODE_DEFENSE = 3,
+}
+
+Enums.ChaseMode = {
+	STAND = 0,
+	CHASE = 1
+}
+
+Enums.QuestState = {
+	PENDING = 0,
+	COMPLETED = 1,
 }
 ```

@@ -3,59 +3,87 @@ sidebar_position: 5
 ---
 
 # Configurações do CaveBot
-## Opções Principais
+
+## Controles principais
+
 <div class="text--center">
-  <img src="/img/cavebot_settings.png?v=2" />
-  <p>Configurações do CaveBot</p>
+  <img src="/img/cavebot_settings.png?v=2" alt="Controles principais do CaveBot" />
+  <p>Controles principais do CaveBot. A disposição exata pode variar entre versões do ZeroBot.</p>
 </div>
 
-**Load** -> carrega um CaveBot específico
+- **Load** carrega uma configuração de CaveBot salva.
+- **Save** salva a configuração atual.
+- **New** limpa a configuração atual para criar uma nova. Alterações não salvas são perdidas após a confirmação.
+- **Settings** abre as configurações avançadas descritas abaixo.
+- **Special Areas** abre o editor de áreas.
+- **Enable Waypoint Colors** usa cores diferentes para identificar os tipos de waypoint.
+- **Encrypt CaveBot on Save** criptografa o arquivo ao salvá-lo. Um CaveBot criptografado não pode ser convertido novamente para o formato legível; mantenha um backup não criptografado.
 
-**Save** -> salva o CaveBot atual
+## Configurações avançadas
 
-**Settings** -> configurações gerais do CaveBot
-
-## Configurações Avançadas do CaveBot
 <div class="text--center">
-  <img src="/img/cavebot_settings_window_2.png?v=3" />
-  <p>Configurações Avançadas do CaveBot</p>
+  <img src="/img/cavebot_settings_window_2.png?v=3" alt="Configurações avançadas do CaveBot" />
+  <p>Configurações avançadas do CaveBot. Versões mais novas podem conter campos adicionais.</p>
 </div>
 
 ### Ignore Lure List
-No campo de texto mostrado na imagem acima, por favor insira os nomes dos monstros que o sistema de lure do cavebot deve ignorar. Insira cada nome de monstro em uma linha separada.
+
+Nomes dos monstros que a lógica de lure deve ignorar, um nome por linha.
 
 ### Safety Lure Settings
-**Near Creature Distance**: A distância em tiles entre o jogador e a criatura que o algoritmo de lure do CaveBot considerará como 'próxima'.<br />Para desativar esse recurso, basta defini-lo como 0.
 
-**Near Creatures Count**: O número mínimo de criaturas que podem ser consideradas 'próximas' ao jogador ao mesmo tempo.<br />Lembre-se: este valor funciona em conjunto com a configuração 'Near Creature Distance'.<br />Exemplo: se definido como 3 e houver 3 criaturas ou mais próximas ao jogador, o personagem correrá para evitar acumular muitas criaturas. O bot considerará a criatura como 'próxima' com base na configuração 'Near Creature Distance'.
+- **Near Creature Distance** define a distância máxima, em tiles, para uma criatura ser considerada próxima. Use `0` para desativar essa condição.
+- **Near Creatures Count** define quantas criaturas próximas acionam o comportamento de segurança. É avaliado junto com **Near Creature Distance**.
+- **Avoid Stuck Trap** define quantos tiles adjacentes bloqueados ou criaturas acionam uma tentativa de caminhada forçada. Use `0` para desativar.
 
-**Avoid Stuck/Trap**: Número mínimo de tiles bloqueados ao redor do seu personagem para forçar a caminhada e evitar ficar preso/armadilhado. Isso considera tiles e mobs em uma área 1x1.<br />Exemplo: se você definir 7, então o bot forçará a caminhada se houver 7 ou mais tiles bloqueáveis ao seu redor.<br />Para desativar esse recurso, defina-o como 0.
+Essas configurações dependem das informações de mapa e criaturas fornecidas pelo cliente e servidor. Teste-as no OTServer de destino antes de usar o bot sem supervisão.
 
-### Lure Settings
-**Creatures To Run**: supondo que você está atraindo monstros no waypoint "Start Lure", o bot só andará mais rápido e ignorará as criaturas **sem esperar por elas** se alcançar o valor configurado. Exemplo: se você definir o valor para 3, então o bot só andará sem esperar se houver 3 ou mais criaturas, garantindo assim pelo menos 3 criaturas em sua lure
+### Configurações de lure {#configurações-de-lure}
 
-**Dynamic Lure**: Se habilitado, seu CaveBot será tratado como um tipo de caça de lure dinâmico. As configurações serão as mesmas das configurações de lure padrão, baseadas em Ignore Lure List, Lure Settings, End Lure Settings e Safety Lure Settings.<br />Exemplo: para um teste simples, você pode gravar todo o CaveBot usando stand/nodes e habilitar esta opção.<br />Importante: esta função não é compatível com os waypoints Start Lure, End Lure, Dynamic Start Lure e Dynamic End Lure. Deve ser usado para caçadas simples do CaveBot.
+- **Creatures To Run** é o número mínimo de criaturas consideradas necessário para o personagem continuar o lure sem esperar por todas elas.
+- **Dynamic Lure** aplica o comportamento de lure a uma rota comum. Não combine essa opção com waypoints **Start Lure**, **End Lure**, **Dynamic Start** ou **Dynamic End**.
+- **Skip Unreachable Creatures** exclui criaturas para as quais o bot não consegue calcular uma rota alcançável. Essa opção usa mais processamento, pois pode calcular rotas para várias criaturas.
 
 ### End Lure Settings
-**Creatures To Leave**: supondo que seu personagem alcançou o waypoint "End Lure" e está matando os monstros para terminar a lure, esta configuração define quantas criaturas devem restar para considerar a lure concluída e prosseguir para o próximo waypoint. Exemplo: se você definir o valor para 3, então o bot entenderá que deve haver 3 ou menos criaturas restantes para terminar de matar as criaturas e prosseguir.
 
-**Creatures To Stop**: supondo que seu personagem alcançou o waypoint "End Lure", o bot se baseará nesta configuração para decidir se para seu personagem ou não para matar as criaturas ao redor. Exemplo: se você definir o valor para 3, então o bot só parará para matar as criaturas da lure se houver 3 ou mais criaturas, caso contrário, prossegue normalmente.
+- **Creatures To Stop** é o número mínimo de criaturas necessário para o personagem parar e começar a matar em um waypoint **End Lure**.
+- **Creatures To Leave** é o número máximo de criaturas restantes a partir do qual o CaveBot pode sair do local.
+- **Creatures To Leave By HP%** é uma condição alternativa usada quando **Creatures To Leave** não foi satisfeita. O bot pode sair quando, no máximo, a quantidade configurada de criaturas tiver HP acima da porcentagem escolhida.
+- **Don't Leave If HP%-** mantém o personagem no local quando a condição de quantidade encontra criaturas enfraquecidas com HP igual ou inferior à porcentagem selecionada.
+- **Try Walk To Center** faz o personagem tentar chegar ao centro do waypoint **End Lure**. A validação da chegada continua respeitando a distância de Node configurada.
 
-**Observação**: Creatures To Stop funciona em conjunto com Creatures To Leave, o primeiro define se o personagem deve parar no waypoint End Lure e o segundo define quantos monstros precisa faltar para voltar ao fluxo normal do CaveBot.
+Condições baseadas em HP são úteis em rotas especializadas, mas o resultado depende das criaturas que o cliente expõe ao bot naquele momento. Valide os valores com o Debug HUD do CaveBot.
 
-**Try Walk To center**: Se habilitado, o personagem tentará andar para o centro do waypoint de lure final. Se não for possível, o bot seguirá o comportamento padrão.<br />Importante: a validação do waypoint será a mesma, baseada nas configurações de distância de nó.<br />Esta opção se aplica aos seguintes waypoints: End Lure.
+## Configurações do Auto Recorder {#auto-recorder-settings}
 
-## Configurações do Auto Recorder
-**Distance**: Distância em SQMs entre waypoints gravados automaticamente.
+- **Distance** é o intervalo, em tiles, entre os waypoints gravados automaticamente.
+- **Type** é o tipo de waypoint criado pelo gravador.
 
-**Type**: O tipo de waypoint dos waypoints gravados automaticamente
+O gravador cria waypoints de movimentação e interação suportados; revise a rota gerada antes de usá-la sem supervisão.
 
 ## Configurações de Node
-**Distância**: A distância entre o jogador e o waypoint 'nó' que o CaveBot considerará como alcançado.
 
-## Configurações de Movimentação
-**Map Walk**: Se habilitado, o bot irá usar click map para caminhar.
+**Distance** é a distância máxima de um waypoint do tipo Node na qual ele é considerado alcançado. Essa opção também afeta os tipos de waypoint que usam a validação de distância de Node.
 
-**Arrow Keys**: Se habilitado, o bot irá usar o método das setas do teclado para caminhar.
+## Configurações de movimentação
 
-**Disable Player Walkthrough**: Se habilitado, o bot não permitirá que o jogador caminhe através de outros jogadores. (útil para servidores que informam o cliente que é possível andar em cima de jogador X, mas acaba não sendo).
+- **Map Walk** usa o método de pathfinding por clique no mapa.
+- **Arrow Keys** usa a lógica de caminhada pelas setas do teclado. Esse modo está marcado como beta na interface atual.
+- **Walk Delay** é o intervalo, em milissegundos, entre os passos feitos pelo método Arrow Keys.
+- **Disable Player Walkthrough** faz o CaveBot tratar outros jogadores como bloqueios mesmo quando o servidor informa ao cliente que é permitido atravessá-los. Ative apenas em servidores onde essa informação esteja incorreta e faça a rota travar.
+
+## Configurações internas
+
+**Teleport IDs** é uma lista, separada por vírgulas, dos IDs de teleportes usados pelo Auto Recorder e por outras funções internas do CaveBot. Altere-a somente quando o OTServer de destino usar um ID personalizado ou houver um ID incompatível na lista.
+
+## Special Areas
+
+Special Areas marcam regiões que o algoritmo de movimentação deve evitar.
+
+- **Width** e **Height** definem as dimensões da área.
+- **Wp. Range** limita a área a um intervalo inclusivo de IDs de waypoint. Por exemplo, `5-10` vale do waypoint 5 ao 10.
+- **Type** seleciona se a área vale para a movimentação do CaveBot, do Targeting ou para ambas (**All**).
+- **Direction** escolhe onde a nova área será criada em relação ao personagem.
+- **Extended If Drunk** aumenta em uma unidade a largura e a altura de todas as áreas enquanto o personagem estiver bêbado.
+
+Depois de criar uma área, use o Debug HUD para confirmar sua posição, dimensões e intervalo de waypoints.

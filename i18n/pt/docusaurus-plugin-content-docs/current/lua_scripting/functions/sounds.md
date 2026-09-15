@@ -2,38 +2,35 @@
 sidebar_position: 4
 ---
 
-# Sounds
-Reproduzir sons padrão e personalizados
+# Sound
+
+Reproduz um arquivo `.wav` de forma assíncrona.
 
 ```lua
 Sound.play(filePath, isDefaultSound)
 ```
 
-**Propósito e Uso**
-### 1. `Sound.play`
-**Parâmetros**
+## `Sound.play(filePath, isDefaultSound)`
 
-- `filePath`: Uma string especificando o caminho para o arquivo de som .wav a ser reproduzido. Este caminho deve ser um caminho absoluto ou relativo ao diretório de scripts do jogo.
-- `isDefaultSound`: Se for true, a função considerará o `filePath` como um nome de arquivo dentro do diretório Documents/ZeroBot/Scripts/sounds.
+- `filePath` é o nome ou caminho do arquivo de som.
+- Quando `isDefaultSound` é `true`, `filePath` é resolvido dentro de `Documents/ZeroBot/Scripts/sounds`.
+- Quando é `false` ou omitido, o caminho é passado diretamente para a API de som do Windows. Use um caminho absoluto para não depender do diretório de trabalho do processo.
 
-**Propósito:** A função `Sound.play` é projetada para aumentar a experiência de jogo fornecendo feedback de áudio em resposta a eventos específicos do jogo. Ela permite a reprodução de arquivos de som dentro do ambiente do jogo, utilizando arquivos `.wav` especificados pelo desenvolvedor.
+A função retorna `true` quando o Windows aceita a solicitação de reprodução e `false` caso contrário. Também retorna `false` enquanto os alarmes do ZeroBot estão pausados ou quando o diretório de sons padrão não pode ser resolvido.
 
-### Uso:
 ```lua
--- Define o caminho para o arquivo de som
-local soundPath = Engine.getScriptsDirectory().."\\capacitySound.wav"
-
--- Configura uma verificação recorrente da capacidade do jogador
-Timer("CheckCap", function()
-    -- Verifica se a capacidade do jogador está abaixo do limite
-    if Player.getCapacity()/100 <= 400 then
-        -- Reproduz o som como um alerta
-        Sound.play(soundPath)
-    end
-end, 5000) -- O temporizador é configurado para verificar esta condição a cada 5000 milissegundos
+-- Documents/ZeroBot/Scripts/sounds/alert.wav
+local played = Sound.play("alert.wav", true)
+if not played then
+    print("Não foi possível reproduzir alert.wav")
+end
 ```
 
-### Notas
-- Certifique-se de que o arquivo de som exista no `soundPath` especificado e esteja no formato `.wav` para compatibilidade.
-- Ajuste o caminho para o arquivo de som e o limite de capacidade conforme necessário para atender aos requisitos específicos do jogo e à estrutura do diretório.
-- Esta função faz parte de uma estrutura maior para interagir com elementos do jogo e requer integração adequada no ambiente de script do jogo para funcionar conforme esperado.
+Para um arquivo em outro local:
+
+```lua
+local path = Engine.getScriptsDirectory() .. "\\meu_script\\warning.wav"
+Sound.play(path, false)
+```
+
+Use um arquivo `.wav` existente. A reprodução é assíncrona, portanto a chamada não espera o som terminar.

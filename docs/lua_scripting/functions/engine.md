@@ -12,32 +12,55 @@ Engine.getBotVersion()
 Engine.isBotEnabled()
 Engine.isTargetingEnabled()
 Engine.isMagicShooterEnabled()
+Engine.isCaveBotEnabled()
 Engine.isEquipmentEnabled()
 Engine.isTimerEnabled()
+Engine.isAutoSSAEnabled()
+Engine.isHoldTargetEnabled()
+Engine.isAutoMightRingEnabled()
+Engine.isAntiPushEnabled()
+Engine.isRuneMaxEnabled()
+Engine.isReconnectEnabled()
 Engine.enableTargeting(enable)
 Engine.enableMagicShooter(enable)
 Engine.enableHealFriend(enable)
 Engine.enableHealing(enable)
 Engine.enableEquipment(enable)
 Engine.enableTimer(enable)
+Engine.enableCaveBot(enable)
 Engine.enableBot(enable)
 Engine.magicShooterSwitchProfile(profileIndex)
 Engine.magicShooterGetProfile()
 Engine.magicShooterGetProfileName(index)
+Engine.autoSSAEnable(enable)
+Engine.holdTargetEnable(enable)
+Engine.autoMightRingEnable(enable)
+Engine.antiPushEnable(enable)
+Engine.setFirstAntiPushId(itemId)
+Engine.setSecondAntiPushId(itemId)
+Engine.runeMaxEnable(enable)
+Engine.reconnectEnable(enable)
+Engine.getRuneMaxId()
+Engine.setRuneMaxId(runeMaxId)
 Engine.targetingSwitchProfile(profileIndex)
 Engine.targetingGetProfile()
 Engine.targetingGetProfileName(index)
+Engine.targetingGetProfileSettings(index)
+Engine.targetingSetProfileSettings(index, settings)
 Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
 Engine.equipmentGetProfileName(index)
-Engine.getScriptsDirectory()
 Engine.healingSwitchProfile(profileIndex)
 Engine.healingGetProfile()
 Engine.healingGetProfileName(index)
-Engine.getUserId()
+Engine.getScriptsDirectory()
+Engine.getScriptsDirectoryUtf8()
+Engine.getUserId(lowerCase)
 Engine.getLicenseTime()
 Engine.setAlarm(alarmType, enable)
 Engine.isAlarmEnabled(alarmType)
+Engine.isAllAlarmsDisabled()
+Engine.allAlarmsEnable(enable)
 Engine.loadScript(scriptName)
 Engine.unloadScript(scriptName)
 Engine.reloadScript(scriptName)
@@ -72,6 +95,10 @@ function Engine.isTargetingEnabled()
 -- This function is a wrapper around the external function engineIsMagicShooterEnabled.
 function Engine.isMagicShooterEnabled()
 
+--- Returns if cavebot function is enabled
+-- This function is a wrapper around the external function engineIsCaveBotEnabled.
+function Engine.isCaveBotEnabled()
+
 --- Returns if equipment function is enabled
 -- This function is a wrapper around the external function engineIsEquipmentEnabled.
 function Engine.isEquipmentEnabled()
@@ -79,6 +106,36 @@ function Engine.isEquipmentEnabled()
 --- Returns if timer function is enabled
 -- This function is a wrapper around the external function engineIsTimerEnabled.
 function Engine.isTimerEnabled()
+
+--- Returns if auto SSA function is enabled. Refer to native function located on Tools -> PvP -> Auto SSA.
+--- This function is a wrapper around the external function engineIsAutoSSAEnabled.
+--- @return (boolean) - Returns true if the auto SSA function is enabled, false otherwise.
+function Engine.isAutoSSAEnabled()
+
+--- Returns if hold target function is enabled. Refer to native function located on Tools -> PvP -> Hold Target.
+--- This function is a wrapper around the external function engineIsHoldTargetEnabled.
+--- @return (boolean) - Returns true if the hold target function is enabled, false otherwise.
+function Engine.isHoldTargetEnabled()
+
+--- Returns if auto might ring function is enabled. Refer to native function located on Tools -> PvP -> Auto Might Ring.
+--- This function is a wrapper around the external function engineIsAutoMightRingEnabled.
+--- @return (boolean) - Returns true if the auto might ring function is enabled, false otherwise.
+function Engine.isAutoMightRingEnabled()
+
+--- Returns if anti-push function is enabled. Refer to native function located on Tools -> PvP -> Anti-Push.
+--- This function is a wrapper around the external function engineIsAntiPushEnabled.
+--- @return (boolean) - Returns true if the anti-push function is enabled, false otherwise.
+function Engine.isAntiPushEnabled()
+
+--- Returns if rune max function is enabled. Refer to native function located on Tools -> PvP -> Rune Max.
+--- This function is a wrapper around the external function engineIsRuneMaxEnabled.
+--- @return (boolean) - Returns true if the rune max function is enabled, false otherwise.
+function Engine.isRuneMaxEnabled()
+
+--- Returns if reconnect function is enabled. Refer to native function located on Tools -> Reconnect.
+--- This function is a wrapper around the external function engineIsReconnectEnabled.
+--- @return (boolean) - Returns true if the reconnect function is enabled, false otherwise.
+function Engine.isReconnectEnabled()
 
 --- Enables or disables the targeting system.
 -- This function is a wrapper around the external function engineTargetingEnable.
@@ -110,6 +167,11 @@ function Engine.enableEquipment(enable)
 -- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the timer system.
 function Engine.enableTimer(enable)
 
+--- Enables or disables the cavebot system.
+-- This function is a wrapper around the external function engineCaveBotEnable.
+-- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the cavebot system.
+function Engine.enableCaveBot(enable)
+
 --- Enables or disables all bot functions.
 -- This function is a wrapper around the external function engineBotEnable.
 -- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) all bot functions.
@@ -131,6 +193,56 @@ function Engine.magicShooterGetProfile()
 --- @return (string) - The name of the current selected profile.
 function Engine.magicShooterGetProfileName(index)
 
+--- Enables or disables the auto SSA system. Refer to native function located on Tools -> PvP -> Auto SSA.
+--- This function is a wrapper around the external function engineAutoSSAEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the auto SSA system.
+function Engine.autoSSAEnable(enable)
+
+--- Enables or disables the hold target system. Refer to native function located on Tools -> PvP -> Hold Target.
+--- This function is a wrapper around the external function engineHoldTargetEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the hold target system.
+function Engine.holdTargetEnable(enable)
+
+--- Enables or disables the auto might ring system. Refer to native function located on Tools -> PvP -> Auto Might Ring.
+--- This function is a wrapper around the external function engineAutoMightRingEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the auto might ring system.
+function Engine.autoMightRingEnable(enable)
+
+--- Enables or disables the anti-push system. Refer to native function located on Tools -> PvP -> Anti-Push.
+--- This function is a wrapper around the external function engineAntiPushEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the anti-push system.
+function Engine.antiPushEnable(enable)
+
+--- Sets the first anti-push id. Refer to native function located on Tools -> PvP -> Anti-Push.
+--- This function is a wrapper around the external function engineSetFirstAntiPushId.
+--- @param itemId (number) - The first anti-push item id to set.
+function Engine.setFirstAntiPushId(itemId)
+
+--- Sets the second anti-push id. Refer to native function located on Tools -> PvP -> Anti-Push.
+--- This function is a wrapper around the external function engineSetSecondAntiPushId.
+--- @param itemId (number) - The second anti-push item id to set.
+function Engine.setSecondAntiPushId(itemId)
+
+--- Enables or disables the rune max system. Refer to native function located on Tools -> PvP -> Rune Max.
+--- This function is a wrapper around the external function engineRuneMaxEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the rune max system.
+function Engine.runeMaxEnable(enable)
+
+--- Enables or disables the reconnect system. Refer to native function located on Tools -> Reconnect.
+--- This function is a wrapper around the external function engineReconnectEnable.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) the reconnect system.
+function Engine.reconnectEnable(enable)
+
+--- Gets the current rune max id. Refer to native function located on Tools -> PvP -> Rune Max.
+--- This function is a wrapper around the external function engineGetRuneMaxId.
+--- @return (number) - The current rune max id.
+function Engine.getRuneMaxId()
+
+--- Sets the current rune max id. Refer to native function located on Tools -> PvP -> Rune Max.
+--- This function is a wrapper around the external function engineSetRuneMaxId.
+--- @param runeMaxId (number) - The rune max id to set.
+function Engine.setRuneMaxId(runeMaxId)
+
 --- Switches the profile of targeting by index.
 -- This function is a wrapper around the external function engineTargetingSwitchProfile.
 -- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).
@@ -146,6 +258,19 @@ function Engine.targetingGetProfile()
 -- @param index (number) - The index of the profile to get the name from (from 0 to 9).
 -- @return (string) - The name of the current selected profile.
 function Engine.targetingGetProfileName(index)
+
+--- Get the settings of a specified profile by index.
+--- This function is a wrapper around the external function engineTargetingGetProfileSettings.
+--- @param index (number) - The index of the profile to get the settings from (from 0 to 9).
+--- @return (table) - A table containing the settings of the specified profile. (this reflect in all "Advanced Settings" available on Targeting tab)
+function Engine.targetingGetProfileSettings(index)
+
+--engineTargetingSetProfileSettings
+--- Set the settings of a specified profile by index.
+--- This function is a wrapper around the external function engineTargetingSetProfileSettings.
+--- @param index (number) - The index of the profile to set the settings to (from 0 to 9).
+--- @param settings (table) - A table containing the settings to be applied to the specified profile. (this reflect in all "Advanced Settings" available on Targeting tab)
+function Engine.targetingSetProfileSettings(index, settings)
 
 --- Switches the profile of equipment by index.
 -- This function is a wrapper around the external function engineEquipmentSwitchProfile.
@@ -163,11 +288,6 @@ function Engine.equipmentGetProfile()
 -- @return (string) - The name of the current selected profile.
 function Engine.equipmentGetProfileName(index)
 
---- Gets the default scripts directory.
--- This function is a wrapper around the external function engineGetScriptsDirectory.
--- @return (string) - The path to default scripts directory.
-function Engine.getScriptsDirectory()
-
 --- Switches the profile of healing by index.
 --- This function is a wrapper around the external function engineHealingSwitchProfile.
 --- @param profileIndex (number) - The index of the profile to switch to (from 0 to 9).
@@ -184,10 +304,20 @@ function Engine.healingGetProfile()
 --- @return (string) - The name of the current selected profile.
 function Engine.healingGetProfileName(index)
 
---- Gets the last user ID.
+--- Gets the default scripts directory. Legacy function.
+-- This function is a wrapper around the external function engineGetScriptsDirectory.
+-- @return (string) - The path to default scripts directory.
+function Engine.getScriptsDirectory()
+
+--- Gets the default scripts directory as UTF-8.
+-- This function is a wrapper around the external function engineGetScriptsDirectoryUtf8.
+-- @return (string) - The path to default scripts directory.
+function Engine.getScriptsDirectoryUtf8()
+
+--- Returns a hashed version of the user's email to be used as a unique user ID.
 -- This function is useful to identify current user. You can use engineGetUserId directly if you need to avoid hooks.
--- @return (string) - The last generated user ID, non-sensitive data.
-function Engine.getUserId()
+-- @param lowerCase - If true, the email will be converted to lowercase before hashing, ensuring case insensitivity in the generated hash.
+function Engine.getUserId(lowerCase)
 
 --- Gets the remaining time of the license.
 --- This function is a wrapper around the external function engineGetLicenseTime.
@@ -204,6 +334,16 @@ function Engine.setAlarm(alarmType, enable)
 --- @param alarmType (number) - The alarm type to check. Refer to Enums.AlarmType.
 --- @return (boolean) - Returns true if the alarm type is enabled, false otherwise.
 function Engine.isAlarmEnabled(alarmType)
+
+--- Check if all alarms are disabled.
+--- This function is a wrapper around the external function engineIsAllAlarmsDisabled.
+--- @return (boolean) - Returns true if all alarms are disabled, false otherwise.
+function Engine.isAllAlarmsDisabled()
+
+--- Enables or disables all alarms.
+--- This function changes the state of the "Disable All Alarms" option located on the Alarms tab.
+--- @param enable (boolean) - A flag indicating whether to enable (true) or disable (false) all alarms.
+function Engine.allAlarmsEnable(enable)
 
 --- Load specific script.
 -- This function is a wrapper around the external function engineLoadScript.
@@ -235,3 +375,29 @@ function Engine.loadConfig(config)
 --- @return (boolean) - Returns true if the script is loaded, false otherwise.
 function Engine.isScriptLoaded(scriptName)
 ```
+
+<!-- current-core-api:start -->
+## Additional engine controls
+
+The following getters report whether each native feature is active:
+
+- `Engine.isCaveBotEnabled()`
+- `Engine.isAutoSSAEnabled()`
+- `Engine.isHoldTargetEnabled()`
+- `Engine.isAutoMightRingEnabled()`
+- `Engine.isAntiPushEnabled()`
+- `Engine.isRuneMaxEnabled()`
+- `Engine.isReconnectEnabled()`
+
+Use `Engine.enableCaveBot(enable)`, `Engine.autoSSAEnable(enable)`, `Engine.holdTargetEnable(enable)`, `Engine.autoMightRingEnable(enable)`, `Engine.antiPushEnable(enable)`, `Engine.runeMaxEnable(enable)`, and `Engine.reconnectEnable(enable)` to change the matching feature.
+
+- `Engine.setFirstAntiPushId(itemId)` and `Engine.setSecondAntiPushId(itemId)` set the Anti-Push items.
+- `Engine.getRuneMaxId()` and `Engine.setRuneMaxId(runeMaxId)` read and change the Rune Max item.
+- `Engine.targetingGetProfileSettings(index)` returns the Advanced Settings for profile index `0` through `9`.
+- `Engine.targetingSetProfileSettings(index, settings)` applies an Advanced Settings table to that profile.
+- `Engine.getScriptsDirectoryUtf8()` returns the scripts directory with UTF-8 encoding.
+- `Engine.isAllAlarmsDisabled()` reports the global alarm-disabled state.
+- `Engine.allAlarmsEnable(enable)` changes the global alarm enable state.
+
+`Engine.getUserId(lowerCase)` accepts the optional `lowerCase` argument; the old zero-argument signature was incomplete.
+<!-- current-core-api:end -->

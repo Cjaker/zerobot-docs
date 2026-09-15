@@ -16,12 +16,26 @@ CaveBot.selectWaypoint(wpId)
 CaveBot.getSelectedWaypointId()
 CaveBot.getWaypointTypeById(id)
 CaveBot.getWaypointDataById(id)
+CaveBot.getWaypoints()
+CaveBot.getWaypointsCount()
+CaveBot.isDebugEnabled()
+CaveBot.getCoreTeleportIds()
+CaveBot.stopCurrentScript()
+CaveBot.setStartFromNearestWaypoint(startFromNearest)
 CaveBot.setLureIgnoreList(list)
 CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount)
+CaveBot.getSafetyLureSettings()
 CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCreatures)
+CaveBot.getLureSettings()
 CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter, creaturesToLeaveByHp, creaturesToLeaveByHpValue, creaturesToLeaveByHpCount, dontLeaveIfHp, dontLeaveIfHpValue, dontLeaveIfHpCount)
+CaveBot.getEndLureSettings()
+CaveBot.getSellList()
+CaveBot.setSellList(list)
+CaveBot.getRefillList()
+CaveBot.setRefillList(list)
 CaveBot.setAutoRecorderSettings(nodeDistance, type)
 CaveBot.setNodeSettings(nodeDistance)
+CaveBot.setDebugHUDSettings(debugHUD, showPath, showSkippedLureCreatures)
 CaveBot.addSpecialArea(x, y, z, type, width, height, fromWp, toWp)
 CaveBot.deleteSpecialArea(id)
 CaveBot.clearSpecialAreas()
@@ -206,12 +220,30 @@ function CaveBot.pause(milliseconds)
 -- Esta função é um wrapper para a função externa cavebotSaveFile.
 -- @param fileName (string) - O nome do arquivo para salvar os waypoints. O caminho é relativo ao diretório Documents/ZeroBot.
 -- @return (boolean) - Retorna verdadeiro se a ação for bem-sucedida, ou falso se o nome do arquivo for inválido. Lembre-se: esta função não retornará o resultado do salvamento do arquivo.
-function CaveBot.save
-
-File(fileName)
+function CaveBot.saveFile(fileName)
 
 --- Carrega todos os waypoints de um arquivo.
 -- Esta função é um wrapper para a função externa cavebotLoadFile.
 -- @param fileName (string) - O nome do arquivo para carregar os waypoints. O caminho é relativo ao diretório Documents/ZeroBot.
 function CaveBot.loadFile(fileName)
 ```
+
+<!-- current-core-api:start -->
+## Consulta de waypoints e configurações
+
+- `CaveBot.getWaypoints()` retorna a lista de waypoints. Cada entrada contém `x`, `y`, `z`, `type` e `data`.
+- `CaveBot.getWaypointsCount()` retorna a quantidade atual de waypoints.
+- `CaveBot.isDebugEnabled()` informa se o modo de debug do CaveBot está ativo.
+- `CaveBot.getCoreTeleportIds()` retorna os IDs de teleporte usados pelo core do CaveBot.
+- `CaveBot.stopCurrentScript()` interrompe o waypoint Script em execução, se houver.
+- `CaveBot.setStartFromNearestWaypoint(startFromNearest)` define se o CaveBot começa pelo waypoint mais próximo.
+
+## Lure, venda, refill e debug
+
+- `CaveBot.getSafetyLureSettings()` retorna `{nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount}`.
+- `CaveBot.getLureSettings()` retorna `{creaturesToRun, dynamicLure, skipUnreachableCreatures}`.
+- `CaveBot.getEndLureSettings()` retorna a configuração atual de End Lure.
+- `CaveBot.getSellList()` e `CaveBot.setSellList(list)` leem e substituem a lista de IDs para venda.
+- `CaveBot.getRefillList()` e `CaveBot.setRefillList(list)` leem e substituem o texto de refill no mesmo formato da janela de configurações do CaveBot.
+- `CaveBot.setDebugHUDSettings(debugHUD, showPath, showSkippedLureCreatures)` atualiza as três opções de Debug HUD da janela do CaveBot.
+<!-- current-core-api:end -->

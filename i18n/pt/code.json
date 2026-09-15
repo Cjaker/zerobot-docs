@@ -64,11 +64,11 @@
     "description": "The name for the light color mode"
   },
   "theme.docs.DocCard.categoryDescription.plurals": {
-    "message": "{count} items",
+    "message": "Um item|{count} itens",
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Breadcrumbs",
+    "message": "Navegação estrutural",
     "description": "The ARIA label for the breadcrumbs"
   },
   "theme.docs.paginator.navAriaLabel": {
@@ -203,7 +203,7 @@
     "description": "The label for the mobile language switcher dropdown"
   },
   "theme.NavBar.navAriaLabel": {
-    "message": "Main",
+    "message": "Navegação principal",
     "description": "The ARIA label for the main navigation"
   },
   "theme.NotFound.p1": {
@@ -243,7 +243,7 @@
     "description": "The title attribute for collapse button of doc sidebar"
   },
   "theme.docs.sidebar.navAriaLabel": {
-    "message": "Docs sidebar",
+    "message": "Navegação da documentação",
     "description": "The ARIA label for the sidebar navigation"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {

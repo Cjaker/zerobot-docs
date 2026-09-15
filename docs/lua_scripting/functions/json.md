@@ -3,36 +3,55 @@ sidebar_position: 2
 ---
 
 # JSON
-Deserialize/serialize data using JSON format
+
+Serialize supported Lua values to JSON and parse JSON strings.
 
 ```lua
-JSON.encode(input)
+JSON.encode(val)
 JSON.decode(str)
 ```
 
-### 1. `JSON.encode(input)`
+## `JSON.encode(val)`
 
-**Purpose**: This function converts a Lua table (or other supported Lua data structures) into a JSON string. This process is often referred to as "serialization". It allows for the easy transmission of data structures over a network or for storage in a format that can be easily read and processed by other programming languages or systems that support JSON.
+Returns a JSON string. The encoder supports `nil`, booleans, finite numbers, strings, and tables.
 
-**Usage:**
 ```lua
-local myTable = { name = "John", age = 30 }
-local jsonString = JSON.encode(myTable)
-print(jsonString) -- Output: {"name":"John","age":30}
+local value = {
+    name = "Knight",
+    position = { x = 100, y = 200, z = 7 },
+    supplies = { 268, 3160 }
+}
+
+local encoded = JSON.encode(value)
+print(encoded)
 ```
 
-**Explanation**:
+Table rules:
 
-- `input`: This is the Lua table or data structure that you want to convert into JSON format.
-- The function returns a string in JSON format that represents the data structure passed to it.
+- an empty table or a table with sequential numeric keys starting at `1` is encoded as an array;
+- other tables are encoded as objects and must contain only string keys;
+- sparse arrays, mixed key types, circular references, unsupported Lua types, `NaN`, and infinite numbers raise an error;
+- object key order is not guaranteed because Lua table iteration order is not guaranteed.
 
-### 2. `JSON.decode(str)`
+## `JSON.decode(str)`
 
-**Purpose**: This function is used to parse a JSON string and convert it into a Lua table or appropriate Lua data structure. This process is often referred to as "deserialization". It is particularly useful when receiving JSON data from a network or file system and converting it into a Lua-readable format.
+Parses a complete JSON string and returns its Lua representation.
 
-**Usage:**
 ```lua
-local jsonString = '{"name":"John","age":30}'
-local myTable = JSON.decode(jsonString)
-print(myTable.name, myTable.age) -- Output: John 30
+local decoded = JSON.decode(
+    '{"name":"Knight","position":{"x":100,"y":200,"z":7}}'
+)
+
+print(decoded.name, decoded.position.z)
+```
+
+Invalid JSON, trailing non-whitespace data, or a non-string argument raises an error. JSON `null` maps to Lua `nil`; inside arrays this means a null entry cannot be preserved as a regular Lua array value.
+
+Use `pcall` when input is not trusted:
+
+```lua
+local ok, result = pcall(JSON.decode, input)
+if not ok then
+    print("Invalid JSON:", result)
+end
 ```

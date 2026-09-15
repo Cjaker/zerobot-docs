@@ -2,12 +2,14 @@
 sidebar_position: 4
 ---
 
-# Funções de Limpeza
+# Ações da lista de waypoints
+
 <div class="text--center">
-  <img src="/img/cleaning_functions.png" />
-  <p>Ações de Waypoint do CaveBot</p>
+  <img src="/img/cleaning_functions.png" alt="Ações da lista de waypoints do CaveBot" />
+  <p>Ações da lista de waypoints do CaveBot</p>
 </div>
 
-**Delete** -> botão para remover o waypoint atualmente selecionado
+- **Delete** remove o waypoint selecionado.
+- **Clear** remove todos os waypoints após uma confirmação.
 
-**Clear** -> botão para limpar toda a sua lista do CaveBot (sim, há um aviso se você clicar acidentalmente)
+Essas alterações afetam a rota atual em memória. Use **Save** se a rota editada deve substituir o arquivo de CaveBot salvo.

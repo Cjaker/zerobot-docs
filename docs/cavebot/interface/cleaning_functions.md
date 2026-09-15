@@ -2,12 +2,14 @@
 sidebar_position: 4
 ---
 
-# Cleaning Functions
+# Waypoint list actions
+
 <div class="text--center">
-  <img src="/img/cleaning_functions.png" />
-  <p>CaveBot Waypoint Actions</p>
+  <img src="/img/cleaning_functions.png" alt="CaveBot waypoint list actions" />
+  <p>CaveBot waypoint list actions</p>
 </div>
 
-**Delete** -> button to remove the currently selected waypoint
+- **Delete** removes the currently selected waypoint.
+- **Clear** removes every waypoint after a confirmation prompt.
 
-**Clear** -> button to clear your entire CaveBot list (yes, there's a warning if you clicked by accident)
+These changes affect the current in-memory route. Use **Save** if the edited route should replace the saved CaveBot file.

@@ -15,14 +15,17 @@ Map.moveItemToContainer(x, y, z, count, index, slot)
 Map.moveItemToGround(x, y, z, count, toX, toY, toZ)
 Map.moveCreatureToGround(x, y, z, toX, toY, toZ)
 Map.goTo(x, y, z)
-Map.stopAutoWalk()
 Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
 Map.isTileWalkable(x, y, z, options)
-Map.getCameraPosition()
 Map.useItemWithInventory(x, y, z, slot)
 Map.useItemWithContainer(x, y, z, index, slot)
 Map.lookAt(x, y, z)
+Map.getTopItemId(x, y, z)
+Map.getTopCreatureId(x, y, z)
+Map.getAllPositionsWithTopItemId(itemId, sameFloor)
+Map.collectRewardChest(x, y, z)
+Map.getCameraPosition()
 Map.getPlayerOnScreen(var)
 ```
 
@@ -178,3 +181,11 @@ function Map.collectRewardChest(x, y, z)
 -- @return A criatura do jogador se encontrada, ou nil se não encontrada.
 function Map.getPlayerOnScreen(var)
 ```
+
+<!-- current-core-api:start -->
+## Things no topo dos tiles
+
+- `Map.getTopItemId(x, y, z)` retorna o ID do item no topo, ou `nil` quando o tile está indisponível ou sua thing superior não é um item.
+- `Map.getTopCreatureId(x, y, z)` retorna o ID da criatura no topo, ou `nil` quando o tile está indisponível ou sua thing superior não é uma criatura.
+- `Map.getAllPositionsWithTopItemId(itemId, sameFloor)` retorna todas as posições visíveis cujo item no topo corresponde ao ID. Retorna `nil` quando os dados do mapa estão indisponíveis ou nenhuma posição corresponde.
+<!-- current-core-api:end -->

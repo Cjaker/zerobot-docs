@@ -3,41 +3,55 @@ sidebar_position: 2
 ---
 
 # JSON
-Desserializar/serializar dados usando o formato JSON
+
+Serializa valores Lua suportados para JSON e interpreta strings JSON.
 
 ```lua
-JSON.encode(input)
+JSON.encode(val)
 JSON.decode(str)
 ```
 
-### 1. `JSON.encode(input)`
+## `JSON.encode(val)`
 
-**Propósito**: Esta função converte uma tabela Lua (ou outras estruturas de dados Lua suportadas) em uma string JSON. Este processo é frequentemente referido como "serialização". Ele permite a fácil transmissão de estruturas de dados pela rede ou para armazenamento em um formato que pode ser facilmente lido e processado por outras linguagens de programação ou sistemas que suportam JSON.
+Retorna uma string JSON. O encoder aceita `nil`, booleanos, números finitos, strings e tabelas.
 
-**Uso:**
 ```lua
-local myTable = { name = "John", age = 30 }
-local jsonString = JSON.encode(myTable)
-print(jsonString) -- Saída: {"name":"John","age":30}
+local value = {
+    name = "Knight",
+    position = { x = 100, y = 200, z = 7 },
+    supplies = { 268, 3160 }
+}
+
+local encoded = JSON.encode(value)
+print(encoded)
 ```
 
-**Explicação**:
+Regras para tabelas:
 
-- `input`: Esta é a tabela Lua ou estrutura de dados que você deseja converter para o formato JSON.
-- A função retorna uma string no formato JSON que representa a estrutura de dados passada para ela.
+- uma tabela vazia ou com chaves numéricas sequenciais a partir de `1` é codificada como array;
+- as demais tabelas são codificadas como objetos e só podem ter chaves do tipo string;
+- arrays esparsos, tipos de chave misturados, referências circulares, tipos Lua não suportados, `NaN` e números infinitos geram erro;
+- a ordem das chaves de um objeto não é garantida, pois a ordem de iteração de tabelas Lua não é garantida.
 
-### 2. `JSON.decode(str)`
+## `JSON.decode(str)`
 
-**Propósito**: Esta função é usada para analisar uma string JSON e convertê-la em uma tabela Lua ou estrutura de dados Lua apropriada. Este processo é frequentemente referido como "desserialização". É particularmente útil ao receber dados JSON de uma rede ou sistema de arquivos e convertê-los em um formato legível pelo Lua.
+Interpreta uma string JSON completa e retorna sua representação Lua.
 
-**Uso:**
 ```lua
-local jsonString = '{"name":"John","age":30}'
-local myTable = JSON.decode(jsonString)
-print(myTable.name, myTable.age) -- Saída: John 30
+local decoded = JSON.decode(
+    '{"name":"Knight","position":{"x":100,"y":200,"z":7}}'
+)
+
+print(decoded.name, decoded.position.z)
 ```
 
-**Explicação**:
+JSON inválido, dados que não sejam espaços após o valor ou um argumento que não seja string geram erro. O valor JSON `null` vira `nil` em Lua; dentro de arrays, isso significa que uma entrada nula não pode ser preservada como um valor comum do array Lua.
 
-- `str`: Esta é a string JSON que você deseja converter para uma tabela Lua.
-- A função retorna uma tabela Lua que representa os dados JSON passados para ela.
+Use `pcall` quando a entrada não for confiável:
+
+```lua
+local ok, result = pcall(JSON.decode, input)
+if not ok then
+    print("JSON inválido:", result)
+end
+```

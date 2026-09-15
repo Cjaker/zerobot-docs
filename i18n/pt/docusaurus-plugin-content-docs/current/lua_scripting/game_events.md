@@ -2,307 +2,134 @@
 sidebar_position: 1
 ---
 
-# Eventos do Jogo
+# Eventos do jogo
 
-Documentação dos eventos internos do jogo
+Os eventos permitem que um script reaja a dados recebidos pelo cliente, interações com a interface, estados do CaveBot e recursos do ZeroBot.
 
-### Introdução
-
-Esta documentação descreve as funções internas de Lua projetadas para lidar com eventos do jogo. Essas funções desempenham um papel vital na resposta a várias atividades no jogo, incluindo mensagens, magic effects, ações de teclas de atalho e muito mais.
-
-### Eventos
+## Registrando e removendo eventos
 
 ```lua
-1. Game.Events.TALK
-2. Game.Events.MAGIC_EFFECT
-3. Game.Events.HOTKEY_SHORTCUT_PRESS
-4. Game.Events.TEXT_MESSAGE
-5. Game.Events.MODAL_WINDOW
-6. Game.Events.HUD_CLICK
-7. Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK
-8. Game.Events.IMBUEMENT_DATA
-9. Game.Events.QUEST_LOG
-10. Game.Events.QUEST_LINES
-11. Game.Events.DISTANCE_SHOOT_EFFECT
-12. Game.Events.PARTY_HUNT
-```
-
-### Propósito e Uso
-### 1. `Game.Events.TALK`
-**Propósito**: Este evento é acionado ao receber uma mensagem no jogo. Ele pode ser usado para capturar mensagens nos chats do jogo, como Chat Local, Publicidade, Chat Mundial, etc. Ele também inclui as coordenadas (x, y, z), nome do autor e nível.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param authorName - O nome do autor da mensagem.
--- @param authorLevel - O nível do autor (geralmente para identificar o nível do jogador no chat).
--- @param messageType - O tipo da mensagem, baseado em Enums.TalkTypes.
--- @param x, y, z - As coordenadas da posição do mapa onde a mensagem foi enviada.
--- @param text - O conteúdo da mensagem.
-function onTextMessageCheck(authorName, authorLevel, messageType, x, y, z, text)
-    print(authorName, authorLevel, messageType, x, y, z, text)
+local function onMagicEffect(effectType, x, y, z)
+    print("effect", effectType, x, y, z)
 end
 
-Game.registerEvent(Game.Events.TALK, onTextMessageCheck)
+Game.registerEvent(Game.Events.MAGIC_EFFECT, onMagicEffect)
+
+-- Use a mesma referência de função quando ela não for mais necessária.
+Game.unregisterEvent(Game.Events.MAGIC_EFFECT, onMagicEffect)
 ```
 
-### 2. `Game.Events.MAGIC_EFFECT`
-**Purpose**: Este evento é acionado quando o servidor envia um magic effect para a tela. Contém o ID do efeito e as coordenadas onde este efeito é exibido.
+`Game.registerEvent` e `Game.unregisterEvent` retornam o callback recebido. Mantenha callbacks em variáveis locais quando o script puder removê-los mais tarde.
 
-## Usage:
+## Eventos disponíveis
+
+| Evento | Argumentos do callback | Quando é acionado |
+| --- | --- | --- |
+| `Game.Events.TALK` | `authorName, authorLevel, type, x, y, z, text, channelId` | Uma mensagem de fala é recebida. `type` usa `Enums.TalkTypes`; `channelId` identifica o canal quando aplicável. |
+| `Game.Events.MAGIC_EFFECT` | `type, x, y, z` | Um magic effect é recebido. |
+| `Game.Events.HUD_CLICK` | `id` | Um HUD criado por script é clicado. |
+| `Game.Events.HOTKEY_SHORTCUT_PRESS` | `key, modifier` | Um atalho de teclado suportado é pressionado. Compare os dois valores com `HotkeyManager.parseKeyCombination`. |
+| `Game.Events.TEXT_MESSAGE` | `messageData` | Uma mensagem de texto do servidor é recebida. `messageData.messageType` pode ser comparado com `Enums.MessageTypes`, mas os tipos podem variar conforme a versão do cliente. |
+| `Game.Events.MODAL_WINDOW` | `modalWindowData` | O servidor abre uma janela modal do jogo. |
+| `Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK` | `modalId, buttonIndex` | Um botão de uma `CustomModalWindow` criada por script é clicado. |
+| `Game.Events.IMBUEMENT_DATA` | `imbuementData` | Os dados da janela de imbuement são recebidos. |
+| `Game.Events.IMBUEMENT_OPEN_WINDOW` | nenhum | A janela de imbuement é aberta. Disponível no cliente 15.10 ou mais recente. |
+| `Game.Events.QUEST_LOG` | `quests` | Os dados do quest log são recebidos após a solicitação do cliente ou do script. |
+| `Game.Events.QUEST_LINES` | `questId, missions` | As missões de uma quest são recebidas. |
+| `Game.Events.DISTANCE_SHOOT_EFFECT` | `type, fromX, fromY, fromZ, toX, toY, toZ` | Um efeito de distância é recebido. |
+| `Game.Events.PARTY_HUNT` | `output` | A saída de Party Hunt é capturada. A opção Party Hunt da aba Engine precisa estar ativada. |
+| `Game.Events.LABEL` | `wpId, label` | O CaveBot chega a um waypoint Label. Ele fica pausado até o callback continuar a execução com `CaveBot.pause(0)`. |
+| `Game.Events.OPEN_STASH` | `stashData` | Os dados do stash são recebidos quando ele é aberto. |
+| `Game.Events.HUD_DRAG` | `id, x, y` | Um HUD arrastável é solto em uma nova posição da tela. |
+| `Game.Events.STORE_CATEGORIES` | `storeCategoriesData` | Os dados de categorias da Game Store são recebidos. |
+| `Game.Events.STORE_OFFERS` | `storeOffersData` | Os dados de ofertas da Game Store são recebidos. |
+| `Game.Events.OPEN_DAILY_REWARD` | `dailyRewardData` | Os dados da janela de Daily Reward são recebidos. |
+| `Game.Events.DAILY_REWARD_DAYS_DATA` | `dailyRewardDaysData` | Os dados dos dias de Daily Reward são recebidos. |
+| `Game.Events.ALARM` | `alarmType` | Um alarme do ZeroBot é acionado. Compare `alarmType` com `Enums.AlarmType`. |
+| `Game.Events.TASK_HUNTING_DATA` | `taskHuntingData` | Dados de Hunting Tasks ou uma atualização de slot são recebidos. Interprete `taskHuntingData.state` com `Enums.PreyTaskDataState`. |
+| `Game.Events.TASK_BOARD_DATA` | `taskBoardData` | Dados da janela Bounty, Weekly ou Shop são recebidos. Consulte a [API de Hunting Tasks](./functions/hunting_tasks). |
+
+## Payloads estruturados
+
+Vários eventos entregam uma tabela Lua cujos campos dependem do pacote e, em alguns casos, da versão do cliente. Inspecione o payload completo antes de depender de campos opcionais:
+
 ```lua
--- Estrutura de dados de mensagem de exemplo:
--- @param Type: O ID do efeito.
--- @param x: A posição x do efeito.
--- @param y: A posição y do efeito.
--- @param z: A posição z do efeito.
-function OnEffect(Type, x, y, z)
-    print("ID do efeito: " .. Type .. " na posição: " .. x .. ", " .. y .. ", " .. z)
-end
-
-Game.registerEvent(Game.Events.MAGIC_EFFECT, OnEffect)
-```
-
-**Propósito**: Este evento é acionado ao receber uma mensagem no jogo. Ele pode ser usado para capturar mensagens nos chats do jogo, como Chat Local, Publicidade, Chat Mundial, etc. Ele também inclui as coordenadas (x, y, z), nome do autor e nível.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param authorName - O nome do autor da mensagem.
--- @param authorLevel - O nível do autor (geralmente para identificar o nível do jogador no chat).
--- @param messageType - O tipo da mensagem, baseado em Enums.TalkTypes.
--- @param x, y, z - As coordenadas da posição do mapa onde a mensagem foi enviada.
--- @param text - O conteúdo da mensagem.
-function onTextMessageCheck(authorName, authorLevel, messageType, x, y, z, text)
-    print(authorName, authorLevel, messageType, x, y, z, text)
-end
-
-Game.registerEvent(Game.Events.TALK, onTextMessageCheck)
-```
-
-### 2. `Game.Events.MAGIC_EFFECT`
-**Propósito**: Este evento é acionado quando o servidor envia um magic effect para a tela. Ele contém o ID do efeito e as coordenadas onde este efeito é exibido.
-
-## Uso:
-```lua
--- Estrutura de dados de mensagem de exemplo:
--- @param Type: O ID do efeito.
--- @param x: A posição x do efeito.
--- @param y: A posição y do efeito.
--- @param z: A posição z do efeito.
-function OnEffect(Type, x, y, z)
-    print("ID do efeito: " .. Type .. " na posição: " .. x .. ", " .. y .. ", " .. z)
-end
-
-Game.registerEvent(Game.Events.MAGIC_EFFECT, OnEffect)
-```
-
-### 3. `Game.Events.HOTKEY_SHORTCUT_PRESS`
-**Propósito**: Este evento é ativado quando um jogador pressiona uma tecla no teclado. Ele responde a pressões de teclas de atalho, incluindo o código da tecla e modificadores.
-
-## Uso:
-```lua
--- Exemplo de uso com uma combinação de teclas específica:
--- @param key - O código da tecla pressionada.
--- @param modifier - A tecla modificadora pressionada (por exemplo, CTRL).
-local _, _, REFILLER_KEY = HotkeyManager.parseKeyCombination("p")
-local function OnKeyPressed(key, modifier)
-    if key == REFILLER_KEY then
-        print("Tecla " .. REFILLER_KEY .. " pressionada.")
-    end
-end
-
-Game.registerEvent(Game.Events.HOTKEY_SHORTCUT_PRESS, OnKeyPressed)
-```
-
-### 4. `Game.Events.TEXT_MESSAGE`
-**Propósito**: Este evento é acionado quando o servidor envia uma mensagem de texto. Estas podem ser, por exemplo, as mensagens brancas que aparecem no meio da tela do jogador, como mensagens de Log do Servidor.
-
-####
-
-<div class="text--center">
-  <img src="/img/loot_message.png" />
-  <p>Este é um exemplo de uma mensagem de texto</p>
-</div>
-
-## Uso:
-```lua
--- Estrutura de dados de mensagem de exemplo:
--- {
---     "channelId": 0,
---     "messagePrimaryValue": 13048,
---     "messagePrimaryColor": 180,
---     "messageSecondaryValue": 0,
---     "x": 32424,
---     "y": 32147,
---     "z": 7,
---     "text": "A monk loses 4 hitpoints due to your attack.",
---     "messageSecondaryColor": 255,
---     "messageType": 23
--- }
---
--- O campo messageType pode ser baseado em Enums.MessageTypes
--- @param messageData - Os dados da mensagem incluindo ID do canal, valores e cores primárias/secundárias, coordenadas e o texto.
-function onTextEvent(messageData)
+local function onTextMessage(messageData)
     print(JSON.encode(messageData))
 end
 
-Game.registerEvent(Game.Events.TEXT_MESSAGE, onTextEvent)
+Game.registerEvent(Game.Events.TEXT_MESSAGE, onTextMessage)
 ```
 
-Observação: O tipo de mensagem pode mudar dependendo da versão do cliente
+Payloads comuns incluem:
 
-### 5. `Game.Events.MODAL_WINDOW`
-**Propósito**: Este evento é acionado quando o servidor envia ações de janela modal no jogo, detalhando dados da janela como botões e títulos.
+- `TEXT_MESSAGE`: canal, tipo, texto, posição, cores e valores numéricos fornecidos pelo cliente.
+- `MODAL_WINDOW`: ID, título, mensagem, botões, escolhas, botões padrão e prioridade.
+- `OPEN_STASH`: `stashItems`, com entradas contendo `itemId` e `count`, além de `freeSlots`.
+- `TASK_HUNTING_DATA`: ID do slot, estado e campos de Hunting Tasks específicos desse estado. Veja a seção Hunting Tasks na [API Game](./functions/game).
 
-####
+Sempre proteja o acesso a campos opcionais e dados específicos de cada estado:
 
-<div class="text--center">
-  <img src="/img/modal_window.png" />
-  <p>Este é um exemplo de uma janela modal</p>
-</div>
-
-## Uso:
 ```lua
--- {
---     "defaultEscapeButton": 255,
---     "defaultEnterButton": 255,
---     "priority": 0,
---     "title": "Select an option",
---     "buttons": [
---         {
---             "text": "First",
---             "id": 1
---         },
---         {
---             "text": "Second",
---             "id": 2
---         },
---         {
---             "text": "Third",
---             "id": 3
---         },
---         {
---             "text": "Fourth",
---             "id": 4
---         }
---     ],
---     "id": 1,
---     "message": "Hello",
---     "choices": []
--- }
--- Parâmetros:
--- @param data - Os dados da janela modal incluindo botões padrão, prioridade, título, botões e mensagem.
-function onModalWindow(data)
-    print(JSON.encode(data))
+local function onHuntingTasks(data)
+    if data.state == Enums.PreyTaskDataState.PREY_TASK_DATA_STATE_ACTIVE then
+        print("slot", data.slotId, "kills", data.currentKills)
+    end
 end
 
-Game.registerEvent(Game.Events.MODAL_WINDOW, onModalWindow)
+Game.registerEvent(Game.Events.TASK_HUNTING_DATA, onHuntingTasks)
 ```
 
-### 6. `Game.Events.HUD_CLICK`
-**Propósito**: Este evento é acionado por cliques em qualquer elemento HUD (HUD criado por funções HUD), identificado pelo ID do HUD.
+## Exemplos de interação
 
-## Uso:
+### Hotkey
+
 ```lua
--- Parâmetros:
--- @param id - O ID do elemento HUD que foi clicado.
-function onHUDClick(id)
-    print(id)
+local valid, expectedModifier, expectedKey =
+    HotkeyManager.parseKeyCombination("Ctrl+F8")
+
+local function onShortcut(key, modifier)
+    if valid and key == expectedKey and modifier == expectedModifier then
+        print("Ctrl+F8 pressionado")
+    end
 end
 
-Game.registerEvent(Game.Events.HUD_CLICK, onHUDClick)
+Game.registerEvent(Game.Events.HOTKEY_SHORTCUT_PRESS, onShortcut)
 ```
 
-### 7. `Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK`
-**Propósito**: Este evento é acionado quando um jogador clica em um botão personalizado em uma janela modal.
+### Label do CaveBot
 
-## Uso:
 ```lua
--- Parâmetros:
--- @param modalId - O ID da janela modal.
--- @param buttonId - O ID do botão clicado.
-function onCustomModalWindowButtonClick(modalId, buttonId)
-    print(modalId, buttonId)
+local function onLabel(waypointId, label)
+    print("Label alcançado", waypointId, label)
+
+    -- O CaveBot fica pausado enquanto este handler executa a ação do label.
+    CaveBot.pause(0)
 end
 
-Game.registerEvent(Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK, onCustomModalWindowButtonClick)
+Game.registerEvent(Game.Events.LABEL, onLabel)
 ```
 
-### 8. `Game.Events.IMBUEMENT_DATA`
-**Propósito**: Este evento é acionado quando o servidor envia dados de imbuimento para a janela de imbuimento.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param imbuementData - Os dados de imbuimento recebidos do servidor.
-function onImbuementData(imbuementData)
-    print(JSON.encode(imbuementData))
-end
-
-Game.registerEvent(Game.Events.IMBUEMENT_DATA, onImbuementData)
-```
-
-### 9. `Game.Events.QUEST_LOG`
-**Propósito**: Este evento é acionado quando o servidor envia dados de log de missão para o cliente.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param questLogData - Os dados de log de missão recebidos do servidor.
-function onQuestLog(questLogData)
-    print(JSON.encode(questLogData))
-end
-
-Game.registerEvent(Game.Events.QUEST_LOG, onQuestLog)
-```
-
-### 10. `Game.Events.QUEST_LINES`
-**Propósito**: Este evento é acionado quando o servidor envia linhas de missão para o cliente.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param questId - O ID da quest.
--- @param missions - As missões da quest.
-function onQuestLines(questId, missions)
-    print(questId, JSON.encode(missions))
-end
-
-Game.registerEvent(Game.Events.QUEST_LINES, onQuestLines)
-```
-
-### 11. `Game.Events.DISTANCE_SHOOT_EFFECT`
-**Propósito**: Este evento é acionado quando o servidor envia um efeito de tiro à distância para o cliente.
+### Clique e arraste de HUD
 
 ```lua
--- Parâmetros:
--- @param type - O tipo do efeito de tiro à distância
--- @param fromX - A coordenada x da posição do mapa onde o efeito começou.
--- @param fromY - A coordenada y da posição do mapa onde o efeito começou.
--- @param fromZ - A coordenada z da posição do mapa onde o efeito começou.
--- @param toX - A coordenada x da posição do mapa onde o efeito terminou.
--- @param toY - A coordenada y da posição do mapa onde o efeito terminou.
--- @param toZ - A coordenada z da posição do mapa onde o efeito terminou.
-function onDistanceShootEffect(type, fromX, fromY, fromZ, toX, toY, toZ)
-    print(type, fromX, fromY, fromZ, toX, toY, toZ)
+local hud = HUD(40, 40, "Arraste ou clique", true)
+hud:setDraggable(true)
+
+local function onHudClick(id)
+    if id == hud:getId() then
+        print("clicado")
+    end
 end
 
-Game.registerEvent(Game.Events.DISTANCE_SHOOT_EFFECT, onDistanceShootEffect)
-```
-
-### 12. `Game.Events.PARTY_HUNT`
--- acionado quando o jogador copia dados da janela de party hunt para a área de transferência e tem permitido o uso do mesmo na guia Engine.
-
-## Uso:
-```lua
--- Parâmetros:
--- @param output - Os dados da party hunt copiados para a área de transferência.
-function onPartyHunt(output)
-    print(output)
+local function onHudDrag(id, x, y)
+    if id == hud:getId() then
+        print("solto em", x, y)
+    end
 end
 
-Game.registerEvent(Game.Events.PARTY_HUNT, onPartyHunt)
+Game.registerEvent(Game.Events.HUD_CLICK, onHudClick)
+Game.registerEvent(Game.Events.HUD_DRAG, onHudDrag)
 ```
 
 ## Hunting Tasks: Bounty, Weekly e Shop

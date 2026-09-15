@@ -16,12 +16,26 @@ CaveBot.selectWaypoint(wpId)
 CaveBot.getSelectedWaypointId()
 CaveBot.getWaypointTypeById(id)
 CaveBot.getWaypointDataById(id)
+CaveBot.getWaypoints()
+CaveBot.getWaypointsCount()
+CaveBot.isDebugEnabled()
+CaveBot.getCoreTeleportIds()
+CaveBot.stopCurrentScript()
+CaveBot.setStartFromNearestWaypoint(startFromNearest)
 CaveBot.setLureIgnoreList(list)
 CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount)
+CaveBot.getSafetyLureSettings()
 CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCreatures)
+CaveBot.getLureSettings()
 CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter, creaturesToLeaveByHp, creaturesToLeaveByHpValue, creaturesToLeaveByHpCount, dontLeaveIfHp, dontLeaveIfHpValue, dontLeaveIfHpCount)
+CaveBot.getEndLureSettings()
+CaveBot.getSellList()
+CaveBot.setSellList(list)
+CaveBot.getRefillList()
+CaveBot.setRefillList(list)
 CaveBot.setAutoRecorderSettings(nodeDistance, type)
 CaveBot.setNodeSettings(nodeDistance)
+CaveBot.setDebugHUDSettings(debugHUD, showPath, showSkippedLureCreatures)
 CaveBot.addSpecialArea(x, y, z, type, width, height, fromWp, toWp)
 CaveBot.deleteSpecialArea(id)
 CaveBot.clearSpecialAreas()
@@ -50,7 +64,7 @@ function CaveBot.GoTo(labelName)
 -- @param x (number) - The x coordinate of the waypoint.
 -- @param y (number) - The y coordinate of the waypoint.
 -- @param z (number) - The z coordinate of the waypoint.
--- @param extraData (string) - The extra data of the waypoint. This parameter is optional and should be used only when waypointType is Label/Goto/Script.
+-- @param extraData (string) - The extra data of the waypoint. This parameter is optional and should be used only when waypointType is Label/Goto/Script/Hur Down-Up. For Label/Goto/Script the extraData should be a string, for Hur Down-Up the extraData should be the direction (Enums.Directions).
 function CaveBot.addWaypoint(waypointType, x, y, z, extraData)
 
 --- Insert a waypoint before specific id on the cavebot system.
@@ -104,6 +118,35 @@ function CaveBot.getWaypointTypeById(id)
 --- @return (table) - Returns the waypoint data if the id is valid, otherwise nil. Data format: {x = number, y = number, z = number, type = number, data = string}
 function CaveBot.getWaypointDataById(id)
 
+--- Get all waypoints data.
+--- This function is a wrapper around the external function cavebotGetWaypoints.
+--- @return (table) - Returns all waypoints data. Data format: array of {x = number, y = number, z = number, type = number, data = string}
+function CaveBot.getWaypoints()
+
+--- Get waypoints count.
+--- This function is a wrapper around the external function cavebotGetWaypointsCount.
+--- @return (number) - Returns the total count of waypoints.
+function CaveBot.getWaypointsCount()
+
+--- Return debug state.
+--- This function is a wrapper around the external function cavebotIsDebugEnabled.
+--- @return (boolean) - Returns true if debug is enabled, otherwise false.
+function CaveBot.isDebugEnabled()
+
+--- Get the core teleport ids list from the cavebot system.
+--- This function is a wrapper around the external function cavebotGetCoreTeleportIds.
+--- @return (table) - The list of teleport ids.
+function CaveBot.getCoreTeleportIds()
+
+--- Stop the execution of the current waypoint script if there's one running.
+--- This function is a wrapper around the external function cavebotStopCurrentScript.
+function CaveBot.stopCurrentScript()
+
+--- Set whether to start from the nearest waypoint or not.
+--- This function is a wrapper around the external function cavebotSetStartFromNearestWaypoint.
+--- @param startFromNearest (boolean) - The flag to enable/disable starting from the nearest waypoint.
+function CaveBot.setStartFromNearestWaypoint(startFromNearest)
+
 --- Set the lure ignore list for the cavebot system.
 --- This function is a wrapper around the external function cavebotSetLureIgnoreList.
 --- @param list (table) - The list of creatures to ignore.
@@ -117,6 +160,11 @@ function CaveBot.setLureIgnoreList(list)
 --- @param avoidStuckTrapCount (number) - The count of creatures to consider a stuck trap.
 function CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount)
 
+--- Get the safety lure settings for the cavebot system.
+--- This function is a wrapper around the external function cavebotGetSafetyLureSettings.
+--- @return (table) - The safety lure settings. Data format: {nearCreatureDistance = number, nearCreatureCount = number, avoidStuckTrapCount = number}
+function CaveBot.getSafetyLureSettings()
+
 --- Set the lure settings for the cavebot system.
 --- All parameters below is based on Lure Settings section from CaveBot settings window.
 --- This function is a wrapper around the external function cavebotSetLureSettings.
@@ -124,6 +172,11 @@ function CaveBot.setSafetyLureSettings(nearCreatureDistance, nearCreatureCount, 
 --- @param dynamicLure (boolean) - The flag to enable/disable the dynamic lure.
 --- @param skipUnreachableCreatures (boolean) - The flag to skip unreachable creatures.
 function CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCreatures)
+
+--- Get the lure settings for the cavebot system.
+--- This function is a wrapper around the external function cavebotGetLureSettings.
+--- @return (table) - The lure settings. Data format: {creaturesToRun = number, dynamicLure = boolean, skipUnreachableCreatures = boolean}
+function CaveBot.getLureSettings()
 
 --- Set the end lure settings for the cavebot system.
 --- All parameters below is based on End Lure Settings section from CaveBot settings window.
@@ -139,6 +192,31 @@ function CaveBot.setLureSettings(creaturesToRun, dynamicLure, skipUnreachableCre
 --- @param dontLeaveIfHpCount (number) - The count of creatures to dont leave.
 function CaveBot.setEndLureSettings(creaturesToStop, creaturesToLeave, tryWalkToCenter, creaturesToLeaveByHp, creaturesToLeaveByHpValue, creaturesToLeaveByHpCount, dontLeaveIfHp, dontLeaveIfHpValue, dontLeaveIfHpCount)
 
+--- Get the end lure settings for the cavebot system.
+--- This function is a wrapper around the external function cavebotGetEndLureSettings.
+--- @return (table) - The end lure settings. Data format: {creaturesToStop = number, creaturesToLeave = number, tryWalkToCenter = boolean, creaturesToLeaveByHp = boolean, creaturesToLeaveByHpValue = number, creaturesToLeaveByHpCount = number, dontLeaveIfHp = boolean, dontLeaveIfHpValue = number, dontLeaveIfHpCount = number}
+function CaveBot.getEndLureSettings()
+
+--- Gets the sell list for the cavebot system.
+--- This function is a wrapper around the external function cavebotGetSellList.
+--- @return (table) - The sell list. Data format: table of ids.
+function CaveBot.getSellList()
+
+--- Set the sell list for the cavebot system.
+--- This function is a wrapper around the external function cavebotSetSellList.
+--- @param list (table) - The sell list. Data format: table of ids.
+function CaveBot.setSellList(list)
+
+--- Gets the refill list for the cavebot system.
+--- This function is a wrapper around the external function cavebotGetRefillList.
+--- @return (string) - The refill list. Data format: same as in CaveBot settings window.
+function CaveBot.getRefillList()
+
+--- Set the refill list for the cavebot system.
+--- This function is a wrapper around the external function cavebotSetRefillList.
+--- @param list (string) - The refill list. Data format: same as in CaveBot settings window.
+function CaveBot.setRefillList(list)
+
 --- Set the auto recorder settings for the cavebot system.
 --- All parameters below is based on Auto Recorder Settings section from CaveBot settings window.
 --- This function is a wrapper around the external function cavebotSetAutoRecorderSettings.
@@ -151,6 +229,14 @@ function CaveBot.setAutoRecorderSettings(nodeDistance, type)
 --- This function is a wrapper around the external function cavebotSetNodeSettings.
 --- @param nodeDistance (number) - The distance to consider a node.
 function CaveBot.setNodeSettings(nodeDistance)
+
+--- Set the debug HUD settings for the cavebot system.
+--- All parameters below is based on Debug HUD Settings section from CaveBot settings window.
+--- This function is a wrapper around the external function cavebotSetDebugHUDSettings.
+--- @param debugHUD (boolean) - The flag to enable/disable the debug HUD.
+--- @param showPath (boolean) - The flag to show the path.
+--- @param showSkippedLureCreatures (boolean) - The flag to show the skipped lure creatures.
+function CaveBot.setDebugHUDSettings(debugHUD, showPath, showSkippedLureCreatures)
 
 --- Add a special area to the cavebot system.
 --- This function is a wrapper around the external function cavebotAddSpecialArea.
@@ -214,5 +300,26 @@ function CaveBot.saveFile(fileName)
 --- Load all waypoints from a file.
 -- This function is a wrapper around the external function cavebotLoadFile.
 -- @param file (string) - The file name to load the waypoints. The path is relative to the Documents/ZeroBot directory.
+-- @return (boolean) - Return true if the cavebot loaded the file successfully, or false if failed to load.
 function CaveBot.loadFile(fileName)
 ```
+
+<!-- current-core-api:start -->
+## Waypoint and settings inspection
+
+- `CaveBot.getWaypoints()` returns the waypoint array. Each entry has `x`, `y`, `z`, `type`, and `data`.
+- `CaveBot.getWaypointsCount()` returns the current number of waypoints.
+- `CaveBot.isDebugEnabled()` reports whether CaveBot debug mode is enabled.
+- `CaveBot.getCoreTeleportIds()` returns the teleport item IDs used by the CaveBot core.
+- `CaveBot.stopCurrentScript()` stops the currently running Script waypoint, if any.
+- `CaveBot.setStartFromNearestWaypoint(startFromNearest)` controls whether CaveBot starts at the nearest waypoint.
+
+## Lure, trade, refill, and debug settings
+
+- `CaveBot.getSafetyLureSettings()` returns `{nearCreatureDistance, nearCreatureCount, avoidStuckTrapCount}`.
+- `CaveBot.getLureSettings()` returns `{creaturesToRun, dynamicLure, skipUnreachableCreatures}`.
+- `CaveBot.getEndLureSettings()` returns the current End Lure configuration.
+- `CaveBot.getSellList()` and `CaveBot.setSellList(list)` read and replace the item-ID sell list.
+- `CaveBot.getRefillList()` and `CaveBot.setRefillList(list)` read and replace the refill text in the same format used by the CaveBot settings window.
+- `CaveBot.setDebugHUDSettings(debugHUD, showPath, showSkippedLureCreatures)` updates the three Debug HUD options from the CaveBot settings window.
+<!-- current-core-api:end -->

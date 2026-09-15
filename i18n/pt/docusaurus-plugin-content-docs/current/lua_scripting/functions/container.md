@@ -17,9 +17,17 @@ Container:moveItemToContainer(containerSlot, itemCount, toContainerIndex, toCont
 Container:useItem(containerSlot, openNewWindow)
 Container:useItemWithContainerItem(spotFrom, contTo, spotTo)
 Container.useItemOnAnotherItem(itemId, otherId)
+Container:stowItem(containerSlot, itemCount)
+Container:pickItemImbuement(containerSlot)
+Container:stowAllItems(containerSlot)
 Container:moveUp()
 Container:close()
 Container:getCapacity()
+Container:lookAt(containerSlot)
+Container:getItemCountById(itemId)
+Container:getCurrentPage()
+Container:getTotalPages()
+Container:goToPage(page)
 Container:getItemCount()
 ```
 
@@ -119,3 +127,16 @@ function Container:getItemCount()
 -- @return True se a solicitação foi enviada para o servidor, ou nil se o item/slot do container não existir.
 function Container:lookAt(containerSlot)
 ```
+
+<!-- current-core-api:start -->
+## Stow, imbuement, contagem e páginas
+
+- `Container:stowItem(containerSlot, itemCount)` aplica a ação **Stow** do jogo a um item. No client 14+, outros tipos de item também podem ser guardados.
+- `Container:stowAllItems(containerSlot)` aplica **Stow all items of this type** usando o item do slot informado.
+- `Container:pickItemImbuement(containerSlot)` seleciona um item para a janela de Imbuement e exige o client 15.10.46b862 ou superior.
+- `Container:getItemCountById(itemId)` retorna a quantidade nesse container, ou `nil` se o container não existir mais.
+- `Container:getCurrentPage()` e `Container:getTotalPages()` retornam os dados de paginação. Total `0` significa que o container não possui páginas.
+- `Container:goToPage(page)` solicita uma página e retorna `nil` para container/página inválido; caso contrário, informa se a solicitação foi enviada.
+
+Os métodos de stow retornam `nil` quando o container, slot ou item é inválido; nos demais casos, informam se a ação foi enviada.
+<!-- current-core-api:end -->

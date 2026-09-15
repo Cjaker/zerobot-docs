@@ -20,7 +20,8 @@ Player.isHungry()
 Player.getStamina()
 Player.getLevel()
 Player.getLevelPercent()
-Player.getStamina()
+Player.getExperience()
+Player.getXpBoostTime()
 Player.getSkills()
 Player.getTargetId()
 Player.getFollowId()
@@ -35,6 +36,16 @@ Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
 Player.getBlessingState()
+Player.isSerene()
+Player.getHarmony()
+Player.getMonkPassiveType()
+Player.getStances()
+Player.getUnjustifiedData()
+Player.isPremium()
+Player.hasReceivedBasicData()
+Player.getHuntingTaskPrices()
+Player.getHuntingPoints()
+Player.getPreyWildcards()
 Player.getBountyPoints()
 Player.getSoulSeals()
 Player.leaveParty()
@@ -113,10 +124,10 @@ function Player.getLevel()
 -- @return The player's current level percentage, or last value if isn't in-game.
 function Player.getLevelPercent()
 
---- Get the player's current stamina in minutes.
--- This function is a wrapper around the external function playerGetStamina.
--- @return The player's current stamina in minutes, or last value if isn't in-game.
-function Player.getStamina()
+--- Get the player's current experience.
+--- This function is a wrapper around the external function playerGetExperience.
+--- @return The player's current experience, or last value if isn't in-game.
+function Player.getExperience()
 
 --- Retrieves the XP boost remaining time in seconds of the player.
 -- This function is a wrapper around the external function playerGetXpBoostTime.
@@ -220,11 +231,101 @@ function Player.passLeadershipParty(targetId)
 -- This function is a wrapper around the external function playerGetBlessingState.
 function Player.getBlessingState()
 
+-- Get player's serene state.
+-- This function is a wrapper around the external function playerIsSerene.
+-- @return If player is in serene state, or last value if isn't in-game.
+function Player.isSerene()
+
+-- Get the player's harmony.
+-- This function is a wrapper around the external function playerGetHarmony.
+-- @return The player's current harmony, or last value if isn't in-game.
+function Player.getHarmony()
+
+-- Get the player's enabled passive type. (Only for Monk vocation).
+-- This function is a wrapper around the external function playerGetMonkPassiveType.
+-- @return The player's current enabled passive type, or last value if isn't in-game. Refer to Enums.MonkPassiveType for the returned value.
+function Player.getMonkPassiveType()
+
+-- Get all enabled stances.
+-- ONLY SUPPORTED IN VERSION 15.25 OR SUPERIOR.
+-- This function is a wrapper around the external function playerGetStances.
+-- @return A table containing all stances spell ids, or nil if you are using it in an unsupported version. You can check what's the spell by using functions from Spells library.
+function Player.getStances()
+
+-- Get the player's unjustified data.
+-- This function is a wrapper around the external function playerGetUnjustifiedData.
+-- Output example: {
+--    dayProgress = 0,
+--    dayLeft = 0,
+--    weekProgress = 0,
+--    weekLeft = 0,
+--    monthProgress = 0,
+--    monthLeft = 0,
+--    skullDuration = 0
+--}
+-- This information will only be available if server sent it (not when you injected the bot after logged in), if isn't available it's recommended to relogin your character.
+-- @return The player's current unjustified data as a table, or last value if isn't in-game.
+function Player.getUnjustifiedData()
+
+-- Return if player is premium.
+-- This function is a wrapper around the external function playerIsPremium.
+-- This information will only be available if server sent it (not when you injected the bot after logged in), if isn't available it's recommended to relogin your character.
+-- To guarantee that information has been received, you can use: Player.hasReceivedBasicData()
+-- @return The player's premium state.
+function Player.isPremium()
+
+-- Return if player has received basic data.
+-- This function is a wrapper around the external function playerHasReceivedBasicData.
+-- To guarantee that information has been received, you need to relogin your character if you injected the bot after logged in.
+-- @return true if player has received basic data, otherwise false.
+function Player.hasReceivedBasicData()
+
+-- Get the player's current hunting task prices. Remember: you should have hunting task data available, you can get it after a relogin.
+-- This function is a wrapper around the external function playerGetHuntingTaskPrices.
+-- @return The player's current hunting task prices as a table, or last value if isn't in-game. Table format: {rerollPrice=0,cancelPrice=0,selectionListPrice=0,rewardRerollPrice=0}
+function Player.getHuntingTaskPrices()
+
+-- Get the player's current hunting points. Remember: you should have hunting task data available, you can get it after a relogin.
+-- This function is a wrapper around the external function playerGetHuntingPoints.
+-- @return The player's current hunting points, or last value if isn't in-game.
+function Player.getHuntingPoints()
+
+-- Get the player's current prey wildcards. Remember: you should have hunting task data available, you can get it after a relogin.
+-- This function is a wrapper around the external function playerGetPreyWildcards.
+-- @return The player's current prey wildcards, or last value if isn't in-game.
+function Player.getPreyWildcards()
+
+-- Get the player's current Bounty Points balance.
+-- This function is a wrapper around the external function playerGetBountyPoints.
+-- @return The player's cached Bounty Points, or 0 after login until the server sends the balance.
+function Player.getBountyPoints()
+
+-- Get the player's current Soulseals balance.
+-- This function is a wrapper around the external function playerGetSoulSeals.
+-- @return The player's cached Soulseals, or 0 after login until the server sends the balance.
+function Player.getSoulSeals()
+
 --- Leave the current party.
 --- This function is a wrapper around the external function playerLeaveParty.
 function Player.leaveParty()
 ```
 
+<!-- current-core-api:start -->
+## Additional player data
+
+- `Player.getExperience()` returns current experience.
+- `Player.isSerene()`, `Player.getHarmony()`, and `Player.getMonkPassiveType()` expose Monk state. Compare the passive type with `Enums.MonkPassiveType`.
+- `Player.getStances()` returns enabled stance spell IDs and is available only on client 15.25+. Use the `Spells` API to inspect each ID.
+- `Player.getUnjustifiedData()` returns `{dayProgress, dayLeft, weekProgress, weekLeft, monthProgress, monthLeft, skullDuration}`.
+- `Player.isPremium()` returns the received premium state.
+- `Player.hasReceivedBasicData()` reports whether basic player data has arrived. If the bot was injected after login, relog before relying on premium or unjustified data.
+- `Player.getHuntingTaskPrices()` returns `{rerollPrice, cancelPrice, selectionListPrice, rewardRerollPrice}`.
+- `Player.getHuntingPoints()` returns current hunting points.
+- `Player.getPreyWildcards()` returns current prey wildcards.
+- `Player.getBountyPoints()` returns cached Bounty Points, or `0` after login until the server sends the balance.
+- `Player.getSoulSeals()` returns cached Soulseals, or `0` after login until the server sends the balance.
+
+Hunting Task values are available after the server sends hunting-task data, normally after login or a Hunting Tasks update.
 ## Hunting Tasks balances
 
 ```lua
@@ -235,3 +336,4 @@ Player.getSoulSeals()
 Both getters take no arguments and return a number: the corresponding cached balance received from the server. The native getters do not return `nil` to indicate missing balance data. Both balances reset to `0` when a login packet is parsed, and remain `0` until the server supplies an updated balance. Therefore, `0` can mean either an actual zero balance or balance data not yet received for the current login; these getters do not expose a separate availability flag.
 
 The [Hunting Tasks API](./hunting_tasks) uses the cached Bounty Points balance for talisman upgrades, preference-slot unlocks, and clearing preferences. Its `TASK_BOARD_DATA` payload does not include the player's Bounty Points or Soulseals balance; `weekly.soulSealsReward` is a reward amount, not the current balance. Wait for the corresponding complete window snapshot before stateful actions, and treat the server as authoritative.
+<!-- current-core-api:end -->

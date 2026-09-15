@@ -1,44 +1,53 @@
-# zerobot-docs
-ZeroBot API open-source documentation, made using https://docusaurus.io
+# ZeroBot documentation
 
-# Website
+Private English and Portuguese documentation for ZeroBot, built with Docusaurus.
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+## Requirements
 
-### Installation
+- Node.js 20 or newer
+- The current ZeroBot Lua libraries under `Documents/ZeroBot/Scripts/core`
 
-```
-$ yarn
-```
+## Install
 
-### Local Development
-
-```
-$ yarn start
+```powershell
+npm install
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Local development
 
-### Build
-
-```
-$ yarn build
+```powershell
+npm start
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+The development server reloads the site when docs, components, or styles change.
 
-### Deployment
+## Validate
 
-Using SSH:
+Point the checker to the installed core libraries and run the complete validation:
 
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
+```powershell
+$env:ZEROBOT_CORE_DIR = 'C:\Users\Nop\Documents\ZeroBot\Scripts\core'
+npm run validate
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+This command:
+
+1. compares the English and Portuguese Lua references with the public functions, enums, and events in `Scripts/core`;
+2. checks translation-file parity and unknown API references;
+3. builds every configured locale and fails on broken routes or invalid MDX.
+
+Run only the API check with:
+
+```powershell
+npm run check:lua-api
+```
+
+## Production build
+
+```powershell
+npm run build
+```
+
+The generated static site is written to `build`, including the Portuguese site under `build/pt`.
+
+Publishing is intentionally separate from the local build and validation workflow.

@@ -12,32 +12,55 @@ Engine.getBotVersion()
 Engine.isBotEnabled()
 Engine.isTargetingEnabled()
 Engine.isMagicShooterEnabled()
+Engine.isCaveBotEnabled()
 Engine.isEquipmentEnabled()
 Engine.isTimerEnabled()
+Engine.isAutoSSAEnabled()
+Engine.isHoldTargetEnabled()
+Engine.isAutoMightRingEnabled()
+Engine.isAntiPushEnabled()
+Engine.isRuneMaxEnabled()
+Engine.isReconnectEnabled()
 Engine.enableTargeting(enable)
 Engine.enableMagicShooter(enable)
 Engine.enableHealFriend(enable)
 Engine.enableHealing(enable)
 Engine.enableEquipment(enable)
 Engine.enableTimer(enable)
+Engine.enableCaveBot(enable)
 Engine.enableBot(enable)
 Engine.magicShooterSwitchProfile(profileIndex)
 Engine.magicShooterGetProfile()
 Engine.magicShooterGetProfileName(index)
+Engine.autoSSAEnable(enable)
+Engine.holdTargetEnable(enable)
+Engine.autoMightRingEnable(enable)
+Engine.antiPushEnable(enable)
+Engine.setFirstAntiPushId(itemId)
+Engine.setSecondAntiPushId(itemId)
+Engine.runeMaxEnable(enable)
+Engine.reconnectEnable(enable)
+Engine.getRuneMaxId()
+Engine.setRuneMaxId(runeMaxId)
 Engine.targetingSwitchProfile(profileIndex)
 Engine.targetingGetProfile()
 Engine.targetingGetProfileName(index)
+Engine.targetingGetProfileSettings(index)
+Engine.targetingSetProfileSettings(index, settings)
 Engine.equipmentSwitchProfile(profileIndex)
 Engine.equipmentGetProfile()
 Engine.equipmentGetProfileName(index)
-Engine.getScriptsDirectory()
 Engine.healingSwitchProfile(profileIndex)
 Engine.healingGetProfile()
 Engine.healingGetProfileName(index)
-Engine.getUserId()
+Engine.getScriptsDirectory()
+Engine.getScriptsDirectoryUtf8()
+Engine.getUserId(lowerCase)
 Engine.getLicenseTime()
 Engine.setAlarm(alarmType, enable)
 Engine.isAlarmEnabled(alarmType)
+Engine.isAllAlarmsDisabled()
+Engine.allAlarmsEnable(enable)
 Engine.loadScript(scriptName)
 Engine.unloadScript(scriptName)
 Engine.reloadScript(scriptName)
@@ -188,7 +211,7 @@ function Engine.healingGetProfileName(index)
 --- Obtém o último ID do usuário.
 -- Esta função é útil para identificar o usuário atual. Você pode usar engineGetUserId diretamente se precisar evitar hooks.
 -- @return (string) - O último ID de usuário gerado, dados não confidenciais.
-function Engine.getUserId()
+function Engine.getUserId(lowerCase)
 
 --- Obtém o tempo restante da licença.
 --- Esta função é um wrapper em torno da função externa engineGetLicenseTime.
@@ -236,3 +259,29 @@ function Engine.loadConfig(config)
 --- @return (boolean) - Retorna verdadeiro se o script estiver carregado, falso caso contrário.
 function Engine.isScriptLoaded(scriptName)
 ```
+
+<!-- current-core-api:start -->
+## Controles adicionais da engine
+
+Os getters abaixo informam se cada recurso nativo está ativo:
+
+- `Engine.isCaveBotEnabled()`
+- `Engine.isAutoSSAEnabled()`
+- `Engine.isHoldTargetEnabled()`
+- `Engine.isAutoMightRingEnabled()`
+- `Engine.isAntiPushEnabled()`
+- `Engine.isRuneMaxEnabled()`
+- `Engine.isReconnectEnabled()`
+
+Use `Engine.enableCaveBot(enable)`, `Engine.autoSSAEnable(enable)`, `Engine.holdTargetEnable(enable)`, `Engine.autoMightRingEnable(enable)`, `Engine.antiPushEnable(enable)`, `Engine.runeMaxEnable(enable)` e `Engine.reconnectEnable(enable)` para alterar o recurso correspondente.
+
+- `Engine.setFirstAntiPushId(itemId)` e `Engine.setSecondAntiPushId(itemId)` definem os itens do Anti-Push.
+- `Engine.getRuneMaxId()` e `Engine.setRuneMaxId(runeMaxId)` leem e alteram o item do Rune Max.
+- `Engine.targetingGetProfileSettings(index)` retorna as Advanced Settings do perfil de índice `0` a `9`.
+- `Engine.targetingSetProfileSettings(index, settings)` aplica uma tabela de Advanced Settings ao perfil.
+- `Engine.getScriptsDirectoryUtf8()` retorna o diretório de scripts em UTF-8.
+- `Engine.isAllAlarmsDisabled()` informa o estado global de desativação dos alarmes.
+- `Engine.allAlarmsEnable(enable)` altera o estado global dos alarmes.
+
+`Engine.getUserId(lowerCase)` aceita o argumento opcional `lowerCase`; a assinatura antiga sem argumentos estava incompleta.
+<!-- current-core-api:end -->

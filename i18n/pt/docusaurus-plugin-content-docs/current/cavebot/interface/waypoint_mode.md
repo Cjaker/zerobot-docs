@@ -2,14 +2,17 @@
 sidebar_position: 3
 ---
 
-# Modo Waypoint
+# Modo de waypoint
+
 <div class="text--center">
-  <img src="/img/waypoint_mode.png" />
-  <p>Modos de Waypoint do CaveBot</p>
+  <img src="/img/waypoint_mode.png" alt="Modos de waypoint do CaveBot" />
+  <p>Modos de waypoint do CaveBot</p>
 </div>
 
-**Replace** -> ao definir um waypoint, ele substitui o waypoint atualmente selecionado em vez de criar um novo
+O modo controla onde o próximo waypoint criado será colocado na lista:
 
-**Add** -> ao definir um waypoint, ele adiciona ao final da lista
+- **Replace** substitui o waypoint selecionado.
+- **Add** adiciona o novo waypoint ao final.
+- **Insert** insere o novo waypoint imediatamente antes do selecionado.
 
-**Insert** -> ao definir um waypoint, ele adiciona acima do waypoint selecionado
+Selecione a linha desejada antes de usar **Replace** ou **Insert**.

@@ -4,21 +4,21 @@ sidebar_position: 1
 
 # Tipos de Waypoint
 <div class="text--center">
-  <img src="/img/waypoint_type.png?v=2" />
+  <img src="/img/waypoint_type.png?v=2" alt="Seletor de tipo de waypoint do CaveBot" />
   <p>Tipos de Waypoint do CaveBot</p>
 </div>
 
 **Stand** -> força seu personagem a pisar nessa posição
 
-**Node** -> força seu personagem a pisar em qualquer SQM próximo a essa posição (distância máxima da posição: 1 SQM)
+**Node** -> considera o waypoint alcançado dentro da **Distância do Node** configurada
 
-**Start Lure** -> ativa o modo de lure do bot próximo da posição especificada, distância similar do Node 1x1 SQM's
+**Start Lure** -> ativa o fluxo normal de lure quando o personagem alcança o raio do waypoint
 
-**End Lure** -> termina seu lure próximo da posição especificada, distância similar do Node 1x1 SQM's, se você ainda não alcançou a posição, o bot continuará lurando até lá
+**End Lure** -> aplica as condições configuradas de End Lure depois que o personagem alcança o raio do waypoint
 
-**Dynamic Start** -> ativa o modo de lure dinâmico do bot próximo da posição especificada, distância similar do Node 1x1 SQM's
+**Dynamic Start** -> ativa o fluxo de lure dinâmico baseado em waypoints
 
-**Dynamic End** -> termina seu lure dinâmico próximo da posição especificada, distância similar do Node 1x1 SQM's, se você ainda não alcançou a posição, o bot continuará lurando até lá
+**Dynamic End** -> encerra o fluxo de lure dinâmico baseado em waypoints
 
 **Rope** -> usa qualquer ferramenta que funcione como corda na posição específica
 
@@ -26,7 +26,7 @@ sidebar_position: 1
 
 **Hole** -> usa qualquer ferramenta que funcione para cavar o buraco na posição específica
 
-**Use** -> usa o item na posição específica
+**Use** -> usa o item no topo escolhido pelo client na posição específica
 
 **Teleport** -> move seu personagem para o teletransporte na posição específica, com verificações para garantir a teleportação
 
@@ -38,10 +38,17 @@ sidebar_position: 1
 
 **Door** -> abre ou fecha uma porta na posição do waypoint
 
-**Sell Loot** -> vende o loot próximo da posição do waypoint. Para configurar os itens que forem vendidos, clique no botão \"Settings\" da janela CaveBot Options e configure a lista Sell List (leia a dica ao lado dela)
-
 **Hur Up** -> usa a magia exani hur "up" na posição do waypoint
 
 **Hur Down** -> usa a magia exani hur "down" na posição do waypoint
 
-**Refill** -> "refila" na posição do waypoint. Para configurar os itens que serão comprados, clique no botão \"Settings\" da janela CaveBot Options e configure a lista Refill List (leia a dica ao lado dela)
+**Machete** -> usa uma ferramenta machete disponível na vegetação cortável da posição do waypoint
+
+## Botões de ação rápida
+
+A janela CaveBot Options também oferece os botões **Sell Loot** e **Refill**. Eles são auxiliares, não valores adicionais de `Enums.WaypointType`: cada botão cria um Node seguido de um waypoint Script gerado.
+
+- **Sell Loot** usa a Sell List atual e vende os itens correspondentes que não estão equipados por meio da janela de trade de um NPC.
+- **Refill** usa a Refill List atual. Cada entrada possui o formato `{id=268,min=100,max=500}`.
+
+Revise o script gerado e teste-o com o NPC de destino. Diálogos, disponibilidade de itens, preços e limites de ações podem variar entre OT servers.

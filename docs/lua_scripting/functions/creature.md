@@ -21,6 +21,7 @@ Creature:getSpeed()
 Creature:getOutfit()
 Creature:getSkull()
 Creature:getIcon()
+Creature:getIcons()
 ```
 
 ### Code
@@ -39,9 +40,9 @@ function Creature:getId()
 -- @return The creature's type, refer the returned value as Enums.CreatureTypes
 function Creature:getType()
 
---- Get the creature's type.
--- This function gets the creature's type.
--- @return The creature's type, refer the returned value as Enums.CreatureTypes
+--- Get the creature name.
+-- This function gets the creature name
+-- @return The creature name, if the creature doesn't exists anymore, returns nil
 function Creature:getName()
 
 --- Get the creature's health as a percentage.
@@ -84,4 +85,25 @@ function Creature:getSkull()
 --- Get the creature's icon.
 -- @return The creature's icon, refer the returned value as Enums.CreatureIcons
 function Creature:getIcon()
+
+-- Get all creature icons. (Example: Hazard, Influenced...)
+-- @return All creature icons, as a table, or nil if creature doesn't exists. Refer type as Enums.CreatureIconType. The id should be referred depending of type, please read Enums.CreatureIconType comments on enums.lua.
+-- Sample output format:
+-- {{type = 0,id = 16,count = 4},{type = 0,id = 17,count = 4},{type = 0,id = 18,count = 4}}
+function Creature:getIcons()
 ```
+
+<!-- current-core-api:start -->
+## Multiple creature icons
+
+`Creature:getIcons()` returns all icons currently attached to the creature, or `nil` if it no longer exists. The result is an array such as:
+
+```lua
+{
+    { type = Enums.CreatureIconType.QUEST, id = 16, count = 4 },
+    { type = Enums.CreatureIconType.MODIFIER, id = 1, count = 1 }
+}
+```
+
+Interpret `id` with `Enums.CreatureQuestIcons` when `type` is `QUEST`, and with `Enums.CreatureIcons` when it is `MODIFIER`.
+<!-- current-core-api:end -->

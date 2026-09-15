@@ -10,9 +10,18 @@ Client.isConnected()
 Client.isKeyPressed(key, flags)
 Client.showMessage(message)
 Client.XLog()
-Client.getGameWindowDimensions() 
+Client.getGameWindowDimensions()
+Client.getMapIndexes()
 Client.getLatency()
 Client.getServerLatency()
+Client.getLootBlackWhitelist(playerId)
+Client.setLootBlackWhitelist(playerId, content)
+Client.getAllItems()
+Client.getAllMonsters()
+Client.getMonsterByRaceId(raceId)
+Client.getWorldName()
+Client.login(email, password, characterIndex)
+Client.logout()
 Client.focus()
 Client.sendHotkey(key, modifier)
 Client.getCursorMapPosition()
@@ -23,6 +32,8 @@ Client.setChaseMode(chaseMode)
 Client.setWindowTitle(title)
 Client.getVersion()
 Client.isTradeShopOpen()
+Client.isChatEnabled()
+Client.toggleChatEnabled()
 Client.flashWindow()
 Client.getFps()
 ```
@@ -37,8 +48,8 @@ function Client.isConnected()
 
 --- Verifica se uma tecla de atalho especificada está atualmente pressionada.
 -- Esta função é um wrapper em torno da função externa clientIsKeyPressed.
--- @param key (number) - O código da tecla. Exemplo: A (0x65)
--- @param flags (string) - As flags para modificadores. Consulte o valor do parâmetro como Enums.FlagModifiers, aplique a operação bit or para múltiplas flags
+-- @param key (number) - O código numérico retornado por HotkeyManager.parseKeyCombination.
+-- @param flags (number) - A máscara de bits de Enums.FlagModifiers. Combine várias flags com bit.bor.
 -- @return true se a tecla especificada estiver pressionada, false caso contrário.
 function Client.isKeyPressed(key, flags)
 
@@ -85,24 +96,24 @@ function Client.getCursorMapPosition()
 
 --- Obtém o modo de luta atual.
 -- Esta função é um wrapper em torno da função externa clientGetFightMode.
--- @return o modo de luta atual, caso contrário, o último modo de luta conhecido. Consulte Enums.FightModes para saber os possíveis valores de retorno.
+-- @return o modo de luta atual, caso contrário, o último modo de luta conhecido. Consulte Enums.FightMode para saber os possíveis valores de retorno.
 function Client.getFightMode()
 
 --- Define o modo de luta atual.
 -- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado na próxima renderização de frame/quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetFightMode.
--- @param fightMode (number) - O modo de luta a ser definido. Consulte Enums.FightModes para saber os possíveis valores que possam ser definidos.
+-- @param fightMode (number) - O modo de luta a ser definido. Consulte Enums.FightMode para saber os possíveis valores que possam ser definidos.
 function Client.setFightMode(fightMode)
 
 --- Obtém o modo de perseguição atual.
 -- Esta função é um wrapper em torno da função externa clientGetChaseMode.
--- @return o modo de perseguição atual, caso contrário, o último modo de perseguição conhecido. Consulte Enums.ChaseModes para saber os possíveis valores de retorno.
+-- @return o modo de perseguição atual, caso contrário, o último modo de perseguição conhecido. Consulte Enums.ChaseMode para saber os possíveis valores de retorno.
 function Client.getChaseMode()
 
 --- Define o modo de perseguição atual.
 -- Observação: esta função não atualiza o modo de luta instantaneamente, ele será atualizado na próxima renderização de frame/quadro do jogo.
 -- Esta função é um wrapper em torno da função externa clientSetChaseMode.
--- @param chaseMode (number) - O modo de perseguição a ser definido. Consulte Enums.ChaseModes para saber os possíveis valores que possam ser definidos.
+-- @param chaseMode (number) - O modo de perseguição a ser definido. Consulte Enums.ChaseMode para saber os possíveis valores que possam ser definidos.
 function Client.setChaseMode(chaseMode)
 
 --- Define o título da janela do cliente.
@@ -126,3 +137,23 @@ function Client.flashWindow()
 -- Esta função é um wrapper em torno da função externa clientGetFps.
 function Client.getFps()
 ```
+
+<!-- current-core-api:start -->
+## Dados do client e controle de sessão
+
+- `Client.getMapIndexes()` retorna os offsets atuais da câmera/mapa como `{x, y}`; os valores mudam quando a câmera ou o personagem se move.
+- `Client.getLootBlackWhitelist(playerId)` retorna o JSON da black/whitelist de loot do jogador, ou uma string vazia quando indisponível.
+- `Client.setLootBlackWhitelist(playerId, content)` substitui esse conteúdo JSON.
+- `Client.getAllItems()` retorna as definições de itens carregadas pelo client. Cada entrada contém `id` e `flags` bit a bit; teste as flags com `Enums.ThingFlagAttr`.
+- `Client.getAllMonsters()` retorna as definições de monstros com `raceId`, `name`, `outfit` e `isBoss`.
+- `Client.getMonsterByRaceId(raceId)` retorna a definição estática de um monstro.
+- `Client.getWorldName()` retorna o nome do mundo OT atual, ou uma string vazia. Essa API é experimental e deve ser testada no client OT alvo.
+- `Client.login(email, password, characterIndex)` primeiro desloga o personagem atual e depois entra com as credenciais informadas. Verifique se o logout é seguro antes de chamar.
+- `Client.logout()` envia a ação de logout e informa se ela foi enviada.
+- `Client.isChatEnabled()` retorna o estado atual do chat do jogo.
+- `Client.toggleChatEnabled()` alterna o chat e retorna o estado resultante; consulte novamente no próximo frame do jogo quando precisar sincronizar o estado.
+
+:::note Client 15.25+
+`Client.getFightMode()` e `Client.setFightMode(...)` estão obsoletas no client 15.25 ou superior. Nessa versão, o getter retorna `nil`. Os nomes corretos dos enums são `Enums.FightMode` e `Enums.ChaseMode` (no singular).
+:::
+<!-- current-core-api:end -->

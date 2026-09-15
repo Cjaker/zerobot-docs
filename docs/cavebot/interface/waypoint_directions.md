@@ -2,28 +2,25 @@
 sidebar_position: 2
 ---
 
-# Waypoint Directions
-<div class="text--center"> 
-  <img src="/img/waypoint_direction.png" />
-  <p>CaveBot Waypoint Directions</p>
+# Waypoint directions
+
+<div class="text--center">
+  <img src="/img/waypoint_direction.png" alt="CaveBot waypoint directions" />
+  <p>CaveBot waypoint directions</p>
 </div>
 
-When marking one of the directions, the next waypoint you create will be based on your current position to capture the activated direction's position
+The selected direction offsets the position of the next waypoint from the character's current tile:
 
-**N**W -> Northwest
+| Control | Position |
+| --- | --- |
+| **NW** | Northwest |
+| **N** | North |
+| **NE** | Northeast |
+| **W** | West |
+| **C** | Center: the character's current tile |
+| **E** | East |
+| **SW** | Southwest |
+| **S** | South |
+| **SE** | Southeast |
 
-**N** -> North
-
-**N**E -> Northeast
-
-**W** -> West
-
-**C** -> Center (your current position)
-
-**E** -> East
-
-**S**W -> Southwest
-
-**S** -> South
-
-**S**E -> Southeast
+The direction affects the waypoint position captured when the waypoint is created; it is separate from the direction in which the character may face at that waypoint.

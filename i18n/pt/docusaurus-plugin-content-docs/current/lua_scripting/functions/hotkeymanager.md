@@ -3,45 +3,39 @@ sidebar_position: 3
 ---
 
 # HotkeyManager
-Auxiliar da biblioteca de teclas de atalho
+
+Converte um atalho legível para os valores numéricos usados pelas APIs de teclado do ZeroBot.
 
 ```lua
 HotkeyManager.parseKeyCombination(combination)
 ```
 
-**Propósito e Uso**
-### 1. `HotkeyManager.parseKeyCombination`
-**Parâmetros**
+A combinação não diferencia maiúsculas de minúsculas. Separe as partes com espaços, sinais de mais ou ambos. Os modificadores suportados são `ctrl`, `alt`, `shift` e `numlock`; a tecla comum precisa existir em `HotkeyManager.keyMapping`.
 
-- `combination`: Uma string que representa a combinação de teclas, onde as partes são separadas por espaços ou sinais de mais (`+`). Partes válidas incluem teclas modificadoras (`ctrl`, `alt`, `shift`, `numlock`) e qualquer tecla representada no `HotkeyManager.keyMapping`.
+Valores retornados:
 
-**Valores de Retorno**
-- **Boolean:** `true` se a análise foi bem-sucedida, `false` caso contrário.
-- **Modifiers:** Uma máscara de bits numérica representando os modificadores que foram analisados a partir da combinação. Esta máscara de bits corresponde às flags definidas em `Enums.FlagModifiers`.
-- **Key:** Uma string representando o código da tecla da parte não modificadora da combinação. Se a combinação for inválida, este valor será `nil`.
+1. `true` em caso de sucesso ou `false` para uma tecla desconhecida.
+2. Uma máscara numérica de modificadores compatível com `Enums.FlagModifiers`, ou `nil` em caso de falha.
+3. O código numérico da tecla, ou `nil` em caso de falha.
 
-### Uso:
 ```lua
--- Tenta analisar a combinação de teclas
-local success, modifiers, key = HotkeyManager.parseKeyCombination("ctrl+shift+K")
+local valid, expectedModifier, expectedKey =
+    HotkeyManager.parseKeyCombination("Ctrl+Shift+K")
 
--- Verifica se a análise foi bem-sucedida
-if success then
-    print("Máscara de bits dos modificadores:", modifiers)
-    print("Código da tecla:", key)
-
-    -- Configura um temporizador para verificar se a combinação de teclas foi pressionada
-    Timer("KeyTest", function()
-        -- Usa a tecla e os modificadores analisados para verificar se a combinação especificada foi pressionada
-        if Client.isKeyPressed(key, modifiers) then
-            print("A combinação de teclas foi pressionada.")
-        end
-    end, 50)
-else
-    print("Combinação de teclas inválida.")
+if not valid then
+    print("Atalho inválido")
+    return
 end
+
+local function onShortcut(key, modifier)
+    if key == expectedKey and modifier == expectedModifier then
+        print("Ctrl+Shift+K pressionado")
+    end
+end
+
+Game.registerEvent(Game.Events.HOTKEY_SHORTCUT_PRESS, onShortcut)
 ```
 
-### Notas
-- Certifique-se de que todas as teclas e modificadores estejam corretamente escritos e sejam suportados por `HotkeyManager.keyMapping` e `Enums.FlagModifiers`.
-- A função não suporta várias teclas não modificadoras em uma única combinação. Se tal cenário for encontrado, apenas a última tecla da sequência será considerada.
+Para consultar o estado da tecla em vez de reagir ao pressionamento, passe os valores retornados para `Client.isKeyPressed(key, flags)`.
+
+Forneça apenas uma tecla que não seja modificadora. Se houver mais de uma, o parser mantém a última; a implementação aceita isso, mas esse formato não deve ser usado como atalho.

@@ -21,6 +21,7 @@ Creature:getSpeed()
 Creature:getOutfit()
 Creature:getSkull()
 Creature:getIcon()
+Creature:getIcons()
 ```
 
 ### Código
@@ -85,3 +86,18 @@ function Creature:getSkull()
 -- @return O ícone da criatura, consulte o valor retornado como Enums.CreatureIcons
 function Creature:getIcon()
 ```
+
+<!-- current-core-api:start -->
+## Múltiplos ícones da criatura
+
+`Creature:getIcons()` retorna todos os ícones atualmente associados à criatura, ou `nil` se ela não existir mais. O resultado é uma lista como:
+
+```lua
+{
+    { type = Enums.CreatureIconType.QUEST, id = 16, count = 4 },
+    { type = Enums.CreatureIconType.MODIFIER, id = 1, count = 1 }
+}
+```
+
+Interprete `id` com `Enums.CreatureQuestIcons` quando `type` for `QUEST`, e com `Enums.CreatureIcons` quando for `MODIFIER`.
+<!-- current-core-api:end -->

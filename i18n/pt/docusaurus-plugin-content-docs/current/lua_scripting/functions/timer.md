@@ -3,50 +3,64 @@ sidebar_position: 5
 ---
 
 # Timer
-Criar e executar funções de ciclo de loop
+
+Executa uma função repetidamente sem bloquear o script com um loop `while`.
 
 ```lua
-Timer(name, timerFunction, timeDelay, autoStart = true)
-Timer.new(name, timerFunction, timeDelay, autoStart = true)
+Timer(name, timerFunction, timeDelay, autoStart)
+destroyTimer(name)
+Timer.new(name, timerFunction, timeDelay, autoStart)
+Timer:run()
 Timer:name()
 Timer:start()
+Timer:update(delayTime)
 Timer:stop()
+Timer:isActive()
 ```
 
-### Código
+`Timer(...)` é um alias de `Timer.new(...)`.
+
+## Criando um timer
 
 ```lua
---- Destroi um temporizador pelo nome.
--- @param name (string) - O nome do temporizador a ser destruído.
-function destroyTimer(name)
-
---- Construtor para a classe Timer.
--- @param name (string) - O nome do temporizador.
--- @param timerFunction (function) - A função a ser executada quando o temporizador for acionado.
--- @param timeDelay (number) - O atraso entre os acionamentos do temporizador, em milissegundos.
--- @param autoStart (boolean) - Se o temporizador deve iniciar automaticamente.
--- @return Um novo objeto Timer.
-function Timer.new(name, timerFunction, timeDelay, autoStart)
-
---- Executa a função do temporizador. Não é necessário usá-lo diretamente, crie o temporizador usando o novo construtor
--- @return O resultado da função do temporizador.
-function Timer:run()
-
---- Obtém o nome do temporizador.
--- @return O nome do temporizador.
-function Timer:name()
-
---- Inicia o temporizador.
-function Timer:start()
-
---- Atualiza o tempo de acionamento do temporizador. Não é necessário usá-lo diretamente.
--- @param delayTime (number) - O novo tempo de atraso para o temporizador, em milissegundos.
-function Timer:update(delayTime)
-
---- Para o temporizador.
-function Timer:stop()
-
---- Verifica se o temporizador está ativo.
--- @return True se o temporizador estiver ativo, caso contrário, false.
-function Timer:isActive()
+local statusTimer = Timer("status", function()
+    print("HP", Player.getHealthPercent())
+end, 1000)
 ```
+
+Parâmetros:
+
+- `name`: nome único usado para identificar o timer.
+- `timerFunction`: callback executado em cada disparo. Recomenda-se uma função; o nome em string de uma função global também é resolvido quando o timer roda.
+- `timeDelay`: intervalo em milissegundos. O padrão é `100` quando omitido.
+- `autoStart`: inicia o timer imediatamente, a menos que seja explicitamente `false`.
+
+Criar outro timer com o mesmo nome primeiro destrói o anterior. Mantenha o objeto retornado; no core atual, chamar `Timer.new(name)` sem callback não é uma forma confiável de recuperar um timer existente.
+
+## Ciclo de vida
+
+```lua
+local timer = Timer("manual", function()
+    print("tick")
+end, 500, false)
+
+print(timer:name())       -- manual
+print(timer:isActive())   -- false
+
+timer:start()
+timer:stop()
+timer:run()               -- executa o callback imediatamente
+
+destroyTimer("manual")    -- para e remove o timer pelo nome
+```
+
+- `start()` ativa o timer e reinicia seu estado de disparo.
+- `stop()` o desativa sem removê-lo.
+- `isActive()` retorna o estado de atividade atual.
+- `name()` retorna seu nome.
+- `run()` chama o callback imediatamente e retorna o resultado dele.
+- `destroyTimer(name)` para e remove o primeiro timer com esse nome.
+
+`update(delayTime)` é usado internamente depois de um disparo. Se chamado manualmente, adia o próximo disparo possível em relação ao relógio atual; ele **não** substitui o intervalo recorrente configurado.
+
+Prefira nomes únicos e específicos do script para não substituir um timer criado por outro script.

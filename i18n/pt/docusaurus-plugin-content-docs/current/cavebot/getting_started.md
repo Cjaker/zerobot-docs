@@ -3,50 +3,33 @@ sidebar_position: 1
 ---
 
 # Introdução
-## IMPORTANTE
-ESSA FUNCIONALIDADE ESTARÁ DISPONÍVEL NA VERSÃO 1.7.0.0!
 
-O CaveBot está em fase BETA, portanto, ao usá-lo, você concorda com as notas escritas aqui: [BETA](../about_beta)
+Teste uma rota nova com um personagem e em um local onde um movimento incorreto, mudança de andar ou limite de ações do servidor não cause uma perda significativa. OT servers podem diferir nos itens do mapa, regras de movimento, limites de ações e comportamento do protocolo.
 
 ## Explicação Breve
-Um cavebot é um script automatizado que permite aos jogadores navegar por cavernas e masmorras e engajar-se em combates com criaturas.
 
-Ele simula ações do jogador como caminhar, interagir com NPCs e scripts personalizados, possibilitando a realização de tarefas repetitivas e o ganho de experiência ou recursos de maneira eficiente.
+O CaveBot segue uma lista de waypoints. Um waypoint pode representar um destino, uma ação de mudança de andar, uma transição de lure, um label/salto ou um script Lua.
 
-Para usar o cavebot de forma eficaz, geralmente é necessário configurá-lo junto com outras funções do bot, como Healing, Targeting e Magic Shooter, para garantir que o personagem possa sobreviver e maximizar os ganhos durante suas atividades automatizadas.
-
-O próprio cavebot é composto de waypoints, que são as coordenadas ou ações que guiam seu personagem sobre onde caminhar ou que ações realizar.
+O CaveBot cuida da navegação; o combate e a sobrevivência devem ser configurados separadamente em módulos como Healing, Targeting, Magic Shooter e Equipment.
 
 ## Recomendações
-- Tenha um minimapa completo do jogo
-- Se deseja lurar, use os waypoints de "Start Lure" e "End Lure"
-- Evite usar waypoints de Lure sem ter waypoints do tipo Node, se o caminho for longo
-- Sempre salve seu CaveBot configurado
-- Para ações específicas, é recomendado o uso de scripts (no momento não temos snippets prontos)
-- Evite definir waypoints próximos a buracos, teletransportes, etc.
-- Evite terminar Lures perto de buracos, teletransportes, etc.
-- Sempre faça waypoints curtos se você **ama** economizar o poder de processamento do seu PC!
-- Recomenda-se usar waypoints dos tipos "Stand" ou "Node" antes de utilizar quaisquer outros tipos de waypoints que não sejam \{Stand, Node, Start Lure, End Lure\}, especialmente quando esses waypoints estão em andares diferentes.
-- Em caso de quedas e subidas em escadas por acidente, o cavebot irá se basear na posição Z do waypoint atual selecionado, certifique-se de que seus waypoints estão bem definidos. Essa condição é aplicado para waypoints do tipo: Stand, Node, Start Lure, End Lure e Script.
-- O cavebot funciona em conjunto com as outras funções do bot. Portanto, para usá-lo eficazmente, você primeiro precisa configurar as abas de Healing, Targeting, Hunting > Magic Shooter, etc., de acordo com suas preferências.
-- Novidade: há uma boa dica descoberta recentemente, se você cair em um buraco, por exemplo, e houver um piso que você possa subir de volta usando uma corda, você pode colocar um waypoint "Rope" lá e o bot usará para subir de volta. (Vale a pena para casos que precisam de Corda ou Usar uma Escada, para casos em que você pisa na escada para subir/descer, o bot subirá automaticamente de volta).
+
+- Revele no minimapa a área necessária antes de testar a rota.
+- Comece com um valor conservador em **Actions Per Second**. Aumente apenas se o ZeroBot estiver aguardando o próprio limitador e o servidor permitir a taxa maior; diminua se o servidor limitar ou desconectar o personagem. O nível do personagem, sozinho, não determina o valor correto.
+- Use waypoints `Stand` ou `Node` suficientes para deixar caminhos longos e mudanças de andar sem ambiguidade.
+- Use `Start Lure` e `End Lure` apenas em rotas que utilizam intencionalmente o fluxo normal de lure. O Dynamic Lure possui regras próprias de compatibilidade em [Configurações do CaveBot](./interface/cavebot_settings#configurações-de-lure).
+- Sempre que possível, mantenha waypoints importantes longe de buracos, teletransportes e outras mudanças de andar não intencionais.
+- Use os tipos dedicados `Rope`, `Ladder`, `Hole`, `Use`, `Door` e `Machete` para as respectivas interações com o mapa.
+- Salve a rota antes de ativá-la e depois de qualquer alteração importante. Se **Criptografar CaveBot ao Salvar** estiver ativado, mantenha também um backup não criptografado, pois a interface não converte o arquivo criptografado de volta.
+- Use um waypoint Script apenas quando nenhum tipo dedicado representar a ação. Mantenha as esperas curtas e limpe todos os eventos e timers criados pelo script.
+- Teste o ciclo completo, incluindo refill, venda, morte/reconexão e o caminho de volta.
 
 ## Recomendações de Targeting
-**[Targeting - Distance para LURE!!!]**\
-**Distance Modo 'Auto':** evita que criaturas se aproximem do seu personagem + ignora sua configuração de distância + seleciona automaticamente uma posição 'central' para andar ao redor dela.
 
-**Distance Valor Personalizado**: considera sua configuração de distância + seleciona automaticamente uma posição 'central' para andar ao redor dela.
+As configurações de Targeting dependem da vocação, velocidade, terreno, comportamento das criaturas e do OT server.
 
-**[Dicas]**
-- Se você quer evitar criaturas se aproximarem em geral = Auto
-- Se você quer evitar apenas uma criatura com distância específica = Modo: Distance, Valor do Distance de 1 a 7
+- **Distância Auto** deixa a lógica do Targeting escolher a distância de movimento.
+- **Distância fixa** usa a distância configurada como objetivo.
+- **Stand** evita o movimento por distância e é apropriado quando o personagem deve manter a posição.
 
-**[Recomendações de Targeting para vocações - para LURE!!!]**\
-**[Magos]**\
-Mode: Auto ||| Count: 1 ||| Proximity: 4 ou All
-
-**[Knight & RP]**\
-Mode: Stand ||| Count: 1 ||| Proximity: 1 ou All para RP's
-
-**[RP com equipamentos fracos]**\
-Mode: Auto ||| Count: 1 ||| Proximity: 4 ou All
+Trate qualquer perfil compartilhado como ponto de partida. Valide-o na área real da hunt antes de deixar o CaveBot sem supervisão.

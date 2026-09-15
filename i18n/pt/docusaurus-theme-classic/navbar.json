@@ -6,5 +6,17 @@
   "logo.alt": {
     "message": "ZeroBot Logo",
     "description": "The alt text of navbar logo"
+  },
+  "item.label.Overview": {
+    "message": "Visão geral",
+    "description": "Navbar item with label Overview"
+  },
+  "item.label.CaveBot": {
+    "message": "CaveBot",
+    "description": "Navbar item with label CaveBot"
+  },
+  "item.label.Lua API": {
+    "message": "API Lua",
+    "description": "Navbar item with label Lua API"
   }
 }

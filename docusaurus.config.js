@@ -9,26 +9,19 @@ import { themes as prismThemes } from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ZeroBot',
-  tagline: 'ZeroBot is a bot developed for Tibia private servers.',
+  tagline: 'Documentation and Lua API reference for ZeroBot developers.',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://docs.zerobot.net',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  // organizationName: 'facebook', // Usually your GitHub org/user name.
-  // projectName: 'docusaurus', // Usually your repo name.
-
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'pt'],
@@ -37,7 +30,6 @@ const config = {
         htmlLang: 'en-US',
         label: "English",
       },
-      // You can omit a locale (e.g. fr) if you don't need to override the defaults
       pt: {
         htmlLang: 'pt-BR',
         label: "Português"
@@ -48,10 +40,26 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        {
+          name: 'keywords',
+          content: 'ZeroBot, Lua, LuaJIT, CaveBot, Tibia, OTServer, bot scripting',
+        },
+      ],
+      algolia: {
+        // The application ID provided by Algolia
+        appId: '3HGL4SDOHS',
+
+        // Public API key: it is safe to commit it
+        apiKey: '0ffb2ad91a5e01f63a28eb18b9256a8b',
+
+        indexName: 'zerobot'
+      },
       // Replace with your project's social card
       image: 'img/zerobot-social-card.png',
       colorMode: {
-        defaultMode: "dark",
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: 'ZeroBot',
@@ -61,8 +69,23 @@ const config = {
         },
         items: [
           {
-            type: 'localeDropdown',
+            to: '/general',
+            label: 'Overview',
             position: 'left',
+          },
+          {
+            to: '/cavebot/',
+            label: 'CaveBot',
+            position: 'left',
+          },
+          {
+            to: '/lua_scripting/functions/',
+            label: 'Lua API',
+            position: 'left',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
         ],
       },
@@ -85,7 +108,7 @@ const config = {
         },
       }),
     ],
-  ],
+  ]
 };
 
 export default config;

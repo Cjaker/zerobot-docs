@@ -4,20 +4,20 @@ sidebar_position: 1
 
 # Waypoint Types
 <div class="text--center"> 
-  <img src="/img/waypoint_type.png?v=2" />
+  <img src="/img/waypoint_type.png?v=2" alt="CaveBot waypoint type selector" />
   <p>CaveBot Waypoint Types</p>
 </div>
 **Stand** -> forces your character to step on that position
 
-**Node** -> forces your character to step on any SQM near that position (maximum distance from position: 1 SQM)
+**Node** -> considers the waypoint reached within the configured **Node Distance**
 
-**Start Lure** -> activates the bot's lure mode near the specified position, similar distance from Node 1x1 SQM's
+**Start Lure** -> activates the regular lure flow when the character reaches the waypoint range
 
-**End Lure** -> ends your lure near the specified position, similar distance from Node 1x1 SQM's; if you haven't reached the position yet, the bot will continue luring until there
+**End Lure** -> applies the configured End Lure conditions after the character reaches the waypoint range
 
-**Dynamic Start** -> activates the dynamic bot's lure mode near the specified position, similar distance from Node 1x1 SQM's
+**Dynamic Start** -> activates the waypoint-based dynamic lure flow
 
-**Dynamic End** -> ends your dynamic lure near the specified position, similar distance from Node 1x1 SQM's; if you haven't reached the position yet, the bot will continue luring until there
+**Dynamic End** -> ends the waypoint-based dynamic lure flow
 
 **Rope** -> uses any tool that functions as a rope at the specific position
 
@@ -25,7 +25,7 @@ sidebar_position: 1
 
 **Hole** -> uses any tool that works to dig the hole at the specific position
 
-**Use** -> uses the item at the specific position
+**Use** -> uses the top item selected by the client at the specific position
 
 **Teleport** -> moves your character to the teleport at the specific position, with checks to ensure teleportation
 
@@ -37,10 +37,17 @@ sidebar_position: 1
 
 **Door** -> opens or closes a door at the waypoint's position
 
-**Sell Loot** -> sells the loot near the waypoint's position. To configure the items that will be sold, click on the \"Settings\" button in the CaveBot Options window and configure the Sell List (read the tip next to it)
-
 **Hur Up** -> uses the exani hur "up" spell at the waypoint's position
 
 **Hur Down** -> uses the exani hur "down" spell at the waypoint's position
 
-**Refill** -> "refills" at the waypoint's position. To configure the items that will be bought, click on the \"Settings\" button in the CaveBot Options window and configure the Refill List (read the tip next to it)
+**Machete** -> uses an available machete tool on cuttable grass at the waypoint's position
+
+## Quick action buttons
+
+The CaveBot Options window also provides **Sell Loot** and **Refill** buttons. They are helpers, not additional values in `Enums.WaypointType`: each button creates a Node followed by a generated Script waypoint.
+
+- **Sell Loot** uses the current Sell List and sells non-equipped matching items through an open NPC shop.
+- **Refill** uses the current Refill List. Each entry has the format `{id=268,min=100,max=500}`.
+
+Review the generated script and test it with the target NPC. NPC dialogs, item availability, prices, and action limits can differ between OT servers.

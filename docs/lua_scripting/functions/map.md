@@ -15,13 +15,16 @@ Map.moveItemToContainer(x, y, z, count, index, slot)
 Map.moveItemToGround(x, y, z, count, toX, toY, toZ)
 Map.moveCreatureToGround(x, y, z, toX, toY, toZ)
 Map.goTo(x, y, z)
-Map.stopAutoWalk()
 Map.browseField(x, y, z)
 Map.canWalk(x, y, z, ignoreBlockPath, ignoreMagicField, ignoreMonsters, ignoreNpcs)
 Map.isTileWalkable(x, y, z, options)
 Map.useItemWithInventory(x, y, z, slot)
 Map.useItemWithContainer(x, y, z, index, slot)
 Map.lookAt(x, y, z)
+Map.getTopItemId(x, y, z)
+Map.getTopCreatureId(x, y, z)
+Map.getAllPositionsWithTopItemId(itemId, sameFloor)
+Map.collectRewardChest(x, y, z)
 Map.getCameraPosition()
 Map.getPlayerOnScreen(var)
 ```
@@ -113,7 +116,7 @@ function Map.goTo(x, y, z)
 -- @param z (number) - The z-coordinate of the map destination position.
 function Map.browseField(x, y, z)
 
--- WARNING: This function will be deprecated and will be removed in the future. Use Map.isTileWalkable instead
+-- WARNING: This function is deprecated and will be removed in the future. Use Map.isTileWalkable instead
 -- Check if a specific position is walkable
 -- @deprecated Use Map.isTileWalkable instead
 -- @param x (number) - The x-coordinate of the map destination position.
@@ -163,6 +166,27 @@ function Map.useItemWithContainer(x, y, z, index, slot)
 -- @return True if the request was sent to server, or nil if tile doesn't exists or there's no map information available.
 function Map.lookAt(x, y, z)
 
+-- Get the top item id at specific position.
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @return The top item id at specific position, or nil if tile doesn't exists or there's no map information available or the top thing isn't an item.
+function Map.getTopItemId(x, y, z)
+
+-- Get the top creature id at specific position.
+-- @param x (number) - The x-coordinate of the map position.
+-- @param y (number) - The y-coordinate of the map position.
+-- @param z (number) - The z-coordinate of the map position.
+-- @return The top creature id at specific position, or nil if tile doesn't exists or there's no map information available or the top thing isn't a creature.
+function Map.getTopCreatureId(x, y, z)
+
+-- mapGetAllPositionsWithTopItemId
+-- Get all positions with specific top item id on screen.
+-- @param itemId (number) - The item id to search for.
+-- @param sameFloor (boolean) - Whether to only consider positions on the same floor.
+-- @return A table of positions with specific top item id, or nil if there's no map information available or no position with specific top item id found.
+function Map.getAllPositionsWithTopItemId(itemId, sameFloor)
+
 -- Collect reward chest from specific position. Only works with reward chest id: 19250
 -- @param x (number) - The x-coordinate of the map position.
 -- @param y (number) - The y-coordinate of the map position.
@@ -181,3 +205,11 @@ function Map.getCameraPosition()
 -- @return The player creature if found, or nil if not found.
 function Map.getPlayerOnScreen(var)
 ```
+
+<!-- current-core-api:start -->
+## Top things on tiles
+
+- `Map.getTopItemId(x, y, z)` returns the top item ID, or `nil` when the tile is unavailable or its top thing is not an item.
+- `Map.getTopCreatureId(x, y, z)` returns the top creature ID, or `nil` when the tile is unavailable or its top thing is not a creature.
+- `Map.getAllPositionsWithTopItemId(itemId, sameFloor)` returns all visible positions whose top item matches. It returns `nil` when map data is unavailable or no position matches.
+<!-- current-core-api:end -->

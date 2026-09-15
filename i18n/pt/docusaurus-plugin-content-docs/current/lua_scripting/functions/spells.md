@@ -8,8 +8,10 @@ Funções gerais de spells
 ```lua
 Spells.getIdByName(name)
 Spells.getIdByWords(words)
+Spells.getDataById(id)
 Spells.isInCooldown(id)
 Spells.getLeftCooldownTime(id)
+Spells.getLeftGroupCooldownTime(groupId)
 Spells.groupIsInCooldown(groupId)
 ```
 
@@ -46,3 +48,10 @@ function Spells.getLeftCooldownTime(id)
 -- @return True se o grupo de feitiços estiver em cooldown, caso contrário, false.
 function Spells.groupIsInCooldown(groupId)
 ```
+
+<!-- current-core-api:start -->
+## Dados da spell e cooldown do grupo
+
+- `Spells.getDataById(id)` retorna `{id, name, words, primaryGroup, secondaryGroup, vocations}`, ou `nil` para uma spell desconhecida. Os IDs de vocação usam `Enums.Vocations`.
+- `Spells.getLeftGroupCooldownTime(groupId)` retorna o cooldown restante do grupo em milissegundos. Retorna `-1` quando o grupo é desconhecido ou não está em cooldown. Use `Enums.SpellGroups`.
+<!-- current-core-api:end -->

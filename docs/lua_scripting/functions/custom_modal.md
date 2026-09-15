@@ -2,8 +2,9 @@
 sidebar_position: 7
 ---
 
-# Custom Modal
-This class is typically used in applications where user interaction through modal windows is required, such as confirming actions or displaying information. The methods provide a flexible way to dynamically create, modify, and manage the lifecycle of modal windows.
+# Custom Modal Window
+
+Create a small ZeroBot modal window with script-defined buttons.
 
 ```lua
 CustomModalWindow(caption, description)
@@ -16,32 +17,37 @@ CustomModalWindow:addButton(buttonText)
 CustomModalWindow:destroy()
 ```
 
-### Code
+`CustomModalWindow(...)` is an alias for `CustomModalWindow.new(...)`. Both arguments are optional. During construction, newline characters are removed from `description` and the result is truncated to 54 characters. The later `setDescription` call forwards its value directly and does not perform that constructor normalization.
+
 ```lua
---- Constructor for the Custom Modal Window class
--- @param caption the title of the modal window
--- @param description the description of the modal window
--- @return A new Custom Modal Window object
-function CustomModalWindow.new(caption, description)
+local modal = CustomModalWindow(
+    "Confirmation",
+    "Choose what the script should do."
+)
 
---- Get the custom modal window's ID.
--- @return The custom modal window's ID
-function CustomModalWindow:getId()
+local confirmButton = modal:addButton("Confirm")
+local cancelButton = modal:addButton("Cancel")
 
--- Set the modal window caption
-function CustomModalWindow:setCaption(caption)
+modal:setCallback(function(buttonId)
+    if buttonId == confirmButton then
+        print("confirmed")
+    elseif buttonId == cancelButton then
+        print("cancelled")
+    end
 
--- Set the modal window description
-function CustomModalWindow:setDescription(description)
-
--- Set custom modal button on click callback
-function CustomModalWindow:setCallback(callback)
-
--- Add a button to the modal window
--- Note: the limit of buttons is 20
--- @returns The button id, this works as an index, can start from 0
-function CustomModalWindow:addButton(buttonText)
-
--- Destroy the custom modal window
-function CustomModalWindow:destroy()
+    modal:destroy()
+end)
 ```
+
+## Methods
+
+- `getId()` returns the modal ID. IDs may start at `0`.
+- `setCaption(caption)` changes the title.
+- `setDescription(description)` changes the description.
+- `addButton(buttonText)` adds a button and returns its button ID/index. A modal supports at most 20 buttons.
+- `setCallback(callback)` installs a callback that receives the clicked button ID/index.
+- `destroy()` removes the modal and its internal registration.
+
+Call `destroy()` exactly once when the modal is no longer needed. The current wrapper does not guard repeated destruction.
+
+You may also handle `Game.Events.CUSTOM_MODAL_WINDOW_BUTTON_CLICK` directly. That event receives `modalId, buttonIndex`; `setCallback` is usually simpler when the script already retains the modal object.

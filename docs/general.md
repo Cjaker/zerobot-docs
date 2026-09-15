@@ -1,144 +1,107 @@
-# 📚 ZeroBot - General
-![Overview](https://zerobot.net/assets/images/1.png "Overview")
+# ZeroBot overview
 
-The **Overview** tab provides a basic view of your character, as well as includes the **Outfit Changer** feature.
+ZeroBot is organized into modules that can be configured and enabled independently. Available controls and conditions can vary with the game-client version and the selected OTServer, so validate a new profile on the target server before unattended use.
 
-![Outfit Changer](https://i.imgur.com/tIxJgWn.png "Outfit Changer")
+## Overview
 
-The **Outfit Changer** allows Tibia players to customize their character's appearance locally, adding variety and fun to the game experience without affecting other players or the server's functionality.
+![Overview](/img/overview/overview.png "Overview")
 
-# Healing
-![Healing](https://zerobot.net/assets/images/2.png "Healing")
+The **Overview** tab displays character information and includes **Outfit Changer**. Outfit changes made there are local to the client; they do not change the server-side outfit seen by other players.
 
-The **Healing** system of ZeroBot aims to keep the character alive in challenging situations, allowing the player to focus on other tasks within the game.
+## Healing
 
-### Basic Features
+![Healing](/img/overview/healing.png "Healing")
 
-**Health Monitoring:**  
-The bot constantly monitors the character's hit points (HP), intercepting it before it appears on your client, using the fastest method because of being a critical action.
+**Healing** evaluates the character state and executes configured spells or items when their conditions match. A rule may include HP/MP ranges and status conditions such as Drunk, Rooted, Feared, or Paralyzed.
 
-**Healing Threshold Configuration:**  
-Users can set different HP thresholds to trigger healing actions, such as using a health potion when HP is below 70% or casting a healing spell when HP is below 30%.
+Order and overlapping ranges matter: if several rules can match at the same time, configure their priorities deliberately and test the result. The server may also enforce cooldowns or action-rate limits independently of ZeroBot.
 
-**Types of Healing:**  
-- **Potions:** The bot can use health potions when the HP reaches a certain level.
-- **Spells:** The bot can automatically cast healing spells when HP falls below a certain value.
-- **Special Items:** The bot can use special items with healing properties when configured.
+Example ranges:
 
-**Priorities and Combinations:**  
-Users can set priorities on which healing method to use first, such as giving preference to a spell over a potion.
+- cast a healing spell below a chosen HP percentage;
+- use one potion for a critical range and another for a higher range;
+- restrict a rule by MP or character condition.
 
-### Advanced Features
+## Heal Friend
 
-**Hotkey Configuration:**  
-The bot can be set up to activate/deactivate the Healing system using a hotkey, allowing for quick activation without navigating the menus.
+![Heal Friend](/img/overview/heal-friend.png "Heal Friend")
 
-**Conditional Healing Rules:**  
-The bot can be programmed to heal based on conditions such as **Drunk**, **Rooted**, **Feared**, and more.
+**Heal Friend** applies configured healing actions to eligible players, such as party members or creatures visible on screen, according to the selected source and health conditions. The information available depends on what the current client exposes.
 
-### Example Configuration
-- **Exura Med Ico:** Use when HP < 80%
-- **Exura Ico:** Use when HP > 80% and HP < 95%
-- **Supreme Health Potion:** Use when HP < 40%
-- **Ultimate Health Potion:** Use when HP > 40% and HP < 70%
-- **Great Health Potion:** Use when HP > 70% and HP < 85%
+## Conditions
 
-# Heal Friend
-![Heal Friend](https://zerobot.net/assets/images/3.png "Heal Friend")
+![Conditions](/img/overview/conditions.png "Conditions")
 
-The **Heal Friend** feature automates the process of healing other players.
+**Conditions** automates spell maintenance or removal according to configured state, HP, and MP requirements. Examples include haste, invisibility, regeneration, and magic-shield spells. Use the spell names and behavior supported by the target server.
 
-- **Configuration:** Players define the conditions that trigger healing, such as the type of spell and the friend's health level.
-- **Monitoring:** The bot monitors the friends' health and automatically heals when necessary.
+## Hunting
 
-This function is useful for maximizing group efficiency, keeping allies healed without manual intervention.
+### Targeting
 
-# Conditions
-![Conditions](https://zerobot.net/assets/images/4.png "Conditions")
+![Targeting](/img/overview/targeting.png "Targeting")
 
-The **Conditions** tab allows configuring spells to be automatically renewed, such as:
-- **Utani Hur:** Keeps the running spell active.
-- **Utana Vid:** Renews Utana Vid when mana is above the defined value.
-- **Utura/Utura Gran:** Renews after duration ends.
-- **Utamo Vita:** Uses according to the player's HP percentage.
-- **Exana Vita:** Uses to remove Utamo Vita.
+**Targeting** defines how the bot selects and moves around configured creatures. Rules may include creature names, priority, combat mode, and HP range. Route and movement results depend on the map data and creature state received by the client.
 
-Hotkeys can be configured to quickly activate/deactivate these actions.
+### Magic Shooter
 
-# Hunting
-## Targeting
-![Targeting](https://zerobot.net/assets/images/5.png "Targeting")
+![Magic Shooter](/img/overview/magic-shooter.png "Magic Shooter")
 
-The **Targeting** tab configures how the bot should focus on each creature. Some options include:
-- **Priority:** Low, Medium, or High.
-- **Mode:** Stand, Chase, Distance, or Diagonal.
-- **HP %:** Defines the creature's HP percentage to activate targeting.
+**Magic Shooter** executes configured attack spells or runes when their target, resource, count, and other conditions match. Game cooldowns and server restrictions still apply.
 
-The targeting system can be activated/deactivated quickly by a hotkey.
+### CaveBot
 
-## Magic Shooter
-![Magic Shooter](https://zerobot.net/assets/images/55.png "Magic Shooter")
+![CaveBot](/img/overview/cavebot.png "CaveBot")
 
-The **Magic Shooter** automates spell casting and runes usage against monsters. It includes:
-- **Spell Configuration:** Defines which spells to use and under what conditions.
-- **Targets and Conditions:** Configures monster names, mana/HP percentages, and monster count.
+**CaveBot** executes a waypoint route with movement, interaction, lure, label, and script actions. Its **Auto Recorder** creates supported waypoints while you play, and its **Debug HUD** helps inspect the route and movement decisions.
 
-This system can be activated/deactivated with a hotkey.
+See [Getting started with CaveBot](./cavebot/getting_started) for setup and safety guidance.
 
-## CaveBot
-![CaveBot](https://zerobot.net/assets/images/10.png "CaveBot")
+## Equipment
 
-The **CaveBot** interface simplifies the addition and management of waypoints, supporting various actions such as using ropes or ladders.
+![Equipment](/img/overview/equipment.png "Equipment")
 
-Key features include:
-- **Auto Recorder:** Automatically records waypoints, after version 1.7.6.4+ it will record more types of waypoints, being smarter.
-- **Debug HUD:** Monitors the CaveBot’s operation.
+**Equipment** equips or removes configured items when HP, MP, character state, or other selected conditions match. Conflicting rules should use intentional priority and non-overlapping conditions.
 
-The CaveBot can also be activated/deactivated as needed.
+## Tools
 
-# Equipment
-![Equipment](https://zerobot.net/assets/images/6.png "Equipment")
+### Helper
 
-The **Equipment** function automatically switches the player's equipment based on conditions such as HP, MP, and status (e.g., Rooted or Paralyzed).
+![Helper](/img/overview/helper.png "Helper")
 
-The system can be activated/deactivated quickly with a hotkey.
+The **Helper** tab contains independent utilities such as coin conversion, food use, reconnection, and anti-idle behavior. Availability and effectiveness depend on the client and server.
 
-# Tools
-## Helper
-![Helper](https://zerobot.net/assets/images/7.png "Helper")
+### PvP
 
-Features include:
-- **Auto Change Coins:** Automatically converts coins to save space.
-- **Eat Food:** Ensures the character is always fed.
-- **Reconnect:** Automatically reconnects the player after a disconnection.
-- **Anti-AFK:** Prevents the character from being disconnected for inactivity.
+![PvP](/img/overview/pvp.png "PvP")
 
-## PvP
-![PvP](https://zerobot.net/assets/images/8.png "PvP")
+The **PvP** tab contains combat utilities such as equipment automation, Anti-Push, and Hold Target. Configure only the functions appropriate for the rules and mechanics of the server where they will run.
 
-The **PVP** tab automates the use of Stone Skin Amulet, Might Ring, and includes options like Anti-Push and Hold Target.
+### HUD
 
-## HUD
-![HUD](https://i.imgur.com/AXCHOUz.png "HUD")
+![HUD](/img/overview/hud.png "HUD")
 
-Displays information about active modules such as Healing, Magic Shooter, and allies/enemies on the screen.
+The built-in HUD can display the status of enabled modules and other bot information over the game. Lua scripts can create separate custom HUD elements through the [HUD API](./lua_scripting/functions/hud).
 
-## Timer
-![Timer](https://i.imgur.com/ARGeQlD.png "Timer")
+### Timer
 
-The **Timer** can be used to send messages or use items after a set time.
+![Timer](/img/overview/timer.png "Timer")
 
-# Engine
-![Engine](https://i.imgur.com/KaKfF2m.png "Engine")
+The Timer interface schedules configured actions after an interval. Lua scripts have a separate [`Timer` API](./lua_scripting/functions/timer) for recurring callbacks.
 
-Allows adjustments to the bot's internal functioning, such as delays, hiding the ZeroBot button, and providing tools for calculating party gains and disabling scripts.
+## Engine
 
-# Scripting
-![Scripting](https://i.imgur.com/nrvnnqi.png "Scripting")
+![Engine](/img/overview/engine.png "Engine")
 
-The **Script** tab stores LUA scripts that can be created or downloaded and placed in the Documents\ZeroBot\Scripts folder.
+**Engine** contains global runtime options, delays, action-rate controls, script controls, and feature-specific integrations. Change one option at a time and test it; values that are safe on one OTServer may be rejected or behave differently on another.
 
-# Settings
-![Settings](https://i.imgur.com/NfhFcdk.png "Settings")
+## Scripting
 
-The **Settings** tab stores profiles saved in .json format. It’s possible to associate profiles by character name or hotkeys, making it easy to switch without navigating the menus.
+![Scripting](/img/overview/scripting.png "Scripting")
+
+The **Scripting** tab manages Lua scripts stored under `Documents/ZeroBot/Scripts`. Core libraries are loaded automatically. Start with [Lua scripting](./lua_scripting/) and use only APIs documented for the installed ZeroBot version.
+
+## Settings
+
+![Settings](/img/overview/settings.png "Settings")
+
+**Settings** manages ZeroBot profiles saved in JSON format. Profiles can be associated with character names or hotkeys. Keep backups before replacing a working configuration or testing a profile made for another client/server combination.

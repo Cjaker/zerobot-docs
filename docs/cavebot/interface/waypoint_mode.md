@@ -2,14 +2,17 @@
 sidebar_position: 3
 ---
 
-# Waypoint Mode
+# Waypoint mode
+
 <div class="text--center">
-  <img src="/img/waypoint_mode.png" />
-  <p>CaveBot Waypoint Modes</p>
+  <img src="/img/waypoint_mode.png" alt="CaveBot waypoint modes" />
+  <p>CaveBot waypoint modes</p>
 </div>
 
-**Replace** -> when setting a waypoint, it replaces the currently selected waypoint instead of creating a new one
+Waypoint mode controls where the next created waypoint is placed in the list:
 
-**Add** -> when setting a waypoint, it adds to the end of the list
+- **Replace** replaces the selected waypoint.
+- **Add** appends the new waypoint to the end.
+- **Insert** inserts it immediately before the selected waypoint.
 
-**Insert** -> when setting a waypoint, it adds above the selected waypoint
+Select the intended row before using **Replace** or **Insert**.

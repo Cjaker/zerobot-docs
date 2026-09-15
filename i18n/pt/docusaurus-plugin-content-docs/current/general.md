@@ -1,144 +1,107 @@
-# 📚 ZeroBot - Geral
-![Overview](https://zerobot.net/assets/images/1.png "Overview")
+# Visão geral do ZeroBot
 
-A aba Overview é uma visão básica do seu personagem, como também inclui a funcionalidade **Outfit Changer**.
+O ZeroBot é organizado em módulos que podem ser configurados e ativados separadamente. Os controles e condições disponíveis podem variar conforme a versão do cliente e o OTServer escolhido; valide um perfil novo no servidor de destino antes de usá-lo sem supervisão.
 
-![Outfit Changer](https://i.imgur.com/tIxJgWn.png "Outfit Changer")
+## Overview
 
-O **Outfit Changer** permite ao jogador de Tibia personalizar a aparência do seu personagem localmente, adicionando variedade e diversão à experiência de jogo sem interferir na experiência dos outros jogadores ou no funcionamento do servidor do jogo.
+![Overview](/img/overview/overview.png "Overview")
 
-# Healing
-![Healing](https://zerobot.net/assets/images/2.png "Healing")
+A aba **Overview** mostra informações do personagem e inclui o **Outfit Changer**. As alterações de outfit feitas ali são locais ao cliente; elas não mudam o outfit no servidor visto pelos outros jogadores.
 
-O sistema de **Healing** do ZeroBot busca manter o personagem vivo em situações desafiadoras, permitindo que o jogador se concentre em outras tarefas dentro do jogo.
+## Healing
 
-### Funcionalidades Básicas
+![Healing](/img/overview/healing.png "Healing")
 
-**Monitoramento de Vida:**  
-O bot monitora constantemente os pontos de vida (HP) do personagem, interceptando o mesmo antes de aparecer no seu cliente, usando o método mais rápido por ser uma ação crítica.
+O **Healing** avalia o estado do personagem e executa as magias ou itens configurados quando suas condições são satisfeitas. Uma regra pode incluir faixas de HP/MP e estados como Drunk, Rooted, Feared ou Paralyzed.
 
-**Configuração de Limites de Cura:**  
-O usuário pode definir diferentes limites de HP para ativar a cura, como usar uma poção de cura quando o HP estiver abaixo de 70%, ou lançar uma magia de cura quando o HP estiver abaixo de 30%.
+A ordem e a sobreposição das faixas importam: quando várias regras podem ser verdadeiras ao mesmo tempo, configure as prioridades de forma intencional e teste o resultado. O servidor também pode impor cooldowns e limites de ações independentemente do ZeroBot.
 
-**Tipos de Cura:**  
-- **Poções:** O bot pode usar poções de cura (health potions) quando o HP atinge um certo nível.
-- **Magias:** O bot pode lançar magias de cura (healing spells) automaticamente quando o HP cai abaixo de um determinado valor.
-- **Itens Especiais:** O bot pode usar itens especiais com propriedades de cura quando configurado.
+Exemplos de faixas:
 
-**Prioridades e Combinações:**  
-O usuário pode definir prioridades sobre qual método de cura usar primeiro, como dar preferência a uma magia antes de uma poção.
+- lançar uma magia de cura abaixo de uma porcentagem escolhida de HP;
+- usar uma poção na faixa crítica e outra em uma faixa mais alta;
+- restringir uma regra por MP ou condição do personagem.
 
-### Recursos Avançados
+## Heal Friend
 
-**Configuração de Hotkeys:**  
-O bot pode ser configurado para ativar/desativar o sistema de Healing através de uma hotkey, facilitando uma ativação rápida sem navegar pelos menus.
+![Heal Friend](/img/overview/heal-friend.png "Heal Friend")
 
-**Regras de Cura Condicionais:**  
-O bot pode ser programado para curar baseado em condições como **Drunk**, **Rooted**, **Feared**, entre outras.
+O **Heal Friend** aplica as ações de cura configuradas a jogadores elegíveis, como membros da party ou criaturas visíveis na tela, conforme a origem e as condições de vida selecionadas. As informações disponíveis dependem do que o cliente atual expõe.
 
-### Exemplo de Configuração
-- **Exura Med Ico:** Usar quando HP < 80%
-- **Exura Ico:** Usar quando HP > 80% and HP < 95%
-- **Supreme Health Potion:** Usar quando HP < 40%
-- **Ultimate Health Potion:** Usar quando HP > 40% and HP < 70%
-- **Great Health Potion:** Usar quando HP > 70% and HP < 85%
+## Conditions
 
-# Heal Friend
-![Heal Friend](https://zerobot.net/assets/images/3.png "Heal Friend")
+![Conditions](/img/overview/conditions.png "Conditions")
 
-A funcionalidade **Heal Friend** automatiza o processo de cura de outros jogadores.
+O **Conditions** automatiza a manutenção ou remoção de magias conforme os requisitos configurados de estado, HP e MP. Alguns exemplos são magias de haste, invisibilidade, regeneração e magic shield. Use nomes e comportamentos de magia suportados pelo servidor de destino.
 
-- **Configuração:** O jogador define as condições que ativam a cura, como o tipo de magia e a quantidade de vida.
-- **Monitoramento:** O bot monitora a vida dos amigos e cura automaticamente quando necessário.
+## Hunting
 
-Essa função é útil para maximizar a eficiência em grupo, mantendo os aliados curados sem intervenção manual.
+### Targeting
 
-# Conditions
-![Conditions](https://zerobot.net/assets/images/4.png "Conditions")
+![Targeting](/img/overview/targeting.png "Targeting")
 
-A aba **Conditions** permite configurar magias para serem renovadas automaticamente, como:
-- **Utani Hur:** Mantém ativa a magia de correr.
-- **Utana Vid:** Renova o Utana Vid quando a mana está acima do valor definido.
-- **Utura/Utura Gran:** Renova ao fim da duração.
-- **Utamo Vita:** Usa-se conforme a porcentagem de HP.
-- **Exana Vita:** Usa-se para remover o Utamo Vita.
+O **Targeting** define como o bot seleciona e se movimenta ao redor das criaturas configuradas. As regras podem incluir nomes, prioridade, modo de combate e faixa de HP. O resultado da rota e da movimentação depende dos dados de mapa e do estado das criaturas recebidos pelo cliente.
 
-Hotkeys podem ser configuradas para ativar/desativar essas ações rapidamente.
+### Magic Shooter
 
-# Hunting
-## Targeting
-![Targeting](https://zerobot.net/assets/images/5.png "Targeting")
+![Magic Shooter](/img/overview/magic-shooter.png "Magic Shooter")
 
-A aba **Targeting** configura como o bot deve focar cada criatura. Algumas das opções incluem:
-- **Priority:** Baixa, Média ou Alta.
-- **Mode:** Stand, Chase, Distance ou Diagonal.
-- **HP %:** Define o percentual de vida da criatura para ativar o targeting.
+O **Magic Shooter** executa as magias de ataque ou runas configuradas quando as condições de alvo, recursos, quantidade e demais filtros são satisfeitas. Cooldowns do jogo e restrições do servidor continuam valendo.
 
-O sistema de targeting pode ser ativado/desativado rapidamente por uma hotkey.
+### CaveBot
 
-## Magic Shooter
-![Magic Shooter](https://zerobot.net/assets/images/55.png "Magic Shooter")
+![CaveBot](/img/overview/cavebot.png "CaveBot")
 
-O **Magic Shooter** automatiza o lançamento de magias e uso de runas contra monstros. Inclui:
-- **Configuração de Spells:** Define quais magias usar e as condições.
-- **Alvos e Condições:** Configura nome de monstros, porcentagens de mana/vida, e quantidade de monstros.
+O **CaveBot** executa uma rota de waypoints com ações de movimentação, interação, lure, label e script. O **Auto Recorder** cria waypoints suportados enquanto você joga, e o **Debug HUD** ajuda a inspecionar a rota e as decisões de movimentação.
 
-Esse sistema pode ser ativado/desativado com uma hotkey.
+Veja [Primeiros passos com o CaveBot](./cavebot/getting_started) para orientações de configuração e segurança.
 
-## CaveBot
-![CaveBot](https://zerobot.net/assets/images/10.png "CaveBot")
+## Equipment
 
-A interface do **CaveBot** facilita a adição e gerenciamento de waypoints, suportando várias ações, como usar cordas ou escadas.
+![Equipment](/img/overview/equipment.png "Equipment")
 
-Possui recursos como:
-- **Auto Recorder:** Grava waypoints automaticamente, depois da versão 1.7.6.4+ ele gravará mais tipos de waypoints, sendo mais inteligente.
-- **Debug HUD:** Monitora o funcionamento do CaveBot.
+O **Equipment** equipa ou remove os itens configurados quando condições de HP, MP, estado do personagem ou outros filtros selecionados são satisfeitas. Regras conflitantes devem usar prioridades intencionais e condições que não se sobreponham.
 
-O CaveBot também pode ser ativado/desativado conforme necessário.
+## Tools
 
-# Equipment
-![Equipment](https://zerobot.net/assets/images/6.png "Equipment")
+### Helper
 
-A função **Equipment** troca automaticamente os equipamentos com base em condições como HP, MP e status (ex. Rooted ou Paralyzed). 
+![Helper](/img/overview/helper.png "Helper")
 
-O sistema pode ser ativado/desativado rapidamente com uma hotkey.
+A aba **Helper** contém utilitários independentes, como conversão de moedas, uso de comida, reconexão e comportamento anti-idle. A disponibilidade e a eficácia dependem do cliente e do servidor.
 
-# Tools
-## Helper
-![Helper](https://zerobot.net/assets/images/7.png "Helper")
+### PvP
 
-Funcionalidades:
-- **Auto Change Coins:** Converte moedas para economizar espaço.
-- **Eat Food:** Garante que o personagem esteja sempre alimentado.
-- **Reconnect:** Reconecta automaticamente após desconexão.
-- **Anti-AFK:** Evita que o personagem seja desconectado por inatividade.
+![PvP](/img/overview/pvp.png "PvP")
 
-## PvP
-![PvP](https://zerobot.net/assets/images/8.png "PvP")
+A aba **PvP** contém utilitários de combate, como automação de equipamentos, Anti-Push e Hold Target. Configure somente as funções apropriadas às regras e mecânicas do servidor onde serão executadas.
 
-A aba **PVP** automatiza o uso de Stone Skin Amulet, Might Ring e possui opções como Anti-Push e Hold Target.
+### HUD
 
-## HUD
-![HUD](https://i.imgur.com/AXCHOUz.png "HUD")
+![HUD](/img/overview/hud.png "HUD")
 
-Exibe informações sobre os módulos ativos, como Healing, Magic Shooter, e aliados/inimigos na tela.
+O HUD integrado pode mostrar o estado dos módulos ativos e outras informações do bot sobre o jogo. Scripts Lua podem criar elementos separados pela [API HUD](./lua_scripting/functions/hud).
 
-## Timer
-![Timer](https://i.imgur.com/ARGeQlD.png "Timer")
+### Timer
 
-O **Timer** pode ser usado para enviar mensagens ou usar itens após um tempo determinado.
+![Timer](/img/overview/timer.png "Timer")
 
-# Engine
-![Engine](https://i.imgur.com/KaKfF2m.png "Engine")
+A interface Timer agenda ações configuradas após um intervalo. Scripts Lua têm uma [API `Timer`](./lua_scripting/functions/timer) separada para callbacks recorrentes.
 
-Permite ajustar o funcionamento do bot, como os delays e ocultar o botão do ZeroBot. Também inclui ferramentas para calcular ganhos em PT e desabilitar scripts.
+## Engine
 
-# Scripting
-![Scripting](https://i.imgur.com/nrvnnqi.png "Scripting")
+![Engine](/img/overview/engine.png "Engine")
 
-A aba **Script** armazena scripts em .LUA, que podem ser criados ou baixados e colocados na pasta Documentos\ZeroBot\Scripts.
+O **Engine** contém opções globais de execução, delays, controles de taxa de ações, controles de scripts e integrações específicas. Altere uma opção por vez e teste: valores seguros em um OTServer podem ser rejeitados ou se comportar de modo diferente em outro.
 
-# Settings
-![Settings](https://i.imgur.com/NfhFcdk.png "Settings")
+## Scripting
 
-A aba **Settings** armazena perfis salvos em formato .json. É possível associar perfis a nome dos personagens ou hotkeys, facilitando a troca sem navegar pelos menus.
+![Scripting](/img/overview/scripting.png "Scripting")
+
+A aba **Scripting** gerencia scripts Lua armazenados em `Documents/ZeroBot/Scripts`. As bibliotecas do core são carregadas automaticamente. Comece por [Lua scripting](./lua_scripting/) e use somente APIs documentadas para a versão instalada do ZeroBot.
+
+## Settings
+
+![Settings](/img/overview/settings.png "Settings")
+
+O **Settings** gerencia perfis do ZeroBot salvos em formato JSON. Os perfis podem ser associados a nomes de personagem ou hotkeys. Mantenha backups antes de substituir uma configuração estável ou testar um perfil feito para outra combinação de cliente e servidor.

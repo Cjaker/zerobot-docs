@@ -8,7 +8,7 @@
     "description": "The label for category 🌙 Lua Scripting in sidebar defaultSidebar"
   },
   "sidebar.defaultSidebar.category.Functions": {
-    "message": "Functions",
+    "message": "Funções",
     "description": "The label for category Functions in sidebar defaultSidebar"
   },
   "sidebar.defaultSidebar.category.🤖 CaveBot": {
