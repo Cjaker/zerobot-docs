@@ -271,4 +271,8 @@ end```
 Game.registerEvent(Game.Events.PARTY_HUNT, onPartyHunt)
 ```
 
-```
+## Hunting Tasks: Bounty, Weekly and Shop
+
+`Game.Events.TASK_BOARD_DATA` (value `22`) receives one `taskBoardData` table when Hunting Tasks window data arrives on a supporting server. The table contains `windowType`, boolean `complete`, and the corresponding `bounty`, `weekly`, or `shop` payload. It is separate from the older `TASK_HUNTING_DATA` event.
+
+Register the listener before opening a window, and use only complete snapshots for stateful actions. See the [Hunting Tasks API](./functions/hunting_tasks) for registration examples, enums, every exposed field, and parser limitations.

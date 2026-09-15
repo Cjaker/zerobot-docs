@@ -32,6 +32,24 @@ Game.applyImbuement(slot, imbuementId, isProtected)
 Game.clearImbuement(slot)
 Game.closeImbuementWindow()
 Game.executeEvents(hookType, ...)
+Game.taskBoardAction(action, firstValue, secondValue)
+Game.openTaskBoardBounty()
+Game.openTaskBoardWeekly()
+Game.setTaskBoardBountyDifficulty(difficulty)
+Game.rerollTaskBoardBounties()
+Game.claimTaskBoardDailyReroll()
+Game.selectTaskBoardBounty(taskIndex)
+Game.claimTaskBoardBountyReward()
+Game.upgradeTaskBoardTalisman(pathIndex)
+Game.deliverTaskBoardWeekly(taskIndex)
+Game.setTaskBoardWeeklyDifficulty(difficulty)
+Game.openTaskBoardShop()
+Game.buyTaskBoardOffer(offerIndex)
+Game.unlockTaskBoardPreferenceSlot()
+Game.clearTaskBoardPreferred(slot)
+Game.clearTaskBoardUnwanted(slot)
+Game.assignTaskBoardPreferred(slot, raceId)
+Game.assignTaskBoardUnwanted(slot, raceId)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
 ```
@@ -52,7 +70,8 @@ Game = {
         QUEST_LOG = 9,
         QUEST_LINES = 10,
         DISTANCE_SHOOT_EFFECT = 11,
-        PARTY_HUNT = 12
+        PARTY_HUNT = 12,
+        TASK_BOARD_DATA = 22
     }
 }
 
@@ -214,3 +233,7 @@ function Game.clearImbuement(slot)
 -- @return true if was successfully sent the action to server, otherwise false
 function Game.closeImbuementWindow()
 ```
+
+## Hunting Tasks: Bounty, Weekly and Shop
+
+See the [Hunting Tasks API](./hunting_tasks) for all 18 methods, `TASK_BOARD_DATA` payloads, enums, zero-based indexes, state/resource checks, and the no-argument preference-slot unlock. These methods require protocol 15.20+ and a supporting server; the public Lua names retain `TaskBoard` for compatibility.

@@ -32,6 +32,24 @@ Game.applyImbuement(slot, imbuementId, isProtected)
 Game.clearImbuement(slot)
 Game.closeImbuementWindow()
 Game.executeEvents(hookType, ...)
+Game.taskBoardAction(action, firstValue, secondValue)
+Game.openTaskBoardBounty()
+Game.openTaskBoardWeekly()
+Game.setTaskBoardBountyDifficulty(difficulty)
+Game.rerollTaskBoardBounties()
+Game.claimTaskBoardDailyReroll()
+Game.selectTaskBoardBounty(taskIndex)
+Game.claimTaskBoardBountyReward()
+Game.upgradeTaskBoardTalisman(pathIndex)
+Game.deliverTaskBoardWeekly(taskIndex)
+Game.setTaskBoardWeeklyDifficulty(difficulty)
+Game.openTaskBoardShop()
+Game.buyTaskBoardOffer(offerIndex)
+Game.unlockTaskBoardPreferenceSlot()
+Game.clearTaskBoardPreferred(slot)
+Game.clearTaskBoardUnwanted(slot)
+Game.assignTaskBoardPreferred(slot, raceId)
+Game.assignTaskBoardUnwanted(slot, raceId)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
 ```
@@ -47,7 +65,8 @@ Game = {
         TEXT_MESSAGE = 5,
         MODAL_WINDOW = 6,
         CUSTOM_MODAL_WINDOW_BUTTON_CLICK = 7,
-        IMBUEMENT_DATA = 8
+        IMBUEMENT_DATA = 8,
+        TASK_BOARD_DATA = 22
     }
 }
 
@@ -207,3 +226,7 @@ function Game.clearImbuement(slot)
 -- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.closeImbuementWindow()
 ```
+
+## Hunting Tasks: Bounty, Weekly e Shop
+
+Consulte a [API de Hunting Tasks](./hunting_tasks) para os 18 métodos, payloads de `TASK_BOARD_DATA`, enums, índices zero-based, validações de estado/recurso e desbloqueio de preferência sem argumento. Estes métodos exigem protocolo 15.20+ e um servidor que implemente o recurso; os nomes públicos Lua mantêm `TaskBoard` por compatibilidade.
