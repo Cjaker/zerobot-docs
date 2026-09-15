@@ -178,27 +178,29 @@ function Game.useItem(itemId)
 
 --- Ação de converter poeiras na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeConvertDust.
--- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+-- @return true quando o pedido é aceito pelo emissor de pacotes; caso contrário, nil. Não confirma sucesso no servidor.
 function Game.forgeConvertDust()
 
 --- Ação de converter lascas na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeConvertSlivers.
--- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+-- @return true quando o pedido é aceito pelo emissor de pacotes; caso contrário, nil. Não confirma sucesso no servidor.
 function Game.forgeConvertSlivers()
 
 --- Ação de aumentar o limite de poeira na forja.
 -- Esta função é um wrapper em torno da função externa gameForgeIncreaseLimit.
--- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+-- @return true quando o pedido é aceito pelo emissor de pacotes; caso contrário, nil. Não confirma sucesso no servidor.
 function Game.forgeIncreaseLimit()
 --- Funde dois itens na Exaltation Forge.
 -- Esta função é um wrapper em torno da função externa gameForgeFuseItems.
 -- O protocolo usa um único valor de tier para os dois itens; portanto, tierA e tierB devem ser iguais.
+-- IDs devem ser inteiros de 0 a 65535 e tiers de 0 a 255. Os dois itens devem existir nesse tier no inventário sincronizado.
+-- Se os IDs forem iguais, são necessárias ao menos duas cópias. Este método não expõe opções de core.
 -- @param itemIdA (number) - O ID do primeiro item.
 -- @param tierA (number) - O tier do primeiro item.
 -- @param itemIdB (number) - O ID do segundo item.
 -- @param tierB (number) - O tier do segundo item.
 -- @param useConvergence (boolean) - Se deve usar a Fusão por Convergência.
--- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
+-- @return true quando o pedido é aceito pelo emissor de pacotes; caso contrário, nil. Não confirma sucesso no servidor.
 function Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)
 
 --- Escrever texto em uma janela.
@@ -230,3 +232,11 @@ function Game.closeImbuementWindow()
 ## Hunting Tasks: Bounty, Weekly e Shop
 
 Consulte a [API de Hunting Tasks](./hunting_tasks) para os 18 métodos, payloads de `TASK_BOARD_DATA`, enums, índices zero-based, validações de estado/recurso e desbloqueio de preferência sem argumento. Estes métodos exigem protocolo 15.20+ e um servidor que implemente o recurso; os nomes públicos Lua mantêm `TaskBoard` por compatibilidade.
+
+## Exaltation Forge
+
+`Game.forgeConvertDust()`, `Game.forgeConvertSlivers()`, `Game.forgeIncreaseLimit()` e `Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)` retornam `true` quando o ZeroBot aceita o pedido para envio, ou `nil` quando a validação ou submissão do pacote falha. O emissor também pode rejeitar pedidos sem conexão, por limite de pacotes ou por pacote duplicado na fila. Não interprete `true` como conversão, fusão ou entrega de recompensa concluída pelo servidor.
+
+A fusão exige os cinco argumentos: quatro valores numéricos e `useConvergence` booleano. Quantidades ou tipos de argumentos incorretos geram erro Lua. A validação nativa retorna `nil` para IDs/tiers fracionários ou fora da faixa, tiers diferentes ou itens insuficientes no inventário sincronizado do servidor. IDs devem ser inteiros de `0` a `65535`; tiers devem ser inteiros de `0` a `255`. As duas contagens são lidas do mesmo snapshot. IDs de item iguais exigem ao menos duas cópias nesse tier; IDs diferentes exigem ao menos uma de cada.
+
+O emissor rejeita Fusão por Convergência em versões do cliente que não a suportam; use `false` para fusão comum. Este método não expõe aumento de sucesso por core nem redução de perda de tier: ambas as opções de core ficam desativadas no pedido de fusão comum. A checagem do inventário é apenas uma proteção local, não confirma elegibilidade dos itens, ouro, poeira ou aceitação pelo servidor. O servidor continua sendo a autoridade.

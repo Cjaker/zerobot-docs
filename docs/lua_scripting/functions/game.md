@@ -184,27 +184,29 @@ function Game.useItem(itemId)
 
 -- Forge convert dusts action
 -- This function is a wrapper around the external function gameForgeConvertDust.
--- @return true if was successfully sent the action to server, otherwise false
+-- @return true when the request is accepted by the packet sender, otherwise nil; this is not server success confirmation.
 function Game.forgeConvertDust()
 
 -- Forge convert slivers action
 -- This function is a wrapper around the external function gameForgeConvertSlivers.
--- @return true if was successfully sent the action to server, otherwise false
+-- @return true when the request is accepted by the packet sender, otherwise nil; this is not server success confirmation.
 function Game.forgeConvertSlivers()
 
 -- Forge increase dust limit action
 -- This function is a wrapper around the external function gameForgeIncreaseLimit.
--- @return true if was successfully sent the action to server, otherwise false
+-- @return true when the request is accepted by the packet sender, otherwise nil; this is not server success confirmation.
 function Game.forgeIncreaseLimit()
 -- Fuse two items in the Exaltation Forge.
 -- This function is a wrapper around the external function gameForgeFuseItems.
 -- The protocol uses one tier value for both items, so tierA and tierB must match.
+-- IDs must be integers in 0..65535 and tiers in 0..255. Both items must exist at that tier in the synchronized inventory.
+-- If the IDs match, at least two copies are required. Core options are not exposed by this method.
 -- @param itemIdA (number) - The ID of the first item.
 -- @param tierA (number) - The tier of the first item.
 -- @param itemIdB (number) - The ID of the second item.
 -- @param tierB (number) - The tier of the second item.
 -- @param useConvergence (boolean) - Whether to use Convergence Fusion.
--- @return true if was successfully sent the action to server, otherwise false
+-- @return true when the request is accepted by the packet sender, otherwise nil; this is not server success confirmation.
 function Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)
 
 
@@ -237,3 +239,11 @@ function Game.closeImbuementWindow()
 ## Hunting Tasks: Bounty, Weekly and Shop
 
 See the [Hunting Tasks API](./hunting_tasks) for all 18 methods, `TASK_BOARD_DATA` payloads, enums, zero-based indexes, state/resource checks, and the no-argument preference-slot unlock. These methods require protocol 15.20+ and a supporting server; the public Lua names retain `TaskBoard` for compatibility.
+
+## Exaltation Forge
+
+`Game.forgeConvertDust()`, `Game.forgeConvertSlivers()`, `Game.forgeIncreaseLimit()`, and `Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)` return `true` when ZeroBot accepts the request for sending, or `nil` when validation or packet submission fails. Sender rejection can also occur when disconnected, rate-limited, or submitting a duplicate queued packet. Do not interpret `true` as successful conversion, fusion, or reward delivery by the server.
+
+Fusion requires all five arguments: four numeric values and a boolean `useConvergence`. Incorrect argument counts or types raise a Lua error. The native preflight returns `nil` for fractional or out-of-range item IDs/tiers, unequal tiers, or insufficient items in the synchronized server inventory. IDs must be integers from `0` through `65535`; tiers must be integers from `0` through `255`. Both item counts are read from the same snapshot. Identical item IDs require at least two copies at that tier; different IDs require at least one of each.
+
+The sender rejects Convergence Fusion on client versions that do not support it; use `false` for ordinary fusion. This method does not expose core-assisted success or tier-loss reduction: both core options are disabled in ordinary fusion requests. Inventory preflight is only a local safety check, not confirmation of item eligibility, gold, dust, or server acceptance. The server remains authoritative.
