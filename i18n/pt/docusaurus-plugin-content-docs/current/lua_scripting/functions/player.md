@@ -35,6 +35,8 @@ Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
 Player.getBlessingState()
+Player.getBountyPoints()
+Player.getSoulSeals()
 Player.leaveParty()
 ```
 
@@ -223,3 +225,14 @@ function Player.getBlessingState()
 -- Esta função é um wrapper em torno da função externa playerLeaveParty.
 function Player.leaveParty()
 ```
+
+## Saldos de Hunting Tasks
+
+```lua
+Player.getBountyPoints()
+Player.getSoulSeals()
+```
+
+Os dois getters não recebem argumentos e retornam um número: o saldo correspondente em cache, recebido do servidor. Os getters nativos não retornam `nil` para indicar falta de dados de saldo. Ambos os saldos são zerados quando um pacote de login é processado e permanecem em `0` até o servidor fornecer o saldo atualizado. Portanto, `0` pode indicar saldo realmente zerado ou dados ainda não recebidos para o login atual; estes getters não expõem um indicador separado de disponibilidade.
+
+A [API de Hunting Tasks](./hunting_tasks) usa Bounty Points em cache para melhorias de talismã, desbloqueio de slots de preferência e limpeza de preferências. O payload de `TASK_BOARD_DATA` não contém os saldos de Bounty Points ou Soulseals do jogador; `weekly.soulSealsReward` é uma recompensa, não o saldo atual. Aguarde o snapshot completo da janela correspondente antes de ações com estado e considere o servidor como autoridade.

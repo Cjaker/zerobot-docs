@@ -35,6 +35,8 @@ Player.inviteParty(targetId)
 Player.enableSharedExpParty(enabled)
 Player.passLeadershipParty(targetId)
 Player.getBlessingState()
+Player.getBountyPoints()
+Player.getSoulSeals()
 Player.leaveParty()
 ```
 
@@ -222,3 +224,14 @@ function Player.getBlessingState()
 --- This function is a wrapper around the external function playerLeaveParty.
 function Player.leaveParty()
 ```
+
+## Hunting Tasks balances
+
+```lua
+Player.getBountyPoints()
+Player.getSoulSeals()
+```
+
+Both getters take no arguments and return a number: the corresponding cached balance received from the server. The native getters do not return `nil` to indicate missing balance data. Both balances reset to `0` when a login packet is parsed, and remain `0` until the server supplies an updated balance. Therefore, `0` can mean either an actual zero balance or balance data not yet received for the current login; these getters do not expose a separate availability flag.
+
+The [Hunting Tasks API](./hunting_tasks) uses the cached Bounty Points balance for talisman upgrades, preference-slot unlocks, and clearing preferences. Its `TASK_BOARD_DATA` payload does not include the player's Bounty Points or Soulseals balance; `weekly.soulSealsReward` is a reward amount, not the current balance. Wait for the corresponding complete window snapshot before stateful actions, and treat the server as authoritative.
