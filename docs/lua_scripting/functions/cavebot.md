@@ -6,13 +6,13 @@ sidebar_position: 10
 Overall cavebot useful functions
 
 ```lua
-CaveBot.GoTo(labelName)
+CaveBot.GoTo(labelName, section)
 CaveBot.addWaypoint(waypointType, x, y, z, extraData)
 CaveBot.insertWaypoint(wpId, waypointType, x, y, z, extraData)
 CaveBot.replaceWaypoint(wpId, waypointType, x, y, z, extraData)
 CaveBot.deleteWaypoint(wpId)
 CaveBot.clearWaypoints()
-CaveBot.selectWaypoint(wpId)
+CaveBot.selectWaypoint(wpId, section)
 CaveBot.getSelectedWaypointId()
 CaveBot.getWaypointTypeById(id)
 CaveBot.getWaypointDataById(id)
@@ -55,8 +55,9 @@ CaveBot.loadFile(fileName)
 -- This function is a wrapper around the external function cavebotGoto.
 -- Note: this function will not set instantly the waypoint, it will be set on the next tick. If you need to execute this function twice or more, you should use a delay between the calls.
 -- On waypoint script, it will kill the script execution after the use of this function.
--- @param label (string) - The waypoint label name
-function CaveBot.GoTo(labelName)
+-- @param labelName (string) - The waypoint label name.
+-- @param section (string) - Optional section (tab) name. Without it, the current section is searched first, then the whole waypoint list.
+function CaveBot.GoTo(labelName, section)
 
 --- Adds a waypoint to the cavebot system.
 -- This function is a wrapper around the external function cavebotAddWaypoint.
@@ -98,8 +99,9 @@ function CaveBot.clearWaypoints()
 -- This function is a wrapper around the external function cavebotSelectWaypoint.
 -- Note: this function will not set instantly the waypoint, it will be set on the next tick. If you need to execute this function twice or more, you should use a delay between the calls.
 -- On waypoint script, it will kill the script execution after the use of this function.
--- @param wpId (number) - The id of the waypoint to select.
-function CaveBot.selectWaypoint(wpId)
+-- @param wpId (number) - The global waypoint ID, or its 1-based position inside section when section is supplied.
+-- @param section (string) - Optional section (tab) name. Without it, wpId is a global waypoint ID.
+function CaveBot.selectWaypoint(wpId, section)
 
 --- Get selected waypoint id.
 -- This function is a wrapper around the external function cavebotGetSelectedWaypointId.

@@ -48,6 +48,7 @@ Game.unregisterEvent(Game.Events.MAGIC_EFFECT, onMagicEffect)
 | `Game.Events.ALARM` | `alarmType` | Um alarme do ZeroBot é acionado. Compare `alarmType` com `Enums.AlarmType`. |
 | `Game.Events.TASK_HUNTING_DATA` | `taskHuntingData` | Dados de Hunting Tasks ou uma atualização de slot são recebidos. Interprete `taskHuntingData.state` com `Enums.PreyTaskDataState`. |
 | `Game.Events.TASK_BOARD_DATA` | `taskBoardData` | Dados da janela Bounty, Weekly ou Shop são recebidos. Consulte a [API de Hunting Tasks](./functions/hunting_tasks). |
+| `Game.Events.BOSS_SLOT_UPDATE` | `bossSlotsData` | Um snapshot completo dos Boss Slots do Bosstiary é recebido do servidor. Consulte a [API de Boss Slots](./functions/game). |
 
 ## Payloads estruturados
 
@@ -67,6 +68,7 @@ Payloads comuns incluem:
 - `MODAL_WINDOW`: ID, título, mensagem, botões, escolhas, botões padrão e prioridade.
 - `OPEN_STASH`: `stashItems`, com entradas contendo `itemId` e `count`, além de `freeSlots`.
 - `TASK_HUNTING_DATA`: ID do slot, estado e campos de Hunting Tasks específicos desse estado. Veja a seção Hunting Tasks na [API Game](./functions/game).
+- `BOSS_SLOT_UPDATE`: Boss Points, dois slots, boosted boss e bosses disponíveis para atribuição naquele momento. Consulte a [API de Boss Slots](./functions/game).
 
 Sempre proteja o acesso a campos opcionais e dados específicos de cada estado:
 
@@ -137,3 +139,7 @@ Game.registerEvent(Game.Events.HUD_DRAG, onHudDrag)
 `Game.Events.TASK_BOARD_DATA` (valor `22`) recebe uma tabela `taskBoardData` quando chegam dados de uma janela de Hunting Tasks em um servidor que implemente o recurso. A tabela contém `windowType`, `complete` booleano e o payload correspondente `bounty`, `weekly` ou `shop`. Este evento é separado do antigo `TASK_HUNTING_DATA`.
 
 Registre o listener antes de abrir a janela e use somente snapshots completos nas ações com estado. Consulte a [API de Hunting Tasks](./functions/hunting_tasks) para exemplos de registro, enums, todos os campos expostos e limitações do parser.
+
+## Bosstiary Boss Slots
+
+`Game.Events.BOSS_SLOT_UPDATE` (valor `23`) recebe uma tabela `bossSlotsData` quando chega um pacote completo dos Boss Slots, inclusive após `Game.requestBossSlots()` ou uma atualização pela janela nativa. Registre o listener antes de solicitar os dados. `availableBosses` pode estar vazio quando os dois slots estão ocupados; os nomes dependem de staticdata correspondente no cliente e podem ficar vazios para bosses customizados. O retorno `true` de uma ação significa que o pacote foi enviado, não que o servidor aceitou a mudança. Consulte a [API de Boss Slots](./functions/game) para os campos e a sequência segura de ações.

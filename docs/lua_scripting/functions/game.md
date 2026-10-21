@@ -70,6 +70,12 @@ Game.clearTaskBoardPreferred(slot)
 Game.clearTaskBoardUnwanted(slot)
 Game.assignTaskBoardPreferred(slot, raceId)
 Game.assignTaskBoardUnwanted(slot, raceId)
+Game.requestBossSlots()
+Game.getBossSlots()
+Game.getBossSlotCost(slotId)
+Game.setBossSlot(slotId, boss)
+Game.applyBoss(boss, slotId)
+Game.clearBossSlot(slotId)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
 ```
@@ -100,7 +106,8 @@ Game.Events = {
     DAILY_REWARD_DAYS_DATA = 19,
     ALARM = 20,
     TASK_HUNTING_DATA = 21,
-    TASK_BOARD_DATA = 22
+    TASK_BOARD_DATA = 22,
+    BOSS_SLOT_UPDATE = 23
 }
 
 --- Turn the player in a specified direction.
@@ -390,6 +397,36 @@ function Game.huntingTaskCancel(slot)
 --- @return true if was successfully sent the action to server (validating if it's possible to claim the reward), otherwise nil
 function Game.huntingTaskClaim(slot)
 
+--- Request a Boss Slots snapshot. Read it after Game.Events.BOSS_SLOT_UPDATE.
+--- @return true if the request was sent, otherwise nil.
+function Game.requestBossSlots()
+
+--- Read the latest complete Boss Slots snapshot from this session.
+--- @return A snapshot table, or nil before the first complete update.
+function Game.getBossSlots()
+
+--- Read the server-reported removal cost; an empty unlocked slot costs zero.
+--- @param slotId (number) - Zero-based slot ID: 0 or 1.
+--- @return The cost in gold, or nil for a locked slot or missing snapshot.
+function Game.getBossSlotCost(slotId)
+
+--- Assign an available boss to an unlocked empty slot.
+--- @param slotId (number) - Zero-based slot ID: 0 or 1.
+--- @param boss (string|number) - Exact boss name (case-insensitive) or boss race ID.
+--- @return true if the action was sent, otherwise nil; wait for the update to confirm it.
+function Game.setBossSlot(slotId, boss)
+
+--- Assign an available boss using the boss-first argument order.
+--- @param boss (string|number) - Exact boss name (case-insensitive) or boss race ID.
+--- @param slotId (number) - Zero-based slot ID: 0 or 1.
+--- @return true if the action was sent, otherwise nil; wait for the update to confirm it.
+function Game.applyBoss(boss, slotId)
+
+--- Remove a boss from an occupied slot after checking the cached gold balance.
+--- @param slotId (number) - Zero-based slot ID: 0 or 1.
+--- @return true if the action was sent, otherwise nil; the server confirms the result later.
+function Game.clearBossSlot(slotId)
+
 -- Register a game event
 -- Example: Game.registerEvent(Game.Events.TALK, myTalkEvent)
 function Game.registerEvent(type, fn)
@@ -478,6 +515,33 @@ These action methods return `true` when the validated action was sent and `nil` 
 ## Hunting Tasks: Bounty, Weekly and Shop
 
 See the [Hunting Tasks API](./hunting_tasks) for all 18 methods, `TASK_BOARD_DATA` payloads, enums, zero-based indexes, state/resource checks, and the no-argument preference-slot unlock. These methods require protocol 15.20+ and a supporting server; the public Lua names retain `TaskBoard` for compatibility.
+
+## Bosstiary Boss Slots (ZeroBot 1.8.9.3+)
+
+`Game.requestBossSlots()` returns `true` when the request is sent or `nil` when it cannot be sent. Register `Game.Events.BOSS_SLOT_UPDATE` before requesting data; `Game.getBossSlots()` returns the latest complete snapshot from the current session, or `nil` until one arrives. The native Boss Slots window can also cause a server update. A sent action is not proof that the server accepted it.
+
+```lua
+local function onBossSlots(data)
+    if not data.complete then return end
+    for _, slot in ipairs(data.slots) do
+        print(slot.slotId, slot.bossId, slot.bossName, slot.replacementCost)
+    end
+end
+
+Game.registerEvent(Game.Events.BOSS_SLOT_UPDATE, onBossSlots)
+Game.requestBossSlots()
+```
+
+The snapshot has `complete`, `bossPoints`, `pointsToNextBonus`, `currentBonus`, `nextBonus`, `slots`, `boostedBoss`, and `availableBosses`. `slots` is a Lua array indexed `1` and `2`, but each entry has an action `slotId` of `0` or `1`. Each slot contains `slotId`, `unlocked`, `bossId`, `bossName`, `unlockBossPoints`, `bossRace`, `killCount`, `lootBonus`, `killBonus`, `replacementCost`, and `inactive`. `boostedBoss` exposes the same informational fields except `slotId`; it is not an action slot. Each `availableBosses` entry has `bossId`, `bossName`, and `bossRace`. The server may send an empty available list even when both slots are occupied; opening the window does not guarantee a populated list.
+
+`bossId` identifies the boss. `bossRace` is a separate server field, not a replacement for the ID. Names are resolved from the client's staticdata; a custom or absent boss may have `bossName = ""`. See [Client static data](./client) for definition lookups.
+
+- `Game.getBossSlotCost(slotId)` returns `0` for an unlocked empty slot, the server-reported removal cost for an occupied slot, or `nil` for a locked slot or missing snapshot.
+- `Game.setBossSlot(slotId, boss)` and `Game.applyBoss(boss, slotId)` accept an exact name (case-insensitive) or numeric boss race ID. The boss must resolve in the client's staticdata and appear in the latest server `availableBosses` list. The slot must be unlocked and empty; direct occupied-to-occupied replacement returns `nil`.
+- `Game.clearBossSlot(slotId)` requires an unlocked occupied slot and a locally known gold balance at least equal to `replacementCost`. The server remains authoritative over the charge and final result.
+
+Slot IDs must be the integers `0` or `1`; invalid slot arguments raise a Lua error. Valid arguments that fail preflight or sending return `nil`. To replace a boss, inspect `Game.getBossSlotCost(slotId)`, clear the occupied slot, wait for `BOSS_SLOT_UPDATE` with `bossId == 0`, then assign an available boss and wait for another update. Do not treat a `true` return as server confirmation.
+
 ## Exaltation Forge
 
 `Game.forgeConvertDust()`, `Game.forgeConvertSlivers()`, `Game.forgeIncreaseLimit()`, and `Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)` return `true` when ZeroBot accepts the request for sending, or `nil` when validation or packet submission fails. Sender rejection can also occur when disconnected, rate-limited, or submitting a duplicate queued packet. Do not interpret `true` as successful conversion, fusion, or reward delivery by the server.

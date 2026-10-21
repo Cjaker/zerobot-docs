@@ -19,6 +19,17 @@ Client.setLootBlackWhitelist(playerId, content)
 Client.getAllItems()
 Client.getAllMonsters()
 Client.getMonsterByRaceId(raceId)
+Client.getStaticDataInfo()
+Client.getBossByRaceId(raceId)
+Client.getAllBosses()
+Client.getCreatureClassById(id)
+Client.getAllCreatureClasses()
+Client.getAchievementById(id)
+Client.getAllAchievements()
+Client.getHouseById(id)
+Client.getAllHouses()
+Client.getQuestById(id)
+Client.getAllQuests()
 Client.getWorldName()
 Client.login(email, password, characterIndex)
 Client.logout()
@@ -205,6 +216,55 @@ function Client.flashWindow()
 --- This function is a wrapper around the external function clientGetFps.
 --- @return The last available frames per second (FPS) of the client, got from UI FPS indicator, if the information isn't available will return 0 or the last one available.
 function Client.getFps()
+
+--- Get the status and collection sizes of the current client's staticdata asset.
+--- @return A table with loaded, schemaVersion, hasCreatureClasses, creatures, bosses, creatureClasses, achievements, houses and quests.
+function Client.getStaticDataInfo()
+
+--- Get one boss definition from the client asset.
+--- @param raceId (number) - The boss race ID.
+--- @return A table with raceId, name, outfit, isBoss and optional category, or nil for an invalid or absent ID.
+function Client.getBossByRaceId(raceId)
+
+--- Get all boss definitions from the client asset.
+--- @return An array of boss tables, or an empty table when none are available.
+function Client.getAllBosses()
+
+--- Get one creature class definition (15.30+ staticdata).
+--- @param id (number) - The creature class ID.
+--- @return A table with id and name, or nil for an invalid or absent ID.
+function Client.getCreatureClassById(id)
+
+--- Get all creature class definitions (15.30+ staticdata).
+--- @return An array of tables with id and name, or an empty table when none are available.
+function Client.getAllCreatureClasses()
+
+--- Get one achievement definition from the client asset.
+--- @param id (number) - The achievement ID.
+--- @return A table with id, name, description and grade, or nil for an invalid or absent ID.
+function Client.getAchievementById(id)
+
+--- Get all achievement definitions from the client asset.
+--- @return An array of tables with id, name, description and grade, or an empty table when none are available.
+function Client.getAllAchievements()
+
+--- Get one house definition from the client asset.
+--- @param id (number) - The house ID.
+--- @return A house table with optional position, or nil for an invalid or absent ID.
+function Client.getHouseById(id)
+
+--- Get all house definitions from the client asset.
+--- @return An array of house tables, or an empty table when none are available.
+function Client.getAllHouses()
+
+--- Get one quest definition from the client asset.
+--- @param id (number) - The quest ID.
+--- @return A table with id and name, or nil for an invalid or absent ID.
+function Client.getQuestById(id)
+
+--- Get all quest definitions from the client asset.
+--- @return An array of tables with id and name, or an empty table when none are available.
+function Client.getAllQuests()
 ```
 
 <!-- current-core-api:start -->
@@ -214,13 +274,29 @@ function Client.getFps()
 - `Client.getLootBlackWhitelist(playerId)` returns the player's loot black/whitelist JSON, or an empty string when unavailable.
 - `Client.setLootBlackWhitelist(playerId, content)` replaces that JSON content.
 - `Client.getAllItems()` returns the item definitions loaded by the client. Every entry contains `id` and bitwise `flags`; test flags with `Enums.ThingFlagAttr`.
-- `Client.getAllMonsters()` returns client monster definitions with `raceId`, `name`, `outfit`, and `isBoss`.
+- `Client.getAllMonsters()` returns client monster and boss definitions with `raceId`, `name`, `outfit`, `isBoss`, and optional `category` on 15.30+ assets.
 - `Client.getMonsterByRaceId(raceId)` returns one static monster definition.
 - `Client.getWorldName()` returns the current OT world name, or an empty string. This API is experimental and should be tested against the target OT client.
 - `Client.login(email, password, characterIndex)` logs out the current character first and then logs in with the supplied credentials. Check that logout is safe before calling it.
 - `Client.logout()` sends the logout action and returns whether it was sent.
 - `Client.isChatEnabled()` returns the current in-game chat state.
 - `Client.toggleChatEnabled()` toggles chat and returns the resulting state; read it again on the next game frame if synchronization matters.
+
+## Static client data (ZeroBot 1.8.9.4+)
+
+These APIs read definitions from the client's `staticdata` asset, not character progress or the server's current Boss Slots selection. Supported clients through 15.25 use the legacy layout; 15.30+ clients use the layout that also contains Creature Classes. The asset must be parseable: protected or custom OT assets may leave the collections unavailable.
+
+`Client.getStaticDataInfo()` returns `{loaded, schemaVersion, hasCreatureClasses, creatures, bosses, creatureClasses, achievements, houses, quests}`. `schemaVersion` is `0` when unavailable, `1` for the legacy layout, or `2` for 15.30+. `hasCreatureClasses` identifies the layout, not whether the list is nonempty. The `creatures` count includes bosses because the existing monster lookup is merged. `loaded` means parsing completed; a syntactically valid but empty asset can still produce `loaded=true` with zero counts.
+
+| Definition | Lookup | List | Record fields |
+| --- | --- | --- | --- |
+| Boss | `Client.getBossByRaceId(raceId)` | `Client.getAllBosses()` | `raceId`, `name`, `outfit`, `isBoss`, optional `category` |
+| Creature Class (15.30+) | `Client.getCreatureClassById(id)` | `Client.getAllCreatureClasses()` | `id`, `name` |
+| Achievement | `Client.getAchievementById(id)` | `Client.getAllAchievements()` | `id`, `name`, `description`, `grade` |
+| House | `Client.getHouseById(id)` | `Client.getAllHouses()` | `id`, `name`, `description`, `rent`, `beds`, `sqms`, `isGuildHall`, `city`, `isShop`, optional `position = {x, y, z}` |
+| Quest | `Client.getQuestById(id)` | `Client.getAllQuests()` | `id`, `name` |
+
+Lookup methods return `nil` for invalid or absent IDs; list methods return an empty table when no definitions are available. Creature Class lookups are `nil` and their list is empty on legacy assets. A custom OT boss absent from the asset is not invented by these APIs; its Boss Slots `bossName` may be empty.
 
 :::note Client 15.25+
 `Client.getFightMode()` and `Client.setFightMode(...)` are deprecated on client 15.25 and newer. The getter returns `nil` there. The valid enum names are `Enums.FightMode` and `Enums.ChaseMode` (singular).

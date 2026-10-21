@@ -70,6 +70,12 @@ Game.clearTaskBoardPreferred(slot)
 Game.clearTaskBoardUnwanted(slot)
 Game.assignTaskBoardPreferred(slot, raceId)
 Game.assignTaskBoardUnwanted(slot, raceId)
+Game.requestBossSlots()
+Game.getBossSlots()
+Game.getBossSlotCost(slotId)
+Game.setBossSlot(slotId, boss)
+Game.applyBoss(boss, slotId)
+Game.clearBossSlot(slotId)
 Game.registerEvent(type, fn)
 Game.unregisterEvent(type, fn)
 ```
@@ -99,7 +105,8 @@ Game.Events = {
     DAILY_REWARD_DAYS_DATA = 19,
     ALARM = 20,
     TASK_HUNTING_DATA = 21,
-    TASK_BOARD_DATA = 22
+    TASK_BOARD_DATA = 22,
+    BOSS_SLOT_UPDATE = 23
 }
 
 --- Gira o jogador em uma direção especificada.
@@ -259,6 +266,36 @@ function Game.clearImbuement(slot)
 -- Esta função é um wrapper em torno da função externa gameCloseImbuementWindow.
 -- @return true se a ação foi enviada com sucesso para o servidor, caso contrário, false.
 function Game.closeImbuementWindow()
+
+--- Solicita um snapshot dos Boss Slots; leia-o após Game.Events.BOSS_SLOT_UPDATE.
+--- @return true se a solicitação foi enviada, ou nil se não pôde ser enviada.
+function Game.requestBossSlots()
+
+--- Lê o último snapshot completo dos Boss Slots nesta sessão.
+--- @return A tabela do snapshot ou nil antes da primeira atualização completa.
+function Game.getBossSlots()
+
+--- Consulta o custo de remoção informado pelo servidor; um slot vazio desbloqueado custa zero.
+--- @param slotId (number) - ID do slot a partir de zero: 0 ou 1.
+--- @return O custo em gold, ou nil para slot bloqueado ou snapshot ausente.
+function Game.getBossSlotCost(slotId)
+
+--- Atribui um boss disponível a um slot vazio e desbloqueado.
+--- @param slotId (number) - ID do slot a partir de zero: 0 ou 1.
+--- @param boss (string|number) - Nome exato do boss (sem diferenciar maiúsculas/minúsculas) ou ID de raça.
+--- @return true se a ação foi enviada, ou nil; aguarde a atualização para confirmar.
+function Game.setBossSlot(slotId, boss)
+
+--- Atribui um boss disponível usando a ordem de argumentos boss, slot.
+--- @param boss (string|number) - Nome exato do boss (sem diferenciar maiúsculas/minúsculas) ou ID de raça.
+--- @param slotId (number) - ID do slot a partir de zero: 0 ou 1.
+--- @return true se a ação foi enviada, ou nil; aguarde a atualização para confirmar.
+function Game.applyBoss(boss, slotId)
+
+--- Remove o boss de um slot ocupado após conferir o saldo em gold no cache local.
+--- @param slotId (number) - ID do slot a partir de zero: 0 ou 1.
+--- @return true se a ação foi enviada, ou nil; o servidor confirma o resultado depois.
+function Game.clearBossSlot(slotId)
 ```
 
 <!-- current-core-api:start -->
@@ -340,6 +377,33 @@ Esses métodos de ação retornam `true` quando a ação validada foi enviada e 
 ## Hunting Tasks: Bounty, Weekly e Shop
 
 Consulte a [API de Hunting Tasks](./hunting_tasks) para os 18 métodos, payloads de `TASK_BOARD_DATA`, enums, índices zero-based, validações de estado/recurso e desbloqueio de preferência sem argumento. Estes métodos exigem protocolo 15.20+ e um servidor que implemente o recurso; os nomes públicos Lua mantêm `TaskBoard` por compatibilidade.
+
+## Bosstiary Boss Slots (ZeroBot 1.8.9.3+)
+
+`Game.requestBossSlots()` retorna `true` quando a solicitação é enviada ou `nil` se não pôde ser enviada. Registre `Game.Events.BOSS_SLOT_UPDATE` antes da solicitação; `Game.getBossSlots()` retorna o último snapshot completo da sessão atual, ou `nil` até ele chegar. A janela nativa de Boss Slots também pode causar uma atualização do servidor. O envio de uma ação não prova que o servidor a aceitou.
+
+```lua
+local function onBossSlots(data)
+    if not data.complete then return end
+    for _, slot in ipairs(data.slots) do
+        print(slot.slotId, slot.bossId, slot.bossName, slot.replacementCost)
+    end
+end
+
+Game.registerEvent(Game.Events.BOSS_SLOT_UPDATE, onBossSlots)
+Game.requestBossSlots()
+```
+
+O snapshot contém `complete`, `bossPoints`, `pointsToNextBonus`, `currentBonus`, `nextBonus`, `slots`, `boostedBoss` e `availableBosses`. `slots` é um array Lua indexado por `1` e `2`, mas cada entrada traz `slotId` de ação `0` ou `1`. Cada slot contém `slotId`, `unlocked`, `bossId`, `bossName`, `unlockBossPoints`, `bossRace`, `killCount`, `lootBonus`, `killBonus`, `replacementCost` e `inactive`. `boostedBoss` expõe os mesmos campos informativos, exceto `slotId`; não é um slot para ações. Cada entrada de `availableBosses` contém `bossId`, `bossName` e `bossRace`. O servidor pode enviar a lista de disponíveis vazia mesmo com os dois slots ocupados; abrir a janela não garante uma lista preenchida.
+
+`bossId` identifica o boss. `bossRace` é outro campo do servidor, não substitui o ID. Os nomes vêm do staticdata do cliente; um boss customizado ou ausente pode ter `bossName = ""`. Veja as [definições estáticas em Client](./client).
+
+- `Game.getBossSlotCost(slotId)` retorna `0` para um slot desbloqueado e vazio, o custo de remoção informado pelo servidor para um slot ocupado, ou `nil` se o slot estiver bloqueado ou não houver snapshot.
+- `Game.setBossSlot(slotId, boss)` e `Game.applyBoss(boss, slotId)` aceitam nome exato (sem diferenciar maiúsculas/minúsculas) ou ID numérico de raça. O boss precisa existir no staticdata do cliente e na lista `availableBosses` mais recente do servidor. O slot deve estar desbloqueado e vazio; a substituição direta de um slot ocupado retorna `nil`.
+- `Game.clearBossSlot(slotId)` exige um slot desbloqueado e ocupado, além de saldo em gold conhecido localmente pelo menos igual a `replacementCost`. O servidor continua sendo a autoridade sobre a cobrança e o resultado final.
+
+Os IDs dos slots devem ser os inteiros `0` ou `1`; valores inválidos geram erro Lua. Argumentos válidos que falham na validação prévia ou no envio retornam `nil`. Para substituir um boss, consulte `Game.getBossSlotCost(slotId)`, limpe o slot ocupado, aguarde `BOSS_SLOT_UPDATE` com `bossId == 0`, atribua um boss disponível e aguarde outra atualização. Não interprete o retorno `true` como confirmação do servidor.
+
 ## Exaltation Forge
 
 `Game.forgeConvertDust()`, `Game.forgeConvertSlivers()`, `Game.forgeIncreaseLimit()` e `Game.forgeFuseItems(itemIdA, tierA, itemIdB, tierB, useConvergence)` retornam `true` quando o ZeroBot aceita o pedido para envio, ou `nil` quando a validação ou submissão do pacote falha. O emissor também pode rejeitar pedidos sem conexão, por limite de pacotes ou por pacote duplicado na fila. Não interprete `true` como conversão, fusão ou entrega de recompensa concluída pelo servidor.

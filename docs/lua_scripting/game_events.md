@@ -48,6 +48,7 @@ Game.unregisterEvent(Game.Events.MAGIC_EFFECT, onMagicEffect)
 | `Game.Events.ALARM` | `alarmType` | A ZeroBot alarm triggers. Compare `alarmType` with `Enums.AlarmType`. |
 | `Game.Events.TASK_HUNTING_DATA` | `taskHuntingData` | Hunting Tasks data or a slot update is received. Interpret `taskHuntingData.state` with `Enums.PreyTaskDataState`. |
 | `Game.Events.TASK_BOARD_DATA` | `taskBoardData` | Bounty, Weekly or Shop window data is received. See the [Hunting Tasks API](./functions/hunting_tasks). |
+| `Game.Events.BOSS_SLOT_UPDATE` | `bossSlotsData` | A complete Bosstiary Boss Slots snapshot is received from the server. See the [Boss Slots API](./functions/game). |
 
 ## Structured payloads
 
@@ -67,6 +68,7 @@ Common payloads include:
 - `MODAL_WINDOW`: modal ID, title, message, buttons, choices, default buttons, and priority.
 - `OPEN_STASH`: `stashItems`, containing entries with `itemId` and `count`, plus `freeSlots`.
 - `TASK_HUNTING_DATA`: a slot ID, state, and state-specific Hunting Tasks fields. See the Hunting Tasks section in the [Game API](./functions/game).
+- `BOSS_SLOT_UPDATE`: Boss Points, two slots, boosted boss, and bosses currently available for assignment. See the [Boss Slots API](./functions/game).
 
 Always guard optional fields and state-specific data:
 
@@ -137,3 +139,7 @@ Game.registerEvent(Game.Events.HUD_DRAG, onHudDrag)
 `Game.Events.TASK_BOARD_DATA` (value `22`) receives one `taskBoardData` table when Hunting Tasks window data arrives on a supporting server. The table contains `windowType`, boolean `complete`, and the corresponding `bounty`, `weekly`, or `shop` payload. It is separate from the older `TASK_HUNTING_DATA` event.
 
 Register the listener before opening a window, and use only complete snapshots for stateful actions. See the [Hunting Tasks API](./functions/hunting_tasks) for registration examples, enums, every exposed field, and parser limitations.
+
+## Bosstiary Boss Slots
+
+`Game.Events.BOSS_SLOT_UPDATE` (value `23`) receives one `bossSlotsData` table when a complete Boss Slots packet arrives, including after `Game.requestBossSlots()` or a native-window update. Register the listener before requesting data. `availableBosses` can be empty when both slots are occupied; boss names require matching client staticdata and may be empty for custom bosses. A `true` return from a Boss Slots action means its packet was sent, not that the server accepted the change. See the [Boss Slots API](./functions/game) for the payload fields and safe action sequence.
