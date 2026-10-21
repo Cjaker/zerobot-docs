@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import { fileURLToPath } from 'node:url';
 import remarkLuaAnchors from './plugins/lua-search/remark.mjs';
 
 /** @type {import('@docusaurus/types').Config} */
@@ -12,6 +13,10 @@ const config = {
   title: 'ZeroBot',
   tagline: 'Documentation and Lua API reference for ZeroBot developers.',
   favicon: 'img/favicon.ico',
+  clientModules: [
+    fileURLToPath(new URL('./src/client/announcementHeight.js', import.meta.url)),
+    fileURLToPath(new URL('./src/client/abResetOnLoad.js', import.meta.url)),
+  ],
 
   url: 'https://docs.zerobot.net',
   baseUrl: '/',
@@ -52,6 +57,27 @@ const config = {
       colorMode: {
         defaultMode: 'dark',
         respectPrefersColorScheme: false,
+      },
+      announcementBar: {
+        id: 'help-update-docs-v2',
+        content: `
+    <span class="ab-msg ab-en">
+      Want to help update the docs and earn license days?<br/>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/Cjaker/zerobot-docs">
+        Open a PR on GitHub.
+      </a>
+      <br/>Any content based on our libs is welcome! You can find them in Documents/ZeroBot/Scripts/core directory.
+    </span>
+
+    <span class="ab-msg ab-pt">
+      Quer ajudar a atualizar a documentação e ganhar dias de licença?<br/>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/Cjaker/zerobot-docs">
+        Abra um PR no GitHub.
+      </a>
+      <br/>Qualquer conteúdo baseado em nossas libs é bem-vindo! Você pode encontrá-las na pasta Documents/ZeroBot/Scripts/core.
+    </span>
+  `,
+        isCloseable: true,
       },
       navbar: {
         title: 'ZeroBot',
